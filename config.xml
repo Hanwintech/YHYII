@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.hanwintech.app.dyh" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>大运河移动监测</name>
-    <description>大运河移动监测</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+<widget id="com.hanwintech.yhyii" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>颐和园移动APP</name>
+    <description>颐和园移动APP</description>
+    <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-navigation href="http://ionic.local/*" />
+    <allow-navigation href="http://*/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -91,7 +91,7 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="jpush-phonegap-plugin" spec="~3.2.3">
+    <plugin name="jpush-phonegap-plugin" spec="^3.2.3">
         <variable name="APP_KEY" value="960ce03b532dc9d781595c20" />
     </plugin>
 </widget>
