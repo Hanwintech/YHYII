@@ -1,0 +1,13 @@
+.vscode/
+node_modules/
+hooks/
+platforms/
+plugins/
+www/
+resources/android/
+resources/ios/
+
+package-lock.json
+
+.DS_Store
+Thumbs.db

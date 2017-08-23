@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>巡查问题处理</ion-title>
+     <ion-buttons right>
+      <button ion-button icon-only (click)="handle()">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </button>
+    </ion-buttons> 
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div id="map-content">
+    <div id="map" #map></div>
+  </div>
+  <ion-icon name="locate" class="locate" (click)="getLocation()"></ion-icon>
+  <ion-icon name="add-circle" class="add-circle" (click)="addHandleInspect()"></ion-icon>
+</ion-content>

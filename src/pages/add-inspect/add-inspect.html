@@ -1,0 +1,82 @@
+<!--
+  Generated template for the AddInspectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>添加巡查</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <form *ngIf="dataSource" (ngSubmit)="submit()" #form="ngForm">
+
+    <ion-list>
+      <ion-item>
+        <ion-label>巡查对象</ion-label>
+        <ion-label class="result">{{dataSource.name}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>巡查状态</ion-label>
+        <ion-select okText="确定" cancelText="取消" name="inpectStatus"  [ngModel]="dataSource.inpectStatus" multiple="false" (ngModelChange)="statusEvent($event)">
+          <ion-option value="1">巡查正常</ion-option>
+          <ion-option value="2">出现问题未处理</ion-option>
+          <ion-option value="3">出现问题已处理</ion-option>
+          <ion-option value="4">未巡查</ion-option>
+        </ion-select>
+      </ion-item>
+
+       <ion-item class="text-normal" *ngIf="questionShowHide">
+        <ion-label>问题类型</ion-label>
+        <ion-select okText="确定" cancelText="取消" name="questionType" multiple="true" [ngModel]="dataSource.questionType" (ngModelChange)="questionEvent($event)">
+          <ion-option *ngFor="let item of dataSource.questionTypeSource" value={{item.key}}>{{item.value}}</ion-option>
+        </ion-select>
+      </ion-item> 
+    </ion-list>
+
+    <ion-list class="gray-title">
+      <ion-list-header>巡查描述</ion-list-header>
+      <ion-item>
+        <ion-textarea placeholder="请输入情况描述" style="height:80px;" [(ngModel)]="dataSource.inspectDescription" name="name"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-list class="gray-title" style="margin-bottom:2em;">
+      <ion-list-header>巡查附件</ion-list-header>
+      <ion-item>
+        <div class="addPics-wrapper">
+
+            <div *ngFor="let fileObj of fileObjList;let i = index" class="pictures" (press)="deleteInspectPicture(i)">
+              <img src="{{inspectService.getPicUrl(fileObj)}}" (click)="viewerInspectPicture(i)">
+            </div>
+          <div class="profile-image-wrapper" (click)="getPicture(0)">
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div *ngIf="handleShowHide">
+  <ion-list class="gray-title">
+      <ion-list-header>整改描述</ion-list-header>
+      <ion-item>
+        <ion-textarea placeholder="请输入整改描述" style="height:80px;" [(ngModel)]="dataSource.reformDescription" name="name"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="gray-title" style="margin-bottom:10em;">
+      <ion-list-header>整改附件</ion-list-header>
+      <ion-item>
+        <div class="addPics-wrapper">
+            <div *ngFor="let fileObj of fileObjHandleList;let i = index" class="pictures" (press)="deleteHandlePicture(i)">
+              <img src="{{inspectService.getPicUrl(fileObj)}}" (click)="viewerHandlePicture(i)">
+            </div>
+          <div class="profile-image-wrapper" (click)="getPicture(1)">
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    </div>
+    <button ion-button type="submit" block style="position:fixed;bottom:0;margin:0;">确定</button>
+  </form>
+</ion-content>

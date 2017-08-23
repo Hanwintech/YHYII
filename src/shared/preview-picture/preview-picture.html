@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>照片预览</ion-title>
+    <ion-buttons>
+      <button ion-button (click)="dismiss()">关闭</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div #panel class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let path of picturePaths">
+        <div class="swiper-zoom-container">
+          <img data-src="{{path}}" class="swiper-lazy">
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</ion-content>
