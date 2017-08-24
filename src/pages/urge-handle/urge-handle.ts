@@ -22,8 +22,6 @@ export class UrgeHandlePage {
       .subscribe(res => {
         let list = res as IHttpCommonResponse<Problem[]>
         this.dataSource = list.data;
-        console.log(this.dataSource);
-        //console.log(this.dataSource);
       },
       error => {
         alert(error);

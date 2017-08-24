@@ -56,7 +56,6 @@ export class AddInspectPage {
         this.fileObjBigList = JSON.parse(JSON.stringify(list.data.picUrl));
         this.fileObjHandleList = this.dataSource.reformSPicUrl;
         this.fileObjBigHandleList =JSON.parse(JSON.stringify(list.data.reformPicUrl));
-        console.log(this.dataSource);
         if (this.dataSource.inpectStatus == 3) {
           this.questionShowHide = true;
           this.handleShowHide = true;

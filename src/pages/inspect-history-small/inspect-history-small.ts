@@ -26,7 +26,6 @@ export class InspectHistorySmallPage {
       .subscribe(res => {
         let list = res as IHttpCommonResponse<Position[]>
         this.dataSource = list.data;
-        console.log(this.dataSource);
         if ((this.navParams.data.status == "5" && !this.dataSource[0].isSubmit)|| (this.navParams.data.status == "4" && !this.dataSource[0].isSubmit))
         { this.showHide = true; }
       },

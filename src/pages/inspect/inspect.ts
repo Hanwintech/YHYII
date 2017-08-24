@@ -1,17 +1,12 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { MapService } from './../../services/map.service';
+import { ApiService } from './../../services/api.service';
 
+import { BaseRequest } from './../../apis/baseRequest.api';
 import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
 import { InspectInfo } from './../../models/map/inspectInfo.model';
 
-/**
- * Generated class for the InspectPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 declare var BMap;
 
 @IonicPage()
@@ -32,7 +27,7 @@ export class InspectPage {
     public navParams: NavParams,
     public platform: Platform,
     public geolocation: Geolocation,
-    public mapService: MapService,
+    public apiService: ApiService,
     public alertCtrl: AlertController) { }
 
   inspectHistory() {
@@ -54,7 +49,6 @@ export class InspectPage {
       let point = new BMap.Point(this.longitude, this.latitude);
       let convertor = new BMap.Convertor();
       let pointArr = [];
-      let mkr = [];
       pointArr.push(point);
       convertor.translate(pointArr, 1, 5, function (data) {
         if (data.status === 0) {
@@ -66,9 +60,12 @@ export class InspectPage {
             enableClicking: true
           });
           let mkNear = [];
-          this.mapService.getInspectInfo(data.points[0].lng, data.points[0].lat)
+
+          let request  = new BaseRequest();
+          request.method = "GET";
+          request.requestUrl = "/api/Map/getInspectInfo?lon=" + data.points[0].lng.toString() + "&lat=" + data.points[0].lat.toString();
+          this.apiService.sendApi(request)
             .subscribe(res => {
-              console.log(res);
               let myIcon = new BMap.Icon("assets/map/position.png", new BMap.Size(34, 35));
               let myIconSelected = new BMap.Icon("assets/map/positionSelected.png", new BMap.Size(34, 35));
               let list = res as IHttpCommonResponse<InspectInfo[]>
@@ -91,7 +88,6 @@ export class InspectPage {
                 });
                 mkNear[i].setLabel(label);
                 let that = this;
-                let idPrev;
                 label.addEventListener("click", function (e) {
                   for (let m = 0; m < that.dataSource.length; m++) {
                     document.getElementById("" + that.dataSource[m].pointRecordId + "").removeAttribute("name");
@@ -108,8 +104,6 @@ export class InspectPage {
             });
           this.map.addOverlay(mkr);
           this.map.panTo(data.points[0]);
-          // var label1 = new BMap.Label("", { offset: new BMap.Size(20, -10) });
-          // mkr.setLabel(label1);
         }
       }.bind(this));
     }).catch((error) => {

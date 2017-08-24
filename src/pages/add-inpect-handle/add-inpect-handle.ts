@@ -48,7 +48,6 @@ export class AddInpectHandlePage {
       .subscribe(res => {
         let list = res as IHttpCommonResponse<addInsepct[]>
         this.dataSource = list.data;
-        console.log(this.dataSource);
         this.fileObjList = this.dataSource.sPicUrl;
         this.fileObjBigList = this.dataSource.picUrl;
         this.fileObjHandleList = this.dataSource.reformSPicUrl;
@@ -78,7 +77,6 @@ export class AddInpectHandlePage {
   }
   viewerInspectPicture(index) {//照片预览
     let picturePaths = [];
-    console.log(this.fileObjBigList);
     for (let fileObj of this.fileObjBigList) {
       picturePaths.push(this.inspectService.getPicUrl(fileObj));
     }

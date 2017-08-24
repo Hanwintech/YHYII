@@ -34,7 +34,6 @@ export class InspectHistoryPage {
         let list = res as IHttpCommonResponse<Property[]>
         this.dataSource = list.data;
         loading.dismiss();
-        console.log(list.data);
       },
       error => {
         alert(error);

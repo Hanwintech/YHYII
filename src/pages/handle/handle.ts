@@ -1,8 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { MapService } from './../../services/map.service';
+import { ApiService } from './../../services/api.service';
 
+import { BaseRequest } from './../../apis/baseRequest.api';
 import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
 import { ProblemInfo } from './../../models/map/problemInfo.model';
 
@@ -27,16 +28,16 @@ export class HandlePage {
     public navParams: NavParams,
     public platform: Platform,
     public geolocation: Geolocation,
-    public mapService: MapService,
+    public apiService: ApiService,
     public alertCtrl: AlertController) { }
 
   handle() {
     this.navCtrl.push("UrgeHandlePage");
   }
 
-    //跳转至添加巡查页面
+  //跳转至添加巡查页面
   addHandleInspect() {
-     if (this.selectedId) {
+    if (this.selectedId) {
       this.navCtrl.push("AddInpectHandlePage", this.selectedId);
     } else {
       let alert = this.alertCtrl.create({
@@ -48,7 +49,6 @@ export class HandlePage {
     }
   }
 
-
   ionViewDidLoad() {
     this.map = new BMap.Map(this.mapElement.nativeElement, { enableMapClick: true });//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
@@ -58,14 +58,13 @@ export class HandlePage {
     this.getLocation();
   }
 
-    getLocation() {
+  getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.longitude = resp.coords.longitude;
       this.latitude = resp.coords.latitude;
       let point = new BMap.Point(this.longitude, this.latitude);
       let convertor = new BMap.Convertor();
       let pointArr = [];
-      let mkr = [];
       pointArr.push(point);
       convertor.translate(pointArr, 1, 5, function (data) {
         if (data.status === 0) {
@@ -77,9 +76,12 @@ export class HandlePage {
             enableClicking: true
           });
           let mkNear = [];
-          this.mapService.getProblemInfo(data.points[0].lng, data.points[0].lat)
+
+          let request = new BaseRequest();
+          request.method = "GET";
+          request.requestUrl = "/api/Problem/ListProblemPosition?lon=" + data.points[0].lng.toString() + "&lat=" + data.points[0].lat.toString();
+          this.apiService.sendApi(request)
             .subscribe(res => {
-              console.log(res);
               let myIcon = new BMap.Icon("assets/map/position.png", new BMap.Size(34, 35));
               let myIconSelected = new BMap.Icon("assets/map/positionSelected.png", new BMap.Size(34, 35));
               let list = res as IHttpCommonResponse<ProblemInfo[]>
@@ -118,8 +120,6 @@ export class HandlePage {
             });
           this.map.addOverlay(mkr);
           this.map.panTo(data.points[0]);
-          // var label1 = new BMap.Label("", { offset: new BMap.Size(20, -10) });
-          // mkr.setLabel(label1);
         }
       }.bind(this));
     }).catch((error) => {
@@ -130,7 +130,4 @@ export class HandlePage {
     watch.subscribe((data) => {
     });
   }
-
-
 }
-

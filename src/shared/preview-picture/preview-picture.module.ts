@@ -3,14 +3,10 @@ import { IonicPageModule } from 'ionic-angular';
 import { PreviewPicturePage } from './preview-picture';
 
 @NgModule({
-  declarations: [
-    PreviewPicturePage,
-  ],
+  declarations: [],
   imports: [
     IonicPageModule.forChild(PreviewPicturePage),
   ],
-  exports: [
-    PreviewPicturePage
-  ]
+  exports: []
 })
 export class PreviewPicturePageModule {}

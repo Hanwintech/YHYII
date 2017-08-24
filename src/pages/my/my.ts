@@ -15,10 +15,7 @@ export class MyPage {
     public platform: Platform,
     public actionSheetCtrl: ActionSheetController) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MyPage');
-  }
+  
   exitMenu() {
     let actionSheet = this.actionSheetCtrl.create({
       title: '确定要退出登录吗？',
