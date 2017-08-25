@@ -5,7 +5,6 @@ import { Device } from '@ionic-native/device';
 
 import { GlobalCache } from './../../services/globalCache.service';
 import { ApiService } from './../../services/api.service';
-import { InspectService } from './../../services/inspect.service';
 import { User, IUser } from "./../../models/user.model";
 
 @IonicPage()
@@ -14,21 +13,18 @@ import { User, IUser } from "./../../models/user.model";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  auth = {
-    account: "",
-    password: ""
-  };
+  auth = { account: "", password: "" };
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
-    private apiService: ApiService,
-    private device: Device,
-    private inspectService: InspectService,
-    private globalCache: GlobalCache,
-    private storage: Storage,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
-    var logout = navParams.get("logout");
+    public apiService: ApiService,
+    public device: Device,
+    public globalCache: GlobalCache,
+    public storage: Storage,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController) {
+    var logout = this.navParams.get("logout");
     this.storage.ready().then(() => {
       if (!logout) {
         this.storage.get("user")
@@ -57,10 +53,6 @@ export class LoginPage {
   }
 
   login() {
-    if (this.auth.account.length == 0 || this.auth.password.length == 0) {
-      return;
-    }
-
     let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
     loading.present();
 
@@ -74,15 +66,16 @@ export class LoginPage {
         user.account = this.auth.account;
         user.password = this.auth.password;
         this.apiService.token = user.access_token;
-        this.inspectService.token = user.access_token;
         if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-          (<any>window).plugins.jPushPlugin.setAlias([user.account], function (r) {
-            //alert(r);
-          }, function (errorMsg) {
-            loading.dismiss();
-            let alert = this.alertCtrl.create({ title: '推送服务注册失败！', subTitle: errorMsg, buttons: ['确定'] });
-            alert.present();;
-          });
+          (<any>window).plugins.jPushPlugin.setAlias([user.account],
+            sucMsg => {
+              //alert(sucMsg);
+            },
+            errMsg => {
+              loading.dismiss();
+              let alert = this.alertCtrl.create({ title: '推送服务注册失败！', subTitle: errMsg, buttons: ['确定'] });
+              alert.present();;
+            });
         }
         this.globalCache.currentUser = user;
         this.navCtrl.setRoot('TabsPage');
