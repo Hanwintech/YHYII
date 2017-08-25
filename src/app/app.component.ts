@@ -26,16 +26,7 @@ export class MyApp {
       splashScreen.hide();
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
         (<any>window).plugins.jPushPlugin.init();
-        (<any>window).plugins.jPushPlugin.getRegistrationID(function (data) {
-          // if (data) {
-          //   let request: BaseRequest = new BaseRequest();
-          //   request.method = "Post";
-          //   request.requestUrl = "/api/Users/Registration";
-          //   request.requestBody = { "registrationID": data };
-          //   this.apiService.sendApi(request).subscribe(
-          //     res => { alert(res); });
-          // }
-        });
+        (<any>window).plugins.jPushPlugin.getRegistrationID(function (data) { });
 
         document.addEventListener("jpush.receiveNotification", event => {
           let alertContent;
