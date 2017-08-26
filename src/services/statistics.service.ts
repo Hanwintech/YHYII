@@ -1,4 +1,4 @@
-import { BaseRequest } from './../apis/baseRequest.api';
+import { BaseRequest } from './baseRequest';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import 'rxjs/add/operator/map';

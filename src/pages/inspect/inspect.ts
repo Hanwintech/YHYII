@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ApiService } from './../../services/api.service';
 
-import { BaseRequest } from './../../apis/baseRequest.api';
+import { ApiService } from './../../services/api.service';
+import { BaseRequest } from './../../services/baseRequest';
 import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
 import { InspectInfo } from './../../models/map/inspectInfo.model';
 

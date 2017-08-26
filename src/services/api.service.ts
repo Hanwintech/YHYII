@@ -1,10 +1,10 @@
-import { BaseRequest } from './../apis/baseRequest.api';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
-import { IHttpCommonResponse } from "../models/httpCommonResponse.model";
 import 'rxjs/add/operator/map';
 
 import { _baseService } from "./_base.service"
+import { BaseRequest } from './baseRequest';
+import { IHttpCommonResponse } from "./../models/httpCommonResponse.model";
 
 @Injectable()
 export class ApiService extends _baseService {

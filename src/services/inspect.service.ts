@@ -1,10 +1,10 @@
-import { BaseRequest } from './../apis/baseRequest.api';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import { GlobalCache } from './../services/globalCache.service';
 import 'rxjs/add/operator/map';
 
 import { _baseService } from "./_base.service"
+import { BaseRequest } from './baseRequest';
 
 @Injectable()
 export class InspectService extends _baseService {
@@ -22,6 +22,7 @@ export class InspectService extends _baseService {
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
+
     getPositionList(recordId: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -55,6 +56,7 @@ export class InspectService extends _baseService {
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
+    
      getsubmitInspect(inspectRecordId:any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
