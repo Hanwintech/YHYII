@@ -1,29 +1,25 @@
 ﻿import { Component } from '@angular/core';
-import { Device } from '@ionic-native/device';
 import { Platform, ToastController } from 'ionic-angular';
+import { Device } from '@ionic-native/device';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { ApiService } from './../services/api.service';
-import { BaseRequest } from './../apis/baseRequest.api';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = 'LoginPage';
+  private rootPage = 'LoginPage';
 
   constructor(
     private platform: Platform,
-    private statusBar: StatusBar,
-    private splashScreen: SplashScreen,
     private toastCtrl: ToastController,
     private device: Device,
-    private apiService: ApiService
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen
   ) {
-    platform.ready().then(() => {
-      statusBar.styleDefault();
-      splashScreen.hide();
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
         (<any>window).plugins.jPushPlugin.init();
         (<any>window).plugins.jPushPlugin.getRegistrationID(function (data) { });
