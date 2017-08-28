@@ -12,7 +12,7 @@ declare var BMap;
 @IonicPage()
 @Component({
   selector: 'page-inspect-index',
-  templateUrl: 'index.html',
+  templateUrl: 'inspect-index.html',
 })
 export class InspectIndexPage {
   @ViewChild('map') mapElement: ElementRef;

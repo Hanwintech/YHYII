@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { InspectIndexPage } from './index';
+import { TZCreatePage } from './tz-create';
 
 @NgModule({
   declarations: [
-    InspectIndexPage,
+    TZCreatePage,
   ],
   imports: [
-    IonicPageModule.forChild(InspectIndexPage),
+    IonicPageModule.forChild(TZCreatePage),
   ],
   exports: [
-    InspectIndexPage
+    TZCreatePage
   ],
   providers: [
     Geolocation
   ]
 })
-export class InspectIndexPageModule { }
+export class TZIndexPageModule { }
