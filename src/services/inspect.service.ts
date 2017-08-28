@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
-import { GlobalCache } from './../services/globalCache.service';
 import 'rxjs/add/operator/map';
 
 import { _baseService } from "./_base.service"
-import { BaseRequest } from './baseRequest';
 
 @Injectable()
 export class InspectService extends _baseService {
     token: string;
-    constructor(private http: Http,private globalCache:GlobalCache) { super(); }
+    constructor(private http: Http) { super(); }
 
-    getPropertyList(inspectSearchPara:any) {
+    getPropertyList(inspectSearchPara: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/Inspect/ListProperty',
             headers: headers,
-            body:inspectSearchPara,
+            body: inspectSearchPara,
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
@@ -33,36 +31,36 @@ export class InspectService extends _baseService {
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
-    getInspect(positionRecordId:any) {
+    getInspect(positionRecordId: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/GetInspect?positionRecordId='+positionRecordId,
+            url: this.baseUrl + '/api/Inspect/GetInspect?positionRecordId=' + positionRecordId,
             headers: headers
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
 
-    getSaveInspect(inspectContent:any) {
+    getSaveInspect(inspectContent: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'bearer ' + this.token);
         let options = {
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/Inspect/SaveInspect ',
-            headers: headers,          
-            body:JSON.parse(JSON.stringify(inspectContent)),
+            headers: headers,
+            body: JSON.parse(JSON.stringify(inspectContent)),
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
-    
-     getsubmitInspect(inspectRecordId:any) {
+
+    getsubmitInspect(inspectRecordId: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/SubmitInspect?id='+inspectRecordId,
+            url: this.baseUrl + '/api/Inspect/SubmitInspect?id=' + inspectRecordId,
             headers: headers
         };
         return this.http.request(new Request(options)).map(res => res.json());

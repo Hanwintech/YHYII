@@ -1,17 +1,15 @@
 page-my {
-.action-sheets-basic-page {
-  .action-sheet-cancel ion-icon,
-  .action-sheet-destructive ion-icon {
-    color: #757575;
-  }
-}
-.button-content
-{
-    position: fixed;
-    bottom: 56px;
-    left: 0;
-    width: 100%;
-    padding: 0 10px;
-}
-
+    .action-sheets-basic-page {
+        .action-sheet-cancel ion-icon,
+        .action-sheet-destructive ion-icon {
+            color: #757575;
+        }
+    }
+    .button-content {
+        position: fixed;
+        bottom: 56px;
+        left: 0;
+        width: 100%;
+        padding: 0 10px;
+    }
 }

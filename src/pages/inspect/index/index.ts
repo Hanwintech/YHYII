@@ -2,27 +2,26 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { ApiService } from './../../services/api.service';
-import { BaseRequest } from './../../services/baseRequest';
-import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
-import { ProblemInfo } from './../../models/map/problemInfo.model';
+import { ApiService } from './../../../services/api.service';
+import { BaseRequest } from './../../../services/baseRequest';
+import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
+import { InspectInfo } from './../../../models/map/inspectInfo.model';
 
 declare var BMap;
 
 @IonicPage()
 @Component({
-  selector: 'page-handle',
-  templateUrl: 'handle.html',
+  selector: 'page-inspect-index',
+  templateUrl: 'index.html',
 })
-export class HandlePage {
+export class InspectIndexPage {
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('header') header;
   public map: any;
-  public longitude: number;
-  public latitude: number;
-  public dataSource: ProblemInfo[];
+  public longitude: any;
+  public latitude: any;
   public selectedId: any;
-
+  dataSource: InspectInfo[];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,29 +30,14 @@ export class HandlePage {
     public apiService: ApiService,
     public alertCtrl: AlertController) { }
 
-  handle() {
-    this.navCtrl.push("UrgeHandlePage");
+  inspectHistory() {
+    this.navCtrl.push("InspectHistoryPage");
   }
-
-  //跳转至添加巡查页面
-  addHandleInspect() {
-    if (this.selectedId) {
-      this.navCtrl.push("AddInpectHandlePage", this.selectedId);
-    } else {
-      let alert = this.alertCtrl.create({
-        title: '发生错误！',
-        subTitle: "未选择巡查点！",
-        buttons: ['OK']
-      });
-      alert.present();
-    }
-  }
-
   ionViewDidLoad() {
     this.map = new BMap.Map(this.mapElement.nativeElement, { enableMapClick: true });//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用
-    let point = new BMap.Point(120.78816918621, 31.344647252832);//坐标可以通过百度地图坐标拾取器获取
+    let point = new BMap.Point(120.619907, 31.317987);//坐标可以通过百度地图坐标拾取器获取
     this.map.centerAndZoom(point, 14);//设置中心和地图显示级别     
     this.getLocation();
   }
@@ -77,14 +61,14 @@ export class HandlePage {
           });
           let mkNear = [];
 
-          let request = new BaseRequest();
+          let request  = new BaseRequest();
           request.method = "GET";
-          request.requestUrl = "/api/Problem/ListProblemPosition?lon=" + data.points[0].lng.toString() + "&lat=" + data.points[0].lat.toString();
+          request.requestUrl = "/api/Map/getInspectInfo?lon=" + data.points[0].lng.toString() + "&lat=" + data.points[0].lat.toString();
           this.apiService.sendApi(request)
             .subscribe(res => {
               let myIcon = new BMap.Icon("assets/map/position.png", new BMap.Size(34, 35));
               let myIconSelected = new BMap.Icon("assets/map/positionSelected.png", new BMap.Size(34, 35));
-              let list = res as IHttpCommonResponse<ProblemInfo[]>
+              let list = res as IHttpCommonResponse<InspectInfo[]>
               this.dataSource = list.data;
               for (let i = 0; i < this.dataSource.length; i++) {
                 mkNear[i] = new BMap.Marker(new BMap.Point(this.dataSource[i].longitude, this.dataSource[i].latitude), {
@@ -93,7 +77,7 @@ export class HandlePage {
                   enableClicking: true
                 });
                 this.map.addOverlay(mkNear[i]);
-                let lblString = "<div id='handle" + this.dataSource[i].id + "' class='positionContain'><div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>" + this.dataSource[i].propertyName + "</div><div style='padding:0.2em 0.4em;'>出现问题未处理</div></div>";
+                let lblString = "<div id='" + this.dataSource[i].pointRecordId + "' class='positionContain'><div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>" + this.dataSource[i].propertyName + "</div><div style='padding:0.2em 0.4em;'>" + EnumInspectStatus[this.dataSource[i].status] + " </div></div>";
                 var label = new BMap.Label(lblString, { offset: new BMap.Size(38, -40) });
                 label.setStyle({
                   border: "none",
@@ -106,11 +90,11 @@ export class HandlePage {
                 let that = this;
                 label.addEventListener("click", function (e) {
                   for (let m = 0; m < that.dataSource.length; m++) {
-                    document.getElementById("handle" + that.dataSource[m].id + "").removeAttribute("name");
+                    document.getElementById("" + that.dataSource[m].pointRecordId + "").removeAttribute("name");
                     mkNear[m].setIcon(myIcon);
                   }
-                  document.getElementById("handle" + that.dataSource[i].id + "").setAttribute("name", "selected");
-                  that.selectedId = that.dataSource[i].id;
+                  document.getElementById("" + that.dataSource[i].pointRecordId + "").setAttribute("name", "selected");
+                  that.selectedId = that.dataSource[i].pointRecordId;
                   mkNear[i].setIcon(myIconSelected)
                 });
               }
@@ -130,4 +114,24 @@ export class HandlePage {
     watch.subscribe((data) => {
     });
   }
+
+  //跳转至添加巡查页面
+  addInspect() {
+    if (this.selectedId) {
+      this.navCtrl.push("AddInspectPage", this.selectedId);
+    } else {
+      let alert = this.alertCtrl.create({
+        title: '发生错误！',
+        subTitle: "未选择巡查点！",
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+  }
+}
+enum EnumInspectStatus {
+    巡查正常 = 1,
+    出现问题未处理 = 2,
+    出现问题已处理 = 3,
+    未巡查 = 4,
 }

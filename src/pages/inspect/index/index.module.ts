@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { InspectPage } from './inspect';
 import { Geolocation } from '@ionic-native/geolocation';
+
+import { InspectIndexPage } from './index';
 
 @NgModule({
   declarations: [
-    InspectPage,
+    InspectIndexPage,
   ],
   imports: [
-    IonicPageModule.forChild(InspectPage),
+    IonicPageModule.forChild(InspectIndexPage),
   ],
   exports: [
-    InspectPage
+    InspectIndexPage
   ],
   providers: [
     Geolocation
   ]
 })
-export class InspectPageModule { }
+export class InspectIndexPageModule { }

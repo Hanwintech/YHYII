@@ -13,7 +13,7 @@ import { User } from "./../../models/user.model";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  private auth = { account: "", password: "" };
+  auth = { account: "", password: "" };
 
   constructor(
     private navCtrl: NavController,

@@ -22,7 +22,6 @@ import { StatisticsService } from './../services/statistics.service';
 import { nativeImgService } from "./../services/nativeImg.service";
 import { PreviewPicturePage } from "./../shared/preview-picture/preview-picture";
 import { MLabelComponent } from './../shared/m-label/m-label';
-import { HandleService } from './../services/handle.service';
 
 @NgModule({
   declarations: [
@@ -33,15 +32,14 @@ import { HandleService } from './../services/handle.service';
   imports: [
     BrowserModule,
     IonicImageViewerModule,
-    IonicModule.forRoot(MyApp, {
-      backButtonText: '',
-      tabsHideOnSubPages: true,
-    }),
+    IonicModule.forRoot(MyApp, { backButtonText: '', tabsHideOnSubPages: true, }),
     IonicStorageModule.forRoot(),
     HttpModule,
     LoginPageModule
   ],
-  bootstrap: [IonicApp],
+  bootstrap: [
+    IonicApp
+  ],
   entryComponents: [
     MyApp,
     PreviewPicturePage,
@@ -55,7 +53,6 @@ import { HandleService } from './../services/handle.service';
     ApiService,
     InspectService,
     _baseService,
-    HandleService,
     StatisticsService,
     FileTransfer,
     File,
