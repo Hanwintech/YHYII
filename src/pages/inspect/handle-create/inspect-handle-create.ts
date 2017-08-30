@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, ToastController, AlertController, NavParams, ActionSheetController, ModalController } from 'ionic-angular';
-import { _baseService } from "./../../services/_base.service"
-import { addInsepct } from './../../models/inspect/add-inspect.model';
-import { InspectService } from './../../services/inspect.service';
-import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
-import { PreviewPicturePage } from "../../shared/preview-picture/preview-picture";
-import { nativeImgService } from './../../services/nativeImg.service';
+import { _baseService } from "./../../../services/_base.service"
+import { addInsepct } from './../../../models/inspect/add-inspect.model';
+import { InspectService } from './../../../services/inspect.service';
+import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
+import { PreviewPicturePage } from "../../../shared/preview-picture/preview-picture";
+import { nativeImgService } from './../../../services/nativeImg.service';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 
@@ -17,10 +17,10 @@ import { File } from '@ionic-native/file';
  */
 @IonicPage()
 @Component({
-  selector: 'page-add-inpect-handle',
-  templateUrl: 'add-inpect-handle.html',
+  selector: 'page-inspect-handle-create',
+  templateUrl: 'inspect-handle-create.html',
 })
-export class AddInpectHandlePage {
+export class InspectHandleCreatePage {
   dataSource;
   questionTypeContent = [];
   //巡查图片缩略图

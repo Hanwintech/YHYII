@@ -1,9 +1,4 @@
-page-add-inspect-view {
-    // .profile-image-wrapper{
-    //     // width:100px;
-    //     // height:100px;
-    //     // background:red;
-    // }
+page-inspect-view {
     .profile-image-wrapper {
         display: inline-block;
         position: relative;
@@ -13,7 +8,7 @@ page-add-inspect-view {
     }
     .addPics-wrapper img {
         width: 4.5em;
-        height:4.5em;
+        height: 4.5em;
         margin-right: 5px;
     }
     .profile-image-wrapper:active {
@@ -73,10 +68,10 @@ page-add-inspect-view {
     .text-normal .select-text {
         white-space: normal;
     }
-    .scroll-content{
-    padding-bottom:80px;
-}
-.text-normal .select-text{
-   white-space: normal;
-}
+    .scroll-content {
+        padding-bottom: 80px;
+    }
+    .text-normal .select-text {
+        white-space: normal;
+    }
 }

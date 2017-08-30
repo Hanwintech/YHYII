@@ -1,18 +1,21 @@
-page-add-inpect-handle {
+page-inspect-create{
 // .profile-image-wrapper{
 //     // width:100px;
 //     // height:100px;
 //     // background:red;
 // }
+.scroll-content{
+    padding-bottom:80px;
+}
 .profile-image-wrapper {
 float:left;
 position: relative;
-width: 4.5em;
+width:4.5em;
 height: 4.5em;
 border: 1px solid #D9D9D9;
 }
 .addPics-wrapper img{
-width: 4.5em;
+width:4.5em;
 height:4.5em;
 margin-right: 5px;
 }
@@ -90,10 +93,10 @@ height: 2px;
 .pictures{
     float:left;
 }
-.scroll-content{
-    padding-bottom:80px;
-}
 .text-normal .select-text{
    white-space: normal;
 }
+}
+.hiden{
+display:none;
 }

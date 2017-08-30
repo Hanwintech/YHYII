@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { addInsepct } from './../../models/inspect/add-inspect.model';
-import { InspectService } from './../../services/inspect.service';
-import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
-import { PreviewPicturePage } from "../../shared/preview-picture/preview-picture";
+import { addInsepct } from './../../../models/inspect/add-inspect.model';
+import { InspectService } from './../../../services/inspect.service';
+import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
+import { PreviewPicturePage } from "../../../shared/preview-picture/preview-picture";
 
 @IonicPage()
 @Component({
-  selector: 'page-add-inspect-view',
-  templateUrl: 'add-inspect-view.html',
+  selector: 'page-inspect-view',
+  templateUrl: 'inspect-view.html',
 })
-export class AddInspectViewPage {
+export class InspectViewPage {
   dataSource;
  questionTypeContent=[];
   //巡查图片缩略图

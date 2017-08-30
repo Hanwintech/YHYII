@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { InspectService } from './../../services/inspect.service';
-import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
+import { InspectService } from './../../../services/inspect.service';
+import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
 
 @IonicPage()
 @Component({
@@ -35,10 +35,10 @@ export class InspectHistorySmallPage {
   }
   itemSelected(item) {
     if ((this.navParams.data.status == "5" && !this.dataSource[0].isSubmit) || (this.navParams.data.status == "4" && !this.dataSource[0].isSubmit)) {
-      this.navCtrl.push("AddInspectPage", item.id);
+      this.navCtrl.push("InspectCreatePage", item.id);
     }
     else {
-      this.navCtrl.push("AddInspectViewPage", item);
+      this.navCtrl.push("InspectViewPage", item);
     }
   }
   submit() {

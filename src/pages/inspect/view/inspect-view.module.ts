@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AddInspectViewPage } from './add-inspect-view';
+import { InspectViewPage } from './inspect-view';
 
 @NgModule({
   declarations: [
-    AddInspectViewPage,
+    InspectViewPage,
   ],
   imports: [
-    IonicPageModule.forChild(AddInspectViewPage),
+    IonicPageModule.forChild(InspectViewPage),
   ],
   exports: [
-    AddInspectViewPage
+    InspectViewPage
   ]
 })
 export class AddInspectViewPageModule {}

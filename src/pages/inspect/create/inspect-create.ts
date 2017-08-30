@@ -4,20 +4,20 @@ import { IonicPage, NavParams, AlertController, ToastController, LoadingControll
 import { ImageViewerController } from 'ionic-img-viewer';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
-import { PreviewPicturePage } from "../../shared/preview-picture/preview-picture";
-import { nativeImgService } from './../../services/nativeImg.service';
-import { _baseService } from "./../../services/_base.service"
-import { addInsepct } from './../../models/inspect/add-inspect.model';
-import { InspectService } from './../../services/inspect.service';
+import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
+import { PreviewPicturePage } from "../../../shared/preview-picture/preview-picture";
+import { nativeImgService } from './../../../services/nativeImg.service';
+import { _baseService } from "./../../../services/_base.service"
+import { addInsepct } from './../../../models/inspect/add-inspect.model';
+import { InspectService } from './../../../services/inspect.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-add-inspect',
-  templateUrl: 'add-inspect.html',
+  selector: 'page-inspect-create',
+  templateUrl: 'inspect-create.html',
 })
 
-export class AddInspectPage {
+export class InspectCreatePage {
   @ViewChild('fileInput') fileInput;
   @ViewChild('panel') panel: ElementRef;
   dataSource;

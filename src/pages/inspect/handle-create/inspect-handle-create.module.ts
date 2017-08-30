@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AddInpectHandlePage } from './add-inpect-handle';
+import { InspectHandleCreatePage } from './inspect-handle-create';
 
 @NgModule({
   declarations: [
-    AddInpectHandlePage,
+    InspectHandleCreatePage,
   ],
   imports: [
-    IonicPageModule.forChild(AddInpectHandlePage),
+    IonicPageModule.forChild(InspectHandleCreatePage),
   ],
   exports: [
-    AddInpectHandlePage
+    InspectHandleCreatePage
   ]
 })
 export class AddInpectHandlePageModule {}

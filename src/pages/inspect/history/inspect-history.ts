@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, NavParams, ModalController } from 'ionic-angular';
-
-import { InspectService } from './../../services/inspect.service';
-
-import { IHttpCommonResponse } from './../../models/httpCommonResponse.model';
-import { Property } from './../../models/inspect/property.model';
+import { InspectService } from './../../../services/inspect.service';
+import{getPropertyListApi} from './../../../apis/inspect/getPropertyList.api'
+import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
+import { Property } from './../../../models/inspect/property.model';
 
 
 @IonicPage()
