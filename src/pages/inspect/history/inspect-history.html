@@ -12,7 +12,6 @@
 </ion-header>
 
 <ion-content>
- 
     <button ion-item *ngFor="let property of dataSource" (click)="itemSelected(property)" class="item-ios">
       <h2 style="color:#000;font-weight:bold;">{{ property.name }}</h2>
       <div *ngIf="property.status == 1"><p style="color:green;font-size:1.3rem;">巡查正常</p></div>
@@ -24,4 +23,5 @@
        <p *ngIf="!property.createTime" item-end style="color:#989898;margin-top:0;">——</p>
       <!--<ion-icon item-end name="ios-create-outline" style="margin-left:5px;" small></ion-icon>-->
     </button>
+    <ion-icon name="ios-sad-outline" *ngIf="emptyIcon"></ion-icon>
 </ion-content>

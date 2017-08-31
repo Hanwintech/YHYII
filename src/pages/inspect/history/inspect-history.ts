@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, NavParams, ModalController } from 'ionic-angular';
 import { InspectService } from './../../../services/inspect.service';
-import{getPropertyListApi} from './../../../apis/inspect/getPropertyList.api'
 import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
 import { Property } from './../../../models/inspect/property.model';
 
@@ -13,6 +12,7 @@ import { Property } from './../../../models/inspect/property.model';
 })
 export class InspectHistoryPage {
   dataSource: Property[];
+  emptyIcon=false;
   inpectSearch = { inspectPosition: "", sTime: "", eTime: "", inspectPerson: "", status: "" }
   constructor(
     public navCtrl: NavController,
@@ -31,7 +31,12 @@ export class InspectHistoryPage {
     this.inspectService.getPropertyList(this.inpectSearch)
       .subscribe(res => {
         let list = res as IHttpCommonResponse<Property[]>
-        this.dataSource = list.data;
+        if(list){
+          this.dataSource = list.data;
+        }
+        else{
+          //this.emptyIcon=true;
+        }
         loading.dismiss();
       },
       error => {
