@@ -18,4 +18,4 @@ import { TZCreatePage } from './tz-create';
     Geolocation
   ]
 })
-export class TZIndexPageModule { }
+export class TZCreatePageModule { }

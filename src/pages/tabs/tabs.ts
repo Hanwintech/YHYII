@@ -9,6 +9,6 @@ import { IonicPage } from 'ionic-angular';
 export class TabsPage {
   tab1Root = 'InspectIndexPage';
   tab2Root = 'StatisticsPage';
-  tab3Root = 'StatisticsPage';
+  tab3Root = 'TZCreatePage';
   tab4Root = 'MyPage';
 }
