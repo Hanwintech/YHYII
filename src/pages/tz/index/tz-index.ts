@@ -26,9 +26,9 @@ export class TZIndexPage {
     public alertCtrl: AlertController,
     public menuCtrl: MenuController) {
     this.dataSource = [
-      { id: "1", number: "A00001", name: "东宫门牌坊", area: "AAAA景区", time: "2017-08-16", status: "1" },
-      { id: "2", number: "A00001", name: "东宫门", area: "BBBB景区", time: "2017-08-16", status: "2" },
-      { id: "3", number: "A00001", name: "东宫门", area: "CCCC景区", time: "2017-08-16", status: "1" },
+      { id: "1", number: "A00001", name: "东宫门牌坊", area: "AAAAAAAA景区", time: "2017-08-16", status: "1" },
+      { id: "2", number: "A00001", name: "东宫门", area: "BBBB景区", time: "", status: "2" },
+      { id: "3", number: "A00001", name: "东宫门", area: "CCCC景区", time: "", status: "1" },
       { id: "4", number: "A00001", name: "东宫门", area: "DDDD景区", time: "2017-08-16", status: "2" },
       { id: "5", number: "A00001", name: "东宫门", area: "AAAA景区", time: "2017-08-16", status: "1" },
       { id: "6", number: "A00001", name: "东宫门", area: "AAAA景区", time: "2017-08-16", status: "2" },

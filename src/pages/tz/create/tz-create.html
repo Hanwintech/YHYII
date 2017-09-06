@@ -25,15 +25,15 @@
 
   <ion-toolbar class="left-bar">
     <button ion-button class="left-button" (click)="toggleMenu()">
-        <ion-icon *ngFor="let menu of menuList" class="menu.id" [class.active]="menu.id==selectedMenuId" name="arrow-forward"></ion-icon>    
+        <ion-icon *ngFor="let menu of menuList" class="menu.id" [class.active]="menu.id==selectedMenuId" name="arrow-dropright"></ion-icon>    
    <br />
       </button>
   </ion-toolbar>
 
-  <ion-list no-lines>
-    <ion-list-header>
+  <ion-card no-lines>
+      <ion-card  style="font-size:1.5em;color:#4977b2;">
       基本信息
-    </ion-list-header>
+    </ion-card>
     <ion-item>
       <ion-label>建筑编号</ion-label>
       <ion-input right type="text" placeholder="请输入建筑编号" value=""></ion-input>
@@ -98,11 +98,11 @@
       <ion-label>最后修缮时间【年】</ion-label>
       <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑最后修缮时间" cancelText="取消" doneText="确定"></ion-datetime>
     </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-list-header>
-      平面形制
-    </ion-list-header>
+  </ion-card>
+  <ion-card no-lines>
+      <ion-card  style="font-size:1.5em;color:#4977b2;">
+          平面形制
+        </ion-card>
     <ion-item>
       <ion-label>基本形制</ion-label>
       <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑基本形制" name="Type" multiple="false">
@@ -204,6 +204,6 @@
       <ion-label>进深尺寸【M】</ion-label>
       <ion-input right type="text" placeholder="请输入进深尺寸" value=""></ion-input>
     </ion-item>
-  </ion-list>
+  </ion-card>
 
 </ion-content>

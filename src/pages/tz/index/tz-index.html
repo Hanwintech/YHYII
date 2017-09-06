@@ -1,16 +1,17 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
     <ion-searchbar placeholder="古建台账搜索" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar>
     <ion-buttons right>
       <button ion-button icon-only (click)="select()">
         筛选
-        <ion-icon name="funnel"></ion-icon>
+        <ion-icon md="ios-funnel-outline"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 <ion-menu id="tzListMenu" class="menu" type="overlay" side="right" [content]="tzListNav">
-  <ion-list>
+    <ion-item-group>
+      <ion-item-divider color="light">筛选条件</ion-item-divider>
     <ion-item>
       <ion-label>建筑名称</ion-label>
       <ion-input right type="text" placeholder="请输入建筑名称" value=""></ion-input>
@@ -40,22 +41,25 @@
         <ion-option value="3">未提交</ion-option>
       </ion-select>
     </ion-item>
-  </ion-list>
-  <button ion-button item-start>重置</button>
-  <button ion-button item-end (click)="closeSelect()">完成</button>
+    <ion-item >
+        <button ion-button large color="danger" >重置</button>
+        <button ion-button item-end large color="secondary" (click)="closeSelect()">完成</button>
+        </ion-item>
+</ion-item-group>
+
 </ion-menu>
 <ion-nav id="tzListNav" #tzListNav> </ion-nav>
 <ion-content>
 
 
   <button ion-item *ngFor="let tz of dataSource" class="item-ios" (click)="itemSelected(tz)">
-    <h2 style="color:#000;font-weight:bold;">{{ tz.number + tz.name }}</h2>
-    <p style="color:#989898;font-size:1.3rem;">{{ tz.area }}</p>
-    <div *ngIf="tz.status == 1" item-end style="float:left;"><ion-label color="secondary" style="font-size:1.3rem;">已提交</ion-label></div>
-    <div *ngIf="tz.status == 2" item-end style="float:left;"><ion-label color="danger" style="font-size:1.3rem;">未提交</ion-label></div>
-    <p color="grayText" *ngIf="!tz.time" item-end style="margin-top:0;">——</p>
-    <ion-label color="grayText" *ngIf="tz.time" item-end >{{ tz.time}}</ion-label>
-   </button>
+    <h2 style="font-weight:bold;">{{ tz.number + tz.name }}</h2>
+    <p>{{ tz.area }}</p>
+    <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已提交</button>
+  <button ion-button clear item-end color="danger" *ngIf="tz.status == 2" style="font-size:1.4rem;">未提交</button>
+  <button ion-button clear item-end *ngIf="tz.time" style="font-size:1.4rem;">{{ tz.time }}</button>
+  <button ion-button clear item-end *ngIf="!tz.time" style="font-size:1.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——</button>
+  </button>
+  
 
-   
 </ion-content>
