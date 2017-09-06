@@ -5,12 +5,24 @@
       <button ion-button icon-only (click)="save()">
         保存
       </button>
-
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="submit()">提交</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
+<ion-menu id="tzCreateMenu" class="menu" type="overlay" [content]="tzCreateNav">
+  <ion-list>
+    <button *ngFor="let menu of menuList" [class.selected]="menu.id==selectedMenuId" ion-item (click)="openPage(menu.id)">
+      {{menu.name}}
+    </button>
+  </ion-list>
+</ion-menu>
+<ion-nav id="tzCreateNav" #tzCreateNav [root]="TZCreatePage"> </ion-nav>
+
 <ion-content>
+
   <ion-toolbar class="left-bar">
     <button ion-button class="left-button" (click)="toggleMenu()">
         <ion-icon *ngFor="let menu of menuList" class="menu.id" [class.active]="menu.id==selectedMenuId" name="arrow-forward"></ion-icon>    
@@ -18,21 +30,180 @@
       </button>
   </ion-toolbar>
 
-
-
-  <ion-menu type="overlay" [content]="content">
-    <ion-content>
-      <ion-list>
-        <button *ngFor="let menu of menuList" [class.selected]="menu.id==selectedMenuId" ion-item (click)="openPage(menu.id)">
-            {{menu.name}}
-        </button>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-nav id="nav" #content [root]="rootPage">
-
-  </ion-nav>
-
-
+  <ion-list no-lines>
+    <ion-list-header>
+      基本信息
+    </ion-list-header>
+    <ion-item>
+      <ion-label>建筑编号</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑编号" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>建筑名称</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑名称" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>建筑方位</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑方位" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>建筑面积【M²】</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑面积" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>所属景区</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑所属景区" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>海拔高程【M】</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑海拔高程" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>结构类型</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑结构类型" name="Type" multiple="false">
+        <ion-option value="1">木</ion-option>
+        <ion-option value="2">砖木</ion-option>
+        <ion-option value="3">石木</ion-option>
+        <ion-option value="4">砖石</ion-option>
+        <ion-option value="5">铜铸仿木</ion-option>
+        <ion-option value="6">其他类型</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>建筑形式</ion-label>
+      <ion-textarea placeholder="请输入建筑形式" name="Type"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>建筑功能</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="Type" multiple="false">
+        <ion-option value="1">办公用房</ion-option>
+        <ion-option value="2">监控室</ion-option>
+        <ion-option value="3">游览建筑</ion-option>
+        <ion-option value="4">原状陈设</ion-option>
+        <ion-option value="5">商业</ion-option>
+        <ion-option value="6">厕所</ion-option>
+        <ion-option value="7">库房</ion-option>
+        <ion-option value="8">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>始建年代【年】</ion-label>
+      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑始建年代" cancelText="取消" doneText="确定"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>现存年代【年】</ion-label>
+      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑现存年代" cancelText="取消" doneText="确定"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>最后修缮时间【年】</ion-label>
+      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑最后修缮时间" cancelText="取消" doneText="确定"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      平面形制
+    </ion-list-header>
+    <ion-item>
+      <ion-label>基本形制</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑基本形制" name="Type" multiple="false">
+        <ion-option value="1">金厢斗底槽</ion-option>
+        <ion-option value="2">分心斗底槽</ion-option>
+        <ion-option value="3">双槽</ion-option>
+        <ion-option value="4">单槽</ion-option>
+        <ion-option value="5">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>平面形状</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑平面形状" name="Type" multiple="false">
+        <ion-option value="1">矩形</ion-option>
+        <ion-option value="2">六角形</ion-option>
+        <ion-option value="3">八角形</ion-option>
+        <ion-option value="4">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-list radio-group>
+      <ion-item>
+        <ion-label>有楼梯</ion-label>
+        <ion-radio value="有楼梯"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>无楼梯</ion-label>
+        <ion-radio value="无楼梯"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item>
+        <ion-label>有抱厦</ion-label>
+        <ion-radio value="有抱厦"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>无抱厦</ion-label>
+        <ion-radio value="无抱厦"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item>
+        <ion-label>有前廊</ion-label>
+        <ion-radio value="有前廊"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>无前廊</ion-label>
+        <ion-radio value="无前廊"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item>
+        <ion-label>有周围廊</ion-label>
+        <ion-radio value="有周围廊"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>无周围廊</ion-label>
+        <ion-radio value="无周围廊"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item>
+        <ion-label>有后廊</ion-label>
+        <ion-radio value="有后廊"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>无后廊</ion-label>
+        <ion-radio value="无后廊"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label>面阔</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入面阔" name="Type" multiple="false">
+        <ion-option value="1">1间</ion-option>
+        <ion-option value="2">2间</ion-option>
+        <ion-option value="3">3间</ion-option>
+        <ion-option value="4">5间</ion-option>
+        <ion-option value="5">7间</ion-option>
+        <ion-option value="6">9间</ion-option>
+        <ion-option value="7">11间</ion-option>
+        <ion-option value="8">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>通面阔尺寸【M】</ion-label>
+      <ion-input right type="text" placeholder="请输入通面阔尺寸" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>进深</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入进深" name="Type" multiple="false">
+        <ion-option value="1">1进</ion-option>
+        <ion-option value="2">2进</ion-option>
+        <ion-option value="3">3进</ion-option>
+        <ion-option value="4">4进</ion-option>
+        <ion-option value="5">5进</ion-option>
+        <ion-option value="6">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>进深尺寸【M】</ion-label>
+      <ion-input right type="text" placeholder="请输入进深尺寸" value=""></ion-input>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

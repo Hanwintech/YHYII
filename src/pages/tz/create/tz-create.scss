@@ -1,4 +1,7 @@
 ﻿page-tz-create {
+    .menu-inner {
+        top: 46px;
+    }
     .left-bar {
         width: 20px;
         height: 272px;
@@ -18,9 +21,9 @@
                     -ms-writing-mode: tb-lr;
                     -webkit-writing-mode: vertical-lr;
                     writing-mode: vertical-lr;
-                    ion-icon{
-                        font-size:10px;
-                        padding:2px; 
+                    ion-icon {
+                        font-size: 10px;
+                        padding: 2px;
                     }
                 }
             }

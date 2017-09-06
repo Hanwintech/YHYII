@@ -53,12 +53,10 @@ export class TZCreatePage {
   }
 
   toggleMenu() {
-    this.menuCtrl.toggle();
+    console.log(this.menuCtrl);
+    this.menuCtrl.toggle("tzCreateMenu");
   }
 
-  ionViewDidLoad() {
-  }
-  
   openPage(menuId) {
     this.selectedMenuId = menuId;
     

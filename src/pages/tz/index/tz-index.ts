@@ -6,7 +6,7 @@ import { ApiService } from './../../../services/api.service';
 import { BaseRequest } from './../../../services/baseRequest';
 import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
 import { InspectInfo } from './../../../models/map/inspectInfo.model';
-
+import { MenuController } from 'ionic-angular';
 declare var BMap;
 
 @IonicPage()
@@ -15,7 +15,7 @@ declare var BMap;
   templateUrl: 'tz-index.html',
 })
 export class TZIndexPage {
-  dataSource: InspectInfo[];
+  dataSource = [];
 
   constructor(
     public navCtrl: NavController,
@@ -23,12 +23,29 @@ export class TZIndexPage {
     public platform: Platform,
     public geolocation: Geolocation,
     public apiService: ApiService,
-    public alertCtrl: AlertController) { }
+    public alertCtrl: AlertController,
+    public menuCtrl: MenuController) {
+    this.dataSource = [
+      { id: "1", number: "A00001", name: "东宫门牌坊", area: "AAAA景区", time: "2017-08-16", status: "1" },
+      { id: "2", number: "A00001", name: "东宫门", area: "BBBB景区", time: "2017-08-16", status: "2" },
+      { id: "3", number: "A00001", name: "东宫门", area: "CCCC景区", time: "2017-08-16", status: "1" },
+      { id: "4", number: "A00001", name: "东宫门", area: "DDDD景区", time: "2017-08-16", status: "2" },
+      { id: "5", number: "A00001", name: "东宫门", area: "AAAA景区", time: "2017-08-16", status: "1" },
+      { id: "6", number: "A00001", name: "东宫门", area: "AAAA景区", time: "2017-08-16", status: "2" },
+      { id: "7", number: "A00001", name: "东宫门", area: "AAAA景区", time: "2017-08-16", status: "1" }];
+  }
 
   ionViewDidLoad() {
   }
 
-  inspectHistory() {
-    this.navCtrl.push("InspectHistoryPage");
+  itemSelected() {
+    this.navCtrl.push("TZCreatePage");
+  }
+
+  select() {
+    this.menuCtrl.open("tzListMenu");
+  }
+  closeSelect(){
+    this.menuCtrl.close("tzListMenu");
   }
 }
