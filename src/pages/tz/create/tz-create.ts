@@ -19,6 +19,9 @@ export class TZCreatePage {
 
   selectedMenuId = "";
 
+  lt: boolean;
+
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,

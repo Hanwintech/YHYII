@@ -30,8 +30,8 @@
       </button>
   </ion-toolbar>
 
-  <ion-card no-lines>
-      <ion-card  style="font-size:1.5em;color:#4977b2;">
+  <ion-card>
+    <ion-card style="font-size:1.5em;color:#4977b2;">
       基本信息
     </ion-card>
     <ion-item>
@@ -99,10 +99,10 @@
       <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑最后修缮时间" cancelText="取消" doneText="确定"></ion-datetime>
     </ion-item>
   </ion-card>
-  <ion-card no-lines>
-      <ion-card  style="font-size:1.5em;color:#4977b2;">
-          平面形制
-        </ion-card>
+  <ion-card>
+    <ion-card style="font-size:1.5em;color:#4977b2;">
+      平面形制
+    </ion-card>
     <ion-item>
       <ion-label>基本形制</ion-label>
       <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑基本形制" name="Type" multiple="false">
@@ -122,55 +122,64 @@
         <ion-option value="4">其他</ion-option>
       </ion-select>
     </ion-item>
-    <ion-list radio-group>
-      <ion-item>
-        <ion-label>有楼梯</ion-label>
-        <ion-radio value="有楼梯"></ion-radio>
+    <ion-item style="width:40%;float:left;">
+        <ion-label>楼梯</ion-label>
       </ion-item>
-      <ion-item>
-        <ion-label>无楼梯</ion-label>
-        <ion-radio value="无楼梯"></ion-radio>
-      </ion-item>
+    <ion-list radio-group style="width:60%;float:right;">
+      <button ion-item style="width:50%;float:left;">
+        <ion-label>有</ion-label>
+        <ion-radio value="true"></ion-radio>
+      </button>
+      <button ion-item style="width:50%;float:right;">
+        <ion-label>无</ion-label>
+        <ion-radio value="false"></ion-radio>
+      </button>
     </ion-list>
+    <!-- <div class="btn-group" role="radio-group" aria-label="..." style="width:100%;">
+
+        <button type="button" class="btn btn-default">Left</button>
+      <button type="button" class="btn btn-default">Middle</button>
+      <button type="button" class="btn btn-default">Right</button>
+    </div> -->
     <ion-list radio-group>
-      <ion-item>
+      <button ion-item style="width:50%;float:left;">
         <ion-label>有抱厦</ion-label>
         <ion-radio value="有抱厦"></ion-radio>
-      </ion-item>
-      <ion-item>
+      </button>
+      <button ion-item style="width:50%;float:right;">
         <ion-label>无抱厦</ion-label>
         <ion-radio value="无抱厦"></ion-radio>
-      </ion-item>
+      </button>
     </ion-list>
     <ion-list radio-group>
-      <ion-item>
+      <button ion-item style="width:50%;float:left;">
         <ion-label>有前廊</ion-label>
         <ion-radio value="有前廊"></ion-radio>
-      </ion-item>
-      <ion-item>
+      </button>
+      <button ion-item style="width:50%;float:right;">
         <ion-label>无前廊</ion-label>
         <ion-radio value="无前廊"></ion-radio>
-      </ion-item>
+      </button>
     </ion-list>
     <ion-list radio-group>
-      <ion-item>
+      <button ion-item style="width:50%;float:left;">
         <ion-label>有周围廊</ion-label>
         <ion-radio value="有周围廊"></ion-radio>
-      </ion-item>
-      <ion-item>
+      </button>
+      <button ion-item style="width:50%;float:right;">
         <ion-label>无周围廊</ion-label>
         <ion-radio value="无周围廊"></ion-radio>
-      </ion-item>
+      </button>
     </ion-list>
     <ion-list radio-group>
-      <ion-item>
+      <button ion-item style="width:50%;float:left;">
         <ion-label>有后廊</ion-label>
         <ion-radio value="有后廊"></ion-radio>
-      </ion-item>
-      <ion-item>
+      </button>
+      <button ion-item style="width:50%;float:right;">
         <ion-label>无后廊</ion-label>
         <ion-radio value="无后廊"></ion-radio>
-      </ion-item>
+      </button>
     </ion-list>
     <ion-item>
       <ion-label>面阔</ion-label>
@@ -205,5 +214,121 @@
       <ion-input right type="text" placeholder="请输入进深尺寸" value=""></ion-input>
     </ion-item>
   </ion-card>
-
+  <ion-card>
+    <ion-card style="font-size:1.5em;color:#4977b2;">
+      台基地面
+    </ion-card>
+    <ion-item>
+      <ion-label>台基材料</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入台基材料" name="Type" multiple="false">
+        <ion-option value="1">石</ion-option>
+        <ion-option value="2">砖</ion-option>
+        <ion-option value="3">砖石</ion-option>
+        <ion-option value="4">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>台基形式</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入台基形式" name="Type" multiple="false">
+        <ion-option value="1">普通</ion-option>
+        <ion-option value="2">须弥座</ion-option>
+        <ion-option value="3">无台基</ion-option>
+        <ion-option value="4">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>台基尺寸【M】</ion-label>
+      <ion-input right type="text" placeholder="请输入台基尺寸" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>地面材料</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入地面材料" name="Type" multiple="false">
+        <ion-option value="1">方砖</ion-option>
+        <ion-option value="2">石板</ion-option>
+        <ion-option value="3">条砖</ion-option>
+        <ion-option value="4">夯土地面</ion-option>
+        <ion-option value="5">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>地面做法</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入地面做法" name="Type" multiple="false">
+        <ion-option value="1">细墁</ion-option>
+        <ion-option value="2">淌白</ion-option>
+        <ion-option value="3">糙墁</ion-option>
+        <ion-option value="4">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-card-header color=primary>
+      其他构件
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list radio-group>
+        <button ion-item style="width:50%;float:left;">
+            <ion-label>有炉坑</ion-label>
+            <ion-radio value="有炉坑"></ion-radio>
+          </button>
+        <button ion-item style="width:50%;float:right;">
+            <ion-label>无炉坑</ion-label>
+            <ion-radio value="无炉坑"></ion-radio>
+          </button>
+      </ion-list>
+      <ion-item>
+        <ion-label>炉坑数量【个】</ion-label>
+        <ion-input right type="text" placeholder="请输入炉坑数量" value=""></ion-input>
+      </ion-item>
+      <ion-list radio-group>
+        <button ion-item style="width:50%;float:left;">
+            <ion-label>有月台</ion-label>
+            <ion-radio value="有月台"></ion-radio>
+          </button>
+        <button ion-item style="width:50%;float:right;">
+            <ion-label>无月台</ion-label>
+            <ion-radio value="无月台"></ion-radio>
+          </button>
+      </ion-list>
+      <ion-list radio-group>
+        <button ion-item style="width:50%;float:left;">
+            <ion-label>月台有栏杆栏板</ion-label>
+            <ion-radio value="月台有栏杆栏板"></ion-radio>
+          </button>
+        <button ion-item style="width:50%;float:right;">
+            <ion-label>月台无栏杆栏板</ion-label>
+            <ion-radio value="月台无栏杆栏板"></ion-radio>
+          </button>
+      </ion-list>
+      <ion-item>
+        <ion-label>栏板块数【块】</ion-label>
+        <ion-input right type="text" placeholder="请输入栏板块数" value=""></ion-input>
+      </ion-item>
+      <ion-list radio-group>
+        <button ion-item style="width:50%;float:left;">
+            <ion-label>有台阶</ion-label>
+            <ion-radio value="有台阶"></ion-radio>
+          </button>
+        <button ion-item style="width:50%;float:right;">
+            <ion-label>无台阶</ion-label>
+            <ion-radio value="无台阶"></ion-radio>
+          </button>
+      </ion-list>
+      <ion-item>
+        <ion-label>台阶组数【组】</ion-label>
+        <ion-input right type="text" placeholder="请输入台阶组数" value=""></ion-input>
+      </ion-item>
+      <ion-list radio-group>
+        <button ion-item style="width:50%;float:left;">
+            <ion-label>有抱鼓石</ion-label>
+            <ion-radio value="有抱鼓石"></ion-radio>
+          </button>
+        <button ion-item style="width:50%;float:right;">
+            <ion-label>无抱鼓石</ion-label>
+            <ion-radio value="无抱鼓石"></ion-radio>
+          </button>
+      </ion-list>
+      <ion-item>
+        <ion-label>抱鼓石数量【个】</ion-label>
+        <ion-input right type="text" placeholder="请输入抱鼓石数量" value=""></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
