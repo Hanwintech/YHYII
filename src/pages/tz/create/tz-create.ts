@@ -8,6 +8,7 @@ import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model'
 import { InspectInfo } from './../../../models/map/inspectInfo.model';
 import { MenuController } from 'ionic-angular';
 
+
 @IonicPage()
 @Component({
   selector: 'page-tz-create',
@@ -64,5 +65,6 @@ export class TZCreatePage {
     this.selectedMenuId = menuId;
     
     this.toggleMenu();
+    this.navCtrl.push("TZCreate1Page", menuId);
   }
 }

@@ -2,22 +2,20 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { TZCreatePage } from './tz-create';
-// import { TZCreate1Page } from './../../tz/create1/tz-create1';
+import { TZCreate1Page } from './tz-create1';
 
 @NgModule({
   declarations: [
-    TZCreatePage,
-    // TZCreate1Page,
+    TZCreate1Page,
   ],
   imports: [
-    IonicPageModule.forChild(TZCreatePage),
+    IonicPageModule.forChild(TZCreate1Page),
   ],
   exports: [
-    TZCreatePage
+    TZCreate1Page
   ],
   providers: [
     Geolocation
   ]
 })
-export class TZCreatePageModule { }
+export class TZCreatePage1Module { }

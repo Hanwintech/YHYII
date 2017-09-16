@@ -22,12 +22,14 @@ import { StatisticsService } from './../services/statistics.service';
 import { nativeImgService } from "./../services/nativeImg.service";
 import { PreviewPicturePage } from "./../shared/preview-picture/preview-picture";
 import { MLabelComponent } from './../shared/m-label/m-label';
+import { TZCreate1Page } from './../pages/tz/create1/tz-create1';
 
 @NgModule({
   declarations: [
     MyApp,
     PreviewPicturePage,
     MLabelComponent,
+    TZCreate1Page,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import { MLabelComponent } from './../shared/m-label/m-label';
     MyApp,
     PreviewPicturePage,
     MLabelComponent,
+    TZCreate1Page,
   ],
   providers: [
     StatusBar,
