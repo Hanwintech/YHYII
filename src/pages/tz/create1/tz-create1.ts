@@ -10,7 +10,7 @@ import { MenuController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'tz-create1',
+  selector: 'page-tz-create1',
   templateUrl: 'tz-create1.html',
 })
 export class TZCreate1Page {

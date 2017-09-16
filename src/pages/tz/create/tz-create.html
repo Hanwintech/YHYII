@@ -14,7 +14,7 @@
 
 <ion-menu id="tzCreateMenu" class="menu" type="overlay" [content]="tzCreateNav">
   <ion-list>
-    <button *ngFor="let menu of menuList" [class.selected]="menu.id==selectedMenuId" ion-item (click)="openPage(menu.id)">
+    <button *ngFor="let menu of menuList" [class.selected]="menu.id==selectedMenuId" ion-item (click)="openPage(TZCreate1Page)">
       {{menu.name}}
     </button>
   </ion-list>
@@ -29,6 +29,6 @@
       </button>
   </ion-toolbar>
   
-  <tz-create1></tz-create1>
+  <!-- <tz-create1></tz-create1> -->
 
 </ion-content>
