@@ -2,7 +2,7 @@
 <widget id="com.hanwintech.yhyii" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>颐和园移动APP</name>
     <description>颐和园移动APP</description>
-    <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Ionic Framework Team</author>
+    <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://*/*" />
