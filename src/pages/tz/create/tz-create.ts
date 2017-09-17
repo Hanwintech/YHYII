@@ -1,13 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Component, ViewChild, ViewContainerRef, ComponentFactory, ComponentRef, ComponentFactoryResolver } from '@angular/core';
+import { NavController, Platform, IonicPage, MenuController, AlertController, NavParams } from 'ionic-angular';
 
-import { ApiService } from './../../../services/api.service';
-import { BaseRequest } from './../../../services/baseRequest';
-import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
-import { InspectInfo } from './../../../models/map/inspectInfo.model';
-import { MenuController } from 'ionic-angular';
-
+import { TZCreate1Page } from './../create1/tz-create1';
+import { TzCreate2Page } from './../create2/tz-create2';
 
 @IonicPage()
 @Component({
@@ -15,21 +10,19 @@ import { MenuController } from 'ionic-angular';
   templateUrl: 'tz-create.html',
 })
 export class TZCreatePage {
-  menuList = [
-  ];
+  componentRef: ComponentRef<TZCreate1Page>;
+  @ViewChild("formContent", { read: ViewContainerRef }) container: ViewContainerRef;
 
+  menuList = [];
   selectedMenuId = "";
-
   lt: boolean;
-
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public platform: Platform,
-    public geolocation: Geolocation,
-    public apiService: ApiService,
     public alertCtrl: AlertController,
+    public resolver: ComponentFactoryResolver,
     public menuCtrl: MenuController
   ) {
     this.menuList = [
@@ -45,15 +38,6 @@ export class TZCreatePage {
       { id: "10", name: "屋顶瓦面" },
       { id: "11", name: "附属文物" },
       { id: "12", name: "古建备注" }];
-    this.selectedMenuId = this.menuList[0].id;
-  }
-
-  openMenu() {
-    this.menuCtrl.open();
-  }
-
-  closeMenu() {
-    this.menuCtrl.close();
   }
 
   toggleMenu() {
@@ -63,8 +47,24 @@ export class TZCreatePage {
 
   openPage(menuId) {
     this.selectedMenuId = menuId;
-    
+    this.container.clear();
+
+    if (menuId == "1") {
+      const factory: ComponentFactory<TZCreate1Page> = this.resolver.resolveComponentFactory(TZCreate1Page);
+      let componentRef = this.container.createComponent(factory);
+    } else if (menuId == "2") {
+      const factory: ComponentFactory<TzCreate2Page> = this.resolver.resolveComponentFactory(TzCreate2Page);
+      let componentRef = this.container.createComponent(factory);
+    }
     this.toggleMenu();
-    this.navCtrl.push("TZCreate1Page", menuId);
+  }
+
+  ionViewDidLoad() {
+    this.selectedMenuId = this.menuList[0].id;
+
+    const factory: ComponentFactory<TZCreate1Page> = this.resolver.resolveComponentFactory(TZCreate1Page);
+    let componentRef = this.container.createComponent(factory);
+    // componentRef.instance.id = p.id;
+    // componentRef.instance.onclick = () => { this.selectedId = p.id; };
   }
 }
