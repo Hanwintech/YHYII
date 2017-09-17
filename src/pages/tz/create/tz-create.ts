@@ -10,6 +10,7 @@ import { TzCreate2Page } from './../create2/tz-create2';
   templateUrl: 'tz-create.html',
 })
 export class TZCreatePage {
+  propertyId: string;
   componentRef: ComponentRef<TZCreate1Page>;
   @ViewChild("formContent", { read: ViewContainerRef }) container: ViewContainerRef;
 
@@ -41,7 +42,6 @@ export class TZCreatePage {
   }
 
   toggleMenu() {
-    console.log(this.menuCtrl);
     this.menuCtrl.toggle("tzCreateMenu");
   }
 
@@ -52,9 +52,11 @@ export class TZCreatePage {
     if (menuId == "1") {
       const factory: ComponentFactory<TZCreate1Page> = this.resolver.resolveComponentFactory(TZCreate1Page);
       let componentRef = this.container.createComponent(factory);
+      componentRef.instance.propertyId = this.propertyId;
     } else if (menuId == "2") {
       const factory: ComponentFactory<TzCreate2Page> = this.resolver.resolveComponentFactory(TzCreate2Page);
       let componentRef = this.container.createComponent(factory);
+      componentRef.instance.propertyId = this.propertyId;
     }
     this.toggleMenu();
   }
@@ -64,7 +66,6 @@ export class TZCreatePage {
 
     const factory: ComponentFactory<TZCreate1Page> = this.resolver.resolveComponentFactory(TZCreate1Page);
     let componentRef = this.container.createComponent(factory);
-    // componentRef.instance.id = p.id;
-    // componentRef.instance.onclick = () => { this.selectedId = p.id; };
+    componentRef.instance.propertyId = this.propertyId;    
   }
 }

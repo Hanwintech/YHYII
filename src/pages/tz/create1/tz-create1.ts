@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
 
 @IonicPage()
@@ -7,9 +7,7 @@ import { NavController, Platform, IonicPage, AlertController, NavParams } from '
   templateUrl: 'tz-create1.html',
 })
 export class TZCreate1Page {
- 
-  lt: boolean;
-
+  propertyId: string;
 
   constructor(
     public navCtrl: NavController,
@@ -17,5 +15,4 @@ export class TZCreate1Page {
     public platform: Platform,
     public alertCtrl: AlertController
   ) { }
-  
 }
