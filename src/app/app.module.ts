@@ -23,7 +23,7 @@ import { MLabelComponent } from './../shared/m-label/m-label';
 import { BackButtonService } from "../services/backButton.service";
 import { MyPage } from '../pages/my/my';
 import { InspectIndexPage } from '../pages/inspect/index/inspect-index';
-import { StatisticsPage } from '../pages/statistics/statistics';
+import { TZIndexPage } from '../pages/tz/index/tz-index';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     PreviewPicturePage,
     MLabelComponent,
     InspectIndexPage,
-    StatisticsPage,
+    TZIndexPage,
     MyPage
   ],
   imports: [
@@ -51,7 +51,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     PreviewPicturePage,
     MLabelComponent,
     InspectIndexPage,
-    StatisticsPage,
+    TZIndexPage,
     MyPage
   ],
   providers: [
