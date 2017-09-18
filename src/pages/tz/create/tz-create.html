@@ -1,18 +1,34 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>巡查在线</ion-title>
+    <ion-title>台账填报</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="inspectHistory()">
-        <ion-icon name="md-bookmarks"></ion-icon>
+      <button ion-button icon-only (click)="save()">
+        保存
       </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="submit()">提交</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
+<ion-menu id="tzCreateMenu" class="menu" type="overlay" [content]="tzCreateNav">
+  <ion-list>
+    <button *ngFor="let menu of menuList" [class.selected]="menu.id==selectedMenuId" ion-item (click)="openPage(menu.id)">
+      {{menu.name}}
+    </button>
+  </ion-list>
+</ion-menu>
+<ion-nav id="tzCreateNav" #tzCreateNav [root]="TZCreatePage"> </ion-nav>
+
 <ion-content>
-  <div id="map-content">
-    <div id="map" #map></div>
-  </div>
-  <ion-icon name="locate" class="locate" (click)="getLocation()"></ion-icon>
-  <ion-icon name="add-circle" class="add-circle" (click)="addInspect()"></ion-icon>
+  <ion-toolbar class="left-bar">
+    <button ion-button class="left-button" (click)="toggleMenu()">
+      <ion-icon *ngFor="let menu of menuList" class="menu.id" [class.active]="menu.id==selectedMenuId" name="arrow-dropright"></ion-icon>    
+      <br />
+    </button>
+  </ion-toolbar>
+
+  <div #formContent></div>
+
 </ion-content>

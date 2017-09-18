@@ -11,6 +11,7 @@ import{MyPage}from './../my/my';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
+<<<<<<< HEAD
   tabRoots: Object[];
   @ViewChild('myTabs') tabRef: Tabs;
   constructor(public backButtonService: BackButtonService,
@@ -47,4 +48,10 @@ export class TabsPage {
   // tab2Root = 'StatisticsPage';
   // tab3Root = 'StatisticsPage';
   // tab4Root = 'MyPage';
+=======
+  tab1Root = 'TZIndexPage';
+  tab2Root = 'StatisticsPage';
+  tab3Root = 'InspectIndexPage';
+  tab4Root = 'MyPage';
+>>>>>>> 75d4ffeed3324dfcba733eed79d0f1ecd2a454e2
 }

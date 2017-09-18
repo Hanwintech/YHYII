@@ -1,18 +1,62 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>巡查在线</ion-title>
+  <ion-toolbar>
+    <ion-searchbar placeholder="古建台账搜索" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar>
     <ion-buttons right>
-      <button ion-button icon-only (click)="inspectHistory()">
-        <ion-icon name="md-bookmarks"></ion-icon>
+      <button ion-button icon-only (click)="select()">
+        筛选
+        <ion-icon md="ios-funnel-outline"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
+<ion-menu id="tzListMenu" class="menu" type="overlay" side="right" [content]="tzListNav">
+  <ion-item-group>
+    <ion-item-divider color="light">筛选条件</ion-item-divider>
+    <ion-item>
+      <ion-label>建筑名称</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑名称" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>所属景区</ion-label>
+      <ion-input right type="text" placeholder="请输入建筑所属景区" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>建筑功能</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="Type" multiple="false">
+        <ion-option value="1">办公用房</ion-option>
+        <ion-option value="2">监控室</ion-option>
+        <ion-option value="3">游览建筑</ion-option>
+        <ion-option value="4">原状陈设</ion-option>
+        <ion-option value="5">商业</ion-option>
+        <ion-option value="6">厕所</ion-option>
+        <ion-option value="7">库房</ion-option>
+        <ion-option value="8">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>台账状态</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入台账状态" name="tzState" multiple="false">
+        <ion-option value="1">全部</ion-option>
+        <ion-option value="2">已提交</ion-option>
+        <ion-option value="3">未提交</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <button ion-button large color="danger">重置</button>
+      <button ion-button item-end large color="secondary" (click)="closeSelect()">完成</button>
+    </ion-item>
+  </ion-item-group>
+
+</ion-menu>
+<ion-nav id="tzListNav" #tzListNav> </ion-nav>
 <ion-content>
-  <div id="map-content">
-    <div id="map" #map></div>
-  </div>
-  <ion-icon name="locate" class="locate" (click)="getLocation()"></ion-icon>
-  <ion-icon name="add-circle" class="add-circle" (click)="addInspect()"></ion-icon>
+  <button ion-item *ngFor="let tz of dataSource" class="item-ios" (click)="itemSelected(tz)">
+  <h2 style="font-weight:bold;">{{ tz.number + tz.name }}</h2>
+  <p>{{ tz.area }}</p>
+  <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已提交</button>
+  <button ion-button clear item-end color="danger" *ngIf="tz.status == 2" style="font-size:1.4rem;">未提交</button>
+  <button ion-button clear item-end *ngIf="tz.time" style="font-size:1.4rem;">{{ tz.time }}</button>
+  <button ion-button clear item-end *ngIf="!tz.time" style="font-size:1.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——</button>
+  </button>
 </ion-content>

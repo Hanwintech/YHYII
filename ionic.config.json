@@ -1,6 +1,6 @@
 {
-  "name": "DYH_Hybrid",
-  "app_id": "",
+  "name": "yhyii",
+  "app_id": "com.hanwintech.yhyii",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
