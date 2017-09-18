@@ -20,20 +20,20 @@ import { StatisticsService } from './../services/statistics.service';
 import { nativeImgService } from "./../services/nativeImg.service";
 import { PreviewPicturePage } from "./../shared/preview-picture/preview-picture";
 import { MLabelComponent } from './../shared/m-label/m-label';
-// import { BackButtonService } from "../services/backButton.service";
-//import { MyPage } from '../pages/my/my';
-// import { InspectIndexPage } from '../pages/inspect/index/inspect-index';
-// import { StatisticsPage } from '../pages/statistics/statistics';
-//import { Geolocation } from '@ionic-native/geolocation';
+import { BackButtonService } from "../services/backButton.service";
+import { MyPage } from '../pages/my/my';
+import { InspectIndexPage } from '../pages/inspect/index/inspect-index';
+import { TZIndexPage } from '../pages/tz/index/tz-index';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
     MyApp,
     PreviewPicturePage,
     MLabelComponent,
-    // InspectIndexPage,
-    // StatisticsPage,
-   // MyPage
+    InspectIndexPage,
+    TZIndexPage,
+    MyPage
   ],
   imports: [
     BrowserModule,
@@ -50,9 +50,9 @@ import { MLabelComponent } from './../shared/m-label/m-label';
     MyApp,
     PreviewPicturePage,
     MLabelComponent,
-    // InspectIndexPage,
-    // StatisticsPage,
-    //MyPage
+    InspectIndexPage,
+    TZIndexPage,
+    MyPage
   ],
   providers: [
     StatusBar,
