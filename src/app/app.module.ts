@@ -7,11 +7,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
-
 import { Device } from '@ionic-native/device';
 import { LoginPageModule } from '../pages/login/login.module';
 import { GlobalCache } from './../services/globalCache.service';
@@ -22,12 +20,20 @@ import { StatisticsService } from './../services/statistics.service';
 import { nativeImgService } from "./../services/nativeImg.service";
 import { PreviewPicturePage } from "./../shared/preview-picture/preview-picture";
 import { MLabelComponent } from './../shared/m-label/m-label';
+import { BackButtonService } from "../services/backButton.service";
+import { MyPage } from '../pages/my/my';
+import { InspectIndexPage } from '../pages/inspect/index/inspect-index';
+import { StatisticsPage } from '../pages/statistics/statistics';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
     MyApp,
     PreviewPicturePage,
     MLabelComponent,
+    InspectIndexPage,
+    StatisticsPage,
+    MyPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,7 @@ import { MLabelComponent } from './../shared/m-label/m-label';
     IonicModule.forRoot(MyApp, { backButtonText: '', tabsHideOnSubPages: true, }),
     IonicStorageModule.forRoot(),
     HttpModule,
-    LoginPageModule
+    LoginPageModule,
   ],
   bootstrap: [
     IonicApp
@@ -44,6 +50,9 @@ import { MLabelComponent } from './../shared/m-label/m-label';
     MyApp,
     PreviewPicturePage,
     MLabelComponent,
+    InspectIndexPage,
+    StatisticsPage,
+    MyPage
   ],
   providers: [
     StatusBar,
@@ -55,8 +64,10 @@ import { MLabelComponent } from './../shared/m-label/m-label';
     _baseService,
     StatisticsService,
     FileTransfer,
+    Geolocation,
     File,
     nativeImgService,
+    BackButtonService,
     Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]

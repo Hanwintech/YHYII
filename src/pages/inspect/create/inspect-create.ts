@@ -10,6 +10,7 @@ import { nativeImgService } from './../../../services/nativeImg.service';
 import { _baseService } from "./../../../services/_base.service"
 import { addInsepct } from './../../../models/inspect/add-inspect.model';
 import { InspectService } from './../../../services/inspect.service';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -45,6 +46,7 @@ export class InspectCreatePage {
     public transfer: FileTransfer, public file: File,
     private nativeImgService: nativeImgService,
     private baseService:_baseService,
+    private storage: Storage,
     private inspectService: InspectService) {
   }
   ionViewDidEnter() {
@@ -68,6 +70,7 @@ export class InspectCreatePage {
         alert(error);
       });
   }
+  
   viewerInspectPicture(index) {//照片预览
     let picturePaths = [];
     for (let fileObj of this.fileObjBigList) {

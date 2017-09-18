@@ -31,12 +31,7 @@ export class InspectHistoryPage {
     this.inspectService.getPropertyList(this.inpectSearch)
       .subscribe(res => {
         let list = res as IHttpCommonResponse<Property[]>
-        if(list){
-          this.dataSource = list.data;
-        }
-        else{
-          //this.emptyIcon=true;
-        }
+        this.dataSource = list.data;
         loading.dismiss();
       },
       error => {
@@ -58,7 +53,12 @@ export class InspectHistoryPage {
       this.inspectService.getPropertyList(data)
         .subscribe(res => {
           let list = res as IHttpCommonResponse<Property[]>
-          this.dataSource = list.data;
+          if(list){
+            this.dataSource = list.data;
+          }
+          else{
+            this.emptyIcon=true;
+          }
           loading.dismiss();
         },
         error => {

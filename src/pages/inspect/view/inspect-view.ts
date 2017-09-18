@@ -28,7 +28,7 @@ export class InspectViewPage {
 
 
   ionViewDidEnter() {
-    this.inspectService.getInspect(this.navParams.data.id)
+    this.inspectService.getInspect(this.navParams.data)
       .subscribe(res => {
         let list = res as IHttpCommonResponse<addInsepct[]>
         this.dataSource = list.data;

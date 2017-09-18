@@ -21,6 +21,7 @@ export class InspectIndexPage {
   public longitude: any;
   public latitude: any;
   public selectedId: any;
+  public selectedStatus:any;
   dataSource: InspectInfo[];
   constructor(
     public navCtrl: NavController,
@@ -95,6 +96,7 @@ export class InspectIndexPage {
                   }
                   document.getElementById("" + that.dataSource[i].pointRecordId + "").setAttribute("name", "selected");
                   that.selectedId = that.dataSource[i].pointRecordId;
+                  that.selectedStatus=that.dataSource[i].status;
                   mkNear[i].setIcon(myIconSelected)
                 });
               }
@@ -118,7 +120,16 @@ export class InspectIndexPage {
   //跳转至添加巡查页面
   addInspect() {
     if (this.selectedId) {
-      this.navCtrl.push("AddInspectPage", this.selectedId);
+      if(this.selectedStatus==4){
+        this.navCtrl.push("InspectCreatePage", this.selectedId);
+      }
+      else if(this.selectedStatus==1||this.selectedStatus==3){
+        this.navCtrl.push("InspectViewPage", this.selectedId);
+      }
+      else{
+        this.navCtrl.push("InspectHandleCreatePage", this.selectedId);
+      }
+ 
     } else {
       let alert = this.alertCtrl.create({
         title: '发生错误！',

@@ -20,8 +20,7 @@
       <div *ngIf="property.status == 4"><p style="color:gray;font-size:1.3rem;">未巡查</p></div>
       <div *ngIf="property.status == 5"><p style="color:orange;font-size:1.3rem;">巡查未完成</p></div>
       <p *ngIf="property.createTime" item-end style="color:#989898;margin-top:0;">{{ property.createTime }}</p>
-       <p *ngIf="!property.createTime" item-end style="color:#989898;margin-top:0;">——</p>
-      <!--<ion-icon item-end name="ios-create-outline" style="margin-left:5px;" small></ion-icon>-->
+      <p *ngIf="!property.createTime" item-end style="color:#989898;margin-top:0;">——</p>
     </button>
-    <ion-icon name="ios-sad-outline" *ngIf="emptyIcon"></ion-icon>
+    <div class="empty-contain" text-center *ngIf="emptyIcon"> <ion-icon name="ios-sad-outline" ></ion-icon>暂无数据</div>
 </ion-content>

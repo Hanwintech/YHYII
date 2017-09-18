@@ -38,7 +38,7 @@ export class InspectHistorySmallPage {
       this.navCtrl.push("InspectCreatePage", item.id);
     }
     else {
-      this.navCtrl.push("InspectViewPage", item);
+      this.navCtrl.push("InspectViewPage", item.id);
     }
   }
   submit() {
