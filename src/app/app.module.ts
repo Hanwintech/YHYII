@@ -64,10 +64,10 @@ import { Geolocation } from '@ionic-native/geolocation';
     _baseService,
     StatisticsService,
     FileTransfer,
-    //Geolocation,
+    Geolocation,
     File,
     nativeImgService,
-    //BackButtonService,
+    BackButtonService,
     Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
