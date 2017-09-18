@@ -6,7 +6,7 @@ import { NavController, Platform, IonicPage, AlertController, NavParams } from '
   selector: 'page-tz-create1',
   templateUrl: 'tz-create1.html',
 })
-export class TZCreate1Page {
+export class TzCreate1Page {
   propertyId: string;
 
   constructor(

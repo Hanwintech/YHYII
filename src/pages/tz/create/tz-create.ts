@@ -1,7 +1,7 @@
 import { Component, ViewChild, ViewContainerRef, ComponentFactory, ComponentRef, ComponentFactoryResolver } from '@angular/core';
 import { NavController, Platform, IonicPage, MenuController, AlertController, NavParams } from 'ionic-angular';
 
-import { TZCreate1Page } from './../create1/tz-create1';
+import { TzCreate1Page } from './../create1/tz-create1';
 import { TzCreate2Page } from './../create2/tz-create2';
 
 @IonicPage()
@@ -11,7 +11,7 @@ import { TzCreate2Page } from './../create2/tz-create2';
 })
 export class TZCreatePage {
   propertyId: string;
-  componentRef: ComponentRef<TZCreate1Page>;
+  componentRef: ComponentRef<TzCreate1Page>;
   @ViewChild("formContent", { read: ViewContainerRef }) container: ViewContainerRef;
 
   menuList = [];
@@ -50,7 +50,7 @@ export class TZCreatePage {
     this.container.clear();
 
     if (menuId == "1") {
-      const factory: ComponentFactory<TZCreate1Page> = this.resolver.resolveComponentFactory(TZCreate1Page);
+      const factory: ComponentFactory<TzCreate1Page> = this.resolver.resolveComponentFactory(TzCreate1Page);
       let componentRef = this.container.createComponent(factory);
       componentRef.instance.propertyId = this.propertyId;
     } else if (menuId == "2") {
@@ -64,7 +64,7 @@ export class TZCreatePage {
   ionViewDidLoad() {
     this.selectedMenuId = this.menuList[0].id;
 
-    const factory: ComponentFactory<TZCreate1Page> = this.resolver.resolveComponentFactory(TZCreate1Page);
+    const factory: ComponentFactory<TzCreate1Page> = this.resolver.resolveComponentFactory(TzCreate1Page);
     let componentRef = this.container.createComponent(factory);
     componentRef.instance.propertyId = this.propertyId;    
   }
