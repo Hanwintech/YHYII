@@ -54,9 +54,9 @@
   <button ion-item *ngFor="let tz of dataSource" class="item-ios" (click)="itemSelected(tz)">
   <h2 style="font-weight:bold;">{{ tz.number + tz.name }}</h2>
   <p>{{ tz.area }}</p>
-  <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已提交</button>
-  <button ion-button clear item-end color="danger" *ngIf="tz.status == 2" style="font-size:1.4rem;">未提交</button>
+  <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已完成</button>
+  <button ion-button clear item-end color="danger" *ngIf="tz.status == 2" style="font-size:1.4rem;">未完成</button>
   <button ion-button clear item-end *ngIf="tz.time" style="font-size:1.4rem;">{{ tz.time }}</button>
   <button ion-button clear item-end *ngIf="!tz.time" style="font-size:1.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——</button>
   </button>
-</ion-content>
+</ion-content>   

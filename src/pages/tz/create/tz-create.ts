@@ -3,6 +3,8 @@ import { NavController, Platform, IonicPage, MenuController, AlertController, Na
 
 import { TzCreate1Page } from './../create1/tz-create1';
 import { TzCreate2Page } from './../create2/tz-create2';
+import { TzCreate3Page } from './../create3/tz-create3';
+
 
 @IonicPage()
 @Component({
@@ -55,6 +57,10 @@ export class TZCreatePage {
       componentRef.instance.propertyId = this.propertyId;
     } else if (menuId == "2") {
       const factory: ComponentFactory<TzCreate2Page> = this.resolver.resolveComponentFactory(TzCreate2Page);
+      let componentRef = this.container.createComponent(factory);
+      componentRef.instance.propertyId = this.propertyId;
+    }else if (menuId == "3") {
+      const factory: ComponentFactory<TzCreate2Page> = this.resolver.resolveComponentFactory(TzCreate3Page);
       let componentRef = this.container.createComponent(factory);
       componentRef.instance.propertyId = this.propertyId;
     }

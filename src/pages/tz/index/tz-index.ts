@@ -17,6 +17,9 @@ declare var BMap;
 export class TZIndexPage {
   dataSource = [];
 
+  searchQuery: string = '';
+   items  = [];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -25,6 +28,7 @@ export class TZIndexPage {
     public apiService: ApiService,
     public alertCtrl: AlertController,
     public menuCtrl: MenuController) {
+
     this.dataSource = [
       { id: "1", number: "A00001", name: "东宫门牌坊", area: "AAAAAAAA景区", time: "2017-08-16", status: "1" },
       { id: "2", number: "A00001", name: "东宫门", area: "BBBB景区", time: "", status: "2" },
@@ -34,6 +38,8 @@ export class TZIndexPage {
       { id: "6", number: "A00001", name: "东宫门", area: "AAAA景区", time: "2017-08-16", status: "2" },
       { id: "7", number: "A00001", name: "东宫门", area: "AAAA景区", time: "2017-08-16", status: "1" }];
   }
+
+
 
   ionViewDidLoad() {
   }
@@ -45,7 +51,19 @@ export class TZIndexPage {
   select() {
     this.menuCtrl.open("tzListMenu");
   }
-  closeSelect(){
+  closeSelect() {
     this.menuCtrl.close("tzListMenu");
   }
+  filterItems(ev: any) {
+
+    this.items  = [
+     ];
+    let val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.dataSource  = this.dataSource .filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
 }
+   
