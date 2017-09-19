@@ -11,6 +11,7 @@ import { _baseService } from "./../../../services/_base.service"
 import { addInsepct } from './../../../models/inspect/add-inspect.model';
 import { InspectService } from './../../../services/inspect.service';
 import { Storage } from '@ionic/storage';
+import { Network } from '@ionic-native/network';
 
 @IonicPage()
 @Component({
