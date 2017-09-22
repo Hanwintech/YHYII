@@ -6,12 +6,26 @@ import { TZCreatePage } from './tz-create';
 import { TzCreate1Page } from './../create1/tz-create1';
 import { TzCreate2Page } from './../create2/tz-create2';
 import { TzCreate3Page } from './../create3/tz-create3';
+import { TzCreate4Page } from './../create4/tz-create4';
+import { TzCreate5Page } from './../create5/tz-create5';
+import { TzCreate6Page } from './../create6/tz-create6';
+import { TzCreate7Page } from './../create7/tz-create7';
+import { TzCreate8Page } from './../create8/tz-create8';
+import { TzCreate9Page } from './../create9/tz-create9';
+import { TzCreate10Page } from './../create10/tz-create10';
 @NgModule({
   declarations: [
     TZCreatePage,
     TzCreate1Page,
     TzCreate2Page,
     TzCreate3Page,
+    TzCreate4Page,
+    TzCreate5Page, 
+    TzCreate6Page, 
+    TzCreate7Page ,
+    TzCreate8Page ,
+    TzCreate9Page, 
+    TzCreate10Page,
   ],
   imports: [
     IonicPageModule.forChild(TZCreatePage),
@@ -23,6 +37,13 @@ import { TzCreate3Page } from './../create3/tz-create3';
     TzCreate1Page,
     TzCreate2Page,
     TzCreate3Page,
+    TzCreate4Page,
+    TzCreate5Page, 
+    TzCreate6Page, 
+    TzCreate7Page ,
+    TzCreate8Page ,
+    TzCreate9Page, 
+    TzCreate10Page,    
   ],
   providers: [
     Geolocation

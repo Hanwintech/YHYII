@@ -1,0 +1,71 @@
+<ion-content>
+
+  <ion-list>
+    <ion-list-header>
+      斗栱
+    </ion-list-header>
+    <ion-list radio-group>
+      <ion-item class="item1">下檐斗拱</ion-item>
+      <ion-item class="item2">
+        <ion-label>有</ion-label>
+        <ion-radio value="true" (click)="showOrHide1(1)"></ion-radio>
+      </ion-item>
+      <ion-item class="item3">
+        <ion-label>无</ion-label>
+        <ion-radio value="false" (click)="showOrHide1(0)"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-item *ngIf="show1">
+      <ion-label>斗口尺寸【mm】</ion-label>
+      <ion-input right type="text" placeholder="请输入斗口尺寸" value=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="show1">
+      <ion-label>描述</ion-label>
+      <ion-input right type="text" placeholder="几斗几升/出几翘几昂几踩" value=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="show1">
+      <ion-label>角科攒数【攒】</ion-label>
+      <ion-input right type="text" placeholder="请输入角科攒数" value=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="show1">
+      <ion-label>柱头科攒数【攒】</ion-label>
+      <ion-input right type="text" placeholder="请输入柱头科攒数" value=""></ion-input>
+    </ion-item>
+    <ion-item *ngIf="show1">
+      <ion-label>平身科攒数【攒】</ion-label>
+      <ion-input right type="text" placeholder="请输入平身科攒数" value=""></ion-input>
+    </ion-item>
+    <ion-list radio-group>
+        <ion-item class="item1">上檐斗拱</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide2(1)"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide2(0)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item *ngIf="show2">
+        <ion-label>斗口尺寸【mm】</ion-label>
+        <ion-input right type="text" placeholder="请输入斗口尺寸" value=""></ion-input>
+      </ion-item>
+      <ion-item *ngIf="show2">
+        <ion-label>描述</ion-label>
+        <ion-input right type="text" placeholder="几斗几升/出几翘几昂几踩" value=""></ion-input>
+      </ion-item>
+      <ion-item *ngIf="show2">
+        <ion-label>角科攒数【攒】</ion-label>
+        <ion-input right type="text" placeholder="请输入角科攒数" value=""></ion-input>
+      </ion-item>
+      <ion-item *ngIf="show2">
+        <ion-label>柱头科攒数【攒】</ion-label>
+        <ion-input right type="text" placeholder="请输入柱头科攒数" value=""></ion-input>
+      </ion-item>
+      <ion-item *ngIf="show2">
+        <ion-label>平身科攒数【攒】</ion-label>
+        <ion-input right type="text" placeholder="请输入平身科攒数" value=""></ion-input>
+      </ion-item>
+  </ion-list>
+
+</ion-content>

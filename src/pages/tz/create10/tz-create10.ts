@@ -3,16 +3,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-tz-create2',
-  templateUrl: 'tz-create2.html',
+  selector: 'page-tz-create10',
+  templateUrl: 'tz-create10.html',
 })
-export class TzCreate2Page {
+export class TzCreate10Page {
   propertyId: string;
   
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TzCreate2Page');
+    console.log('ionViewDidLoad TzCreate10Page');
   }
 
 }

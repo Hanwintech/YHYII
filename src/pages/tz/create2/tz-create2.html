@@ -1,13 +1,106 @@
 <ion-content>
-  
-   <ion-list>
-     <ion-list-header>
+
+  <ion-list>
+    <ion-list-header>
       平面形制
-     </ion-list-header>
-     <ion-item>
-       <ion-label>建筑编号</ion-label>
-       <ion-input right type="text" placeholder="请输入建筑编号" value=""></ion-input>
-     </ion-item>
-   </ion-list> 
- 
- </ion-content>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>平面形状</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入平面形状" name="" multiple="false">
+        <ion-option value="1">矩形</ion-option>
+        <ion-option value="2">六角形</ion-option>
+        <ion-option value="3">八角形</ion-option>
+        <ion-option value="4">其他</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-list radio-group>
+      <ion-item style="float:left;width:30%">楼梯</ion-item>
+      <ion-item style="float:left;width:35%">
+        <ion-label>有</ion-label>
+        <ion-radio value="有"></ion-radio>
+      </ion-item>
+      <ion-item style="float:right;width:35%">
+        <ion-label>无</ion-label>
+        <ion-radio value="无"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item style="float:left;width:30%">抱厦</ion-item>
+      <ion-item style="float:left;width:35%">
+        <ion-label>有</ion-label>
+        <ion-radio value="有"></ion-radio>
+      </ion-item>
+      <ion-item style="float:right;width:35%">
+        <ion-label>无</ion-label>
+        <ion-radio value="无"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item style="float:left;width:30%">前廊</ion-item>
+      <ion-item style="float:left;width:35%">
+        <ion-label>有</ion-label>
+        <ion-radio value="有"></ion-radio>
+      </ion-item>
+      <ion-item style="float:right;width:35%">
+        <ion-label>无</ion-label>
+        <ion-radio value="无"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item style="float:left;width:30%">周围廊</ion-item>
+      <ion-item style="float:left;width:35%">
+        <ion-label>有</ion-label>
+        <ion-radio value="有"></ion-radio>
+      </ion-item>
+      <ion-item style="float:right;width:35%">
+        <ion-label>无</ion-label>
+        <ion-radio value="无"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group>
+      <ion-item style="float:left;width:30%">后廊</ion-item>
+      <ion-item style="float:left;width:35%">
+        <ion-label>有</ion-label>
+        <ion-radio value="有"></ion-radio>
+      </ion-item>
+      <ion-item style="float:right;width:35%">
+        <ion-label>无</ion-label>
+        <ion-radio value="无"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label>面阔</ion-label>
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入面阔" name="" multiple="false">
+        <ion-option value="1">1间</ion-option>
+        <ion-option value="2">2间</ion-option>
+        <ion-option value="3">3间</ion-option>
+        <ion-option value="4">5间</ion-option>
+        <ion-option value="5">7间</ion-option>
+        <ion-option value="6">9间</ion-option>
+        <ion-option value="7">11间</ion-option>
+        <ion-option value="8">其他</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>通面阔尺寸【mm】</ion-label>
+      <ion-input right type="text" placeholder="请输入通面阔尺寸" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>进深</ion-label>
+        <ion-select okText="确定" cancelText="取消" placeholder="请输入进深" name="" multiple="false">
+          <ion-option value="1">1进</ion-option>
+          <ion-option value="2">2进</ion-option>
+          <ion-option value="3">3进</ion-option>
+          <ion-option value="4">4进</ion-option>
+          <ion-option value="5">5进</ion-option>
+          <ion-option value="6">其他</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>通进深尺寸【mm】</ion-label>
+        <ion-input right type="text" placeholder="请输入通进深尺寸" value=""></ion-input>
+      </ion-item>
+  </ion-list>
+
+</ion-content>
