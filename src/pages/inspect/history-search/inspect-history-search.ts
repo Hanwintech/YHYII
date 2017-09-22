@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Events } from 'ionic-angular';
-
-import { InspectSearch } from './../../../models/inspect/inspect-search.model';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
+import { MenuController } from 'ionic-angular';
+declare var BMap;
 
 @IonicPage()
 @Component({
@@ -9,20 +9,24 @@ import { InspectSearch } from './../../../models/inspect/inspect-search.model';
   templateUrl: 'inspect-history-search.html',
 })
 export class InspectHistorySearchPage {
-  dataSource = new InspectSearch();
+ 
 
-  constructor(public navCtrl: NavController,
-    public appCtrl: App, public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public modalCtrl: ModalController,
-    public events: Events) {
+  searchQuery: string = '';
+  dataSource = [];
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public platform: Platform,
+    public alertCtrl: AlertController,
+    public menuCtrl: MenuController) {
   }
 
-  statusEvent(value) {
-    this.dataSource.status = value;
-  }
 
-  searchHistory() {
-    this.viewCtrl.dismiss(this.dataSource);
+
+  ionViewDidLoad() {
+  }
+  select() {
+    this.menuCtrl.open("tzListNav");
   }
 }

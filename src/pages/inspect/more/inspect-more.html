@@ -1,0 +1,12 @@
+<!--
+  Generated template for the InspectMorePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-item-divider color="light">选择巡检内容</ion-item-divider>
+<ion-content>
+      <ion-item *ngFor="let item of listMore" ion-item (click)="openCreatePage(item.id)">
+          {{item.name}}
+    </ion-item>  
+</ion-content>

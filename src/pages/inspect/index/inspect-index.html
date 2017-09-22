@@ -2,17 +2,48 @@
   <ion-navbar>
     <ion-title>巡查在线</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="inspectHistory()">
-        <ion-icon name="md-bookmarks"></ion-icon>
+        <button ion-button icon-only (click)="select()">
+          <ion-icon name="md-menu"></ion-icon>
+        </button>
+      </ion-buttons>
+    <ion-buttons right>
+      <button ion-button icon-only >
+        <ion-icon name="md-search"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <div id="map-content">
-    <div id="map" #map></div>
-  </div>
-  <ion-icon name="locate" class="locate" (click)="getLocation()"></ion-icon>
-  <ion-icon name="add-circle" class="add-circle" (click)="addInspect()"></ion-icon>
+  <button *ngFor="let item of scenery" class="item-ios" ion-item (click)="openCreatePage(item.id)">
+          <h2>{{item.name}}</h2>
+          <p style="color:#989898;font-size:1.3rem;">{{item.parentName}}</p>
+          <p *ngIf="!item.inspectTime" item-end style="color:#989898;margin-top:0;">——</p>
+          <p *ngIf="item.inspectTime" item-end style="color:#989898;margin-top:0;">{{ item.inspectTime }}</p>
+    </button>
 </ion-content>
+<ion-menu id="inspectListMenu"persistent="true" class="menu" type="overlay" side="left" [content]="inspectNav">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{titleName}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label>巡检区域</ion-label>
+            <ion-select okText="确定" cancelText="取消" name="inpectStatus" multiple="false" >
+              <ion-option value="1">巡查正常</ion-option>
+              <ion-option value="2">出现问题未处理</ion-option>
+              <ion-option value="3">出现问题已处理</ion-option>
+              <ion-option value="4">未巡查</ion-option>
+            </ion-select>
+          </ion-item>
+
+      <button *ngFor="let menu of menuList" ion-item (click)="openPage(menu.id)">
+              {{menu.name}}
+            </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav id="inspectListMenu" #inspectNav></ion-nav>

@@ -1,0 +1,60 @@
+page-inspect-detail {
+    $borderColor: #e8e8e8;
+    $selectedCheckBox: #d80808;
+    $selectedCheckBoxBorder: #c10202;
+   
+    .gray-title {
+        .list-header {
+            background: #fafafa;
+        }
+        .list-header-md {
+            margin-bottom: 0;
+            min-height: 3rem;
+            //padding-top: 0.8rem;
+            //border-bottom: 1px solid #ddd;
+        }
+        .label-md {
+            margin: 0.7rem 0.8rem 0.7rem 0;
+            
+        }
+        .item-md.item-block .item-inner{
+            border:none;
+        }
+
+    }
+    .item-radio{
+        float:left;
+    }
+    [icon-right] ion-icon, [icon-end] ion-icon{
+        font-size: 2.0em;
+        line-height: .67;
+        pointer-events: none;
+        padding-left: 0;
+        padding-right: 0.4em;  
+    }
+    .selected .label {
+        color: $selectedCheckBoxBorder;}
+    .selected{
+        border: 1px solid $selectedCheckBoxBorder;
+    }
+    .active {
+        color: $selectedCheckBoxBorder;
+    }
+    .radioContianer{   
+        border:1px solid #ddd;
+        text-align: center;
+        width: 20%;
+        display: inline-block;
+    }
+    //****start **** 方块checkbox
+
+        .radioContainer {
+            width: auto;
+            float: left;
+            border: 1px solid $borderColor;
+            margin: 0.5rem 0.3rem;
+            min-height: 0;
+            margin-top: 0;
+    } 
+
+}

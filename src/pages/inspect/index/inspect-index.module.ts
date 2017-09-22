@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
-
 import { InspectIndexPage } from './inspect-index';
 
 @NgModule({
@@ -15,7 +13,6 @@ import { InspectIndexPage } from './inspect-index';
     InspectIndexPage
   ],
   providers: [
-    Geolocation
   ]
 })
 export class InspectIndexPageModule { }
