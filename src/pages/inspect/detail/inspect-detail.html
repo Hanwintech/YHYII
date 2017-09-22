@@ -1,0 +1,68 @@
+<!--
+  Generated template for the InspectDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>巡检内容</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>位置</ion-label>
+      <ion-input placeholder="请输入位置"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>情况描述</ion-label>
+      <ion-select okText="确定" cancelText="取消" name="inpectStatus" multiple="false">
+        <ion-option value="1">巡查正常</ion-option>
+        <ion-option value="2">出现问题未处理</ion-option>
+        <ion-option value="3">出现问题已处理</ion-option>
+        <ion-option value="4">未巡查</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>工种</ion-label>
+      <ion-select okText="确定" cancelText="取消" name="inpectStatus" multiple="false">
+        <ion-option value="1">巡查正常</ion-option>
+        <ion-option value="2">出现问题未处理</ion-option>
+        <ion-option value="3">出现问题已处理</ion-option>
+        <ion-option value="4">未巡查</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-list class="gray-title">
+      <ion-list-header>巡查描述</ion-list-header>
+      <ion-item>
+        <ion-textarea placeholder="请输入情况描述" style="height:80px;" name="name"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group class="gray-title" >
+      <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">
+       是否修缮
+      </ion-list-header>
+    
+      <ion-item style="border-bottom:1px solid #ddd;">
+        <ion-label>否</ion-label>
+        <ion-radio checked="true" value="go"></ion-radio>
+      </ion-item>
+    
+      <ion-item style="border-bottom:1px solid #ddd;">
+        <ion-label>是</ion-label>
+        <ion-radio value="rust"></ion-radio>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+    <ion-list ion-right style="text-align:right;">
+      <button ion-button color="default">确定</button>
+      <button ion-button item-end color="danger" (click)="closePage()">取消</button>
+    </ion-list>
+
+  
+
+</ion-content>
