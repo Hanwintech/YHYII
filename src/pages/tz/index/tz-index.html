@@ -10,6 +10,14 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-menu id="tzAreaMenu" class="menu" type="overlay" [content]="tzListNav">
+  <ion-list>
+    <button *ngFor="let menu of dataSource" ion-item>
+      {{menu.area}}
+    </button>
+  </ion-list>
+</ion-menu>
+
 <ion-menu id="tzListMenu" class="menu" type="overlay" side="right" [content]="tzListNav">
   <ion-item-group>
     <ion-item-divider color="light">筛选条件</ion-item-divider>
@@ -51,7 +59,7 @@
   </ion-item-group>
 
 </ion-menu>
-<ion-nav id="tzListNav" #tzListNav> </ion-nav>
+<ion-nav id="tzListNav" #tzListNav [root]="TZIndexPage"> </ion-nav>
 
 <ion-content>
   <button ion-item *ngFor="let tz of dataSource" class="item-ios" (click)="itemSelected(tz)">

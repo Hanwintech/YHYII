@@ -1,65 +1,61 @@
-<ion-content >
- 
-  <ion-list >
-    <ion-list-header>
-      基本信息
-    </ion-list-header>
-    <ion-item>
-      <ion-label>建筑编号</ion-label>
-      <ion-input right type="text" placeholder="请输入建筑编号" value=""></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>建筑名称</ion-label>
-      <ion-input right type="text" placeholder="请输入建筑名称" value=""></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>建筑面积【M²】</ion-label>
-      <ion-input right type="text" placeholder="请输入建筑面积" value=""></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>所属景区</ion-label>
-      <ion-input right type="text" placeholder="请输入所属景区" value=""></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>结构类型</ion-label>
-      <ion-select okText="确定" cancelText="取消" placeholder="请输入结构类型" name="" multiple="false">
-        <ion-option value="1">木</ion-option>
-        <ion-option value="2">砖木</ion-option>
-        <ion-option value="3">石木</ion-option>
-        <ion-option value="4">砖石</ion-option>
-        <ion-option value="5">铜铸仿木</ion-option>
-        <ion-option value="6">其他类型</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>建筑形式</ion-label>
-      <ion-textarea placeholder="请输入建筑形式" name="Type"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label>建筑功能</ion-label>
-      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="" multiple="false">
-        <ion-option value="1">办公用房</ion-option>
-        <ion-option value="2">监控室</ion-option>
-        <ion-option value="3">游览建筑</ion-option>
-        <ion-option value="4">原状陈设</ion-option>
-        <ion-option value="5">商业</ion-option>
-        <ion-option value="6">厕所</ion-option>
-        <ion-option value="7">库房</ion-option>
-        <ion-option value="8">其他</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>始建年代【年】</ion-label>
-      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑始建年代" cancelText="取消" doneText="确定"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>现存年代【年】</ion-label>
-      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑现存年代" cancelText="取消" doneText="确定"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>最后修缮时间【年】</ion-label>
-      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑最后修缮时间" cancelText="取消" doneText="确定"></ion-datetime>
-    </ion-item>
-  </ion-list> 
-
-</ion-content>
+<ion-list id="1">
+  <ion-list-header>
+    基本信息
+  </ion-list-header>
+  <ion-item>
+    <ion-label>建筑编号</ion-label>
+    <ion-input right type="text" placeholder="请输入建筑编号" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>建筑名称</ion-label>
+    <ion-input right type="text" placeholder="请输入建筑名称" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>建筑面积【M²】</ion-label>
+    <ion-input right type="text" placeholder="请输入建筑面积" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>所属景区</ion-label>
+    <ion-input right type="text" placeholder="请输入所属景区" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>结构类型</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="请输入结构类型" name="" multiple="false">
+      <ion-option value="1">木</ion-option>
+      <ion-option value="2">砖木</ion-option>
+      <ion-option value="3">石木</ion-option>
+      <ion-option value="4">砖石</ion-option>
+      <ion-option value="5">铜铸仿木</ion-option>
+      <ion-option value="6">其他类型</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>建筑形式</ion-label>
+    <ion-textarea placeholder="请输入建筑形式" name="Type"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label>建筑功能</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="" multiple="false">
+      <ion-option value="1">办公用房</ion-option>
+      <ion-option value="2">监控室</ion-option>
+      <ion-option value="3">游览建筑</ion-option>
+      <ion-option value="4">原状陈设</ion-option>
+      <ion-option value="5">商业</ion-option>
+      <ion-option value="6">厕所</ion-option>
+      <ion-option value="7">库房</ion-option>
+      <ion-option value="8">其他</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>始建年代【年】</ion-label>
+    <ion-input right type="text" placeholder="请输入始建年代" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>现存年代【年】</ion-label>
+    <ion-input right type="text" placeholder="请输入现存年代" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>最后修缮时间【年】</ion-label>
+    <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑最后修缮时间" cancelText="取消" doneText="确定"></ion-datetime>
+  </ion-item>
+</ion-list>

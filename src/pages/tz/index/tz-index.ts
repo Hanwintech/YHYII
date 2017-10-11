@@ -18,7 +18,7 @@ export class TZIndexPage {
   dataSource = [];
   
   searchQuery: string = '';
-
+ 
 
   constructor(
     public navCtrl: NavController,
@@ -29,7 +29,7 @@ export class TZIndexPage {
     public alertCtrl: AlertController,
     public menuCtrl: MenuController,
     public events: Events) {
-
+   
     this.dataSource = [
       { id: "1", number: "A00001", name: "东宫门牌坊", area: "AAAAAAAA景区", function: "3", time: "2017-08-16", status: "1" },
       { id: "2", number: "A00001", name: "东宫门", area: "ABCD景区", function: "3", time: "", status: "2" },
@@ -39,12 +39,15 @@ export class TZIndexPage {
       { id: "6", number: "A00001", name: "东宫门", area: "AAAA景区", function: "4", time: "2017-08-16", status: "2" },
       { id: "7", number: "A00001", name: "东宫门", area: "AAAA景区", function: "4", time: "2017-08-16", status: "1" }];
 
-
+     
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() { 
   }
-
+  ionViewDidEnter(){
+      this.menuCtrl.enable(true, 'tzAreaMenu');
+      this.menuCtrl.enable(false, 'tzcreateMenu');
+  }
   itemSelected() {
     this.navCtrl.push("TZCreatePage");
   }
@@ -56,7 +59,7 @@ export class TZIndexPage {
     this.menuCtrl.close("tzListMenu");
     //this.viewCtrl.dismiss(this.dataSource);
   }
-
+  
  
   filterItems(ev: any) {
     this.dataSource = [
