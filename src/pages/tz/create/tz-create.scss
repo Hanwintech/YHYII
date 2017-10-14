@@ -35,4 +35,14 @@
     .active {
         color: red;
     }
+    .bottom-bar{
+        float: right;
+        padding:0;
+        height:20px;
+        width:100%;
+        margin:0;
+    }
+    .item-radio .input-wrapper{
+        text-align: right; 
+    }
 }

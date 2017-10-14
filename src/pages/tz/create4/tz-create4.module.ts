@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { TzCreate2Page } from './tz-create2';
+import { TzCreate4Page } from './tz-create4';
 
 @NgModule({
   declarations: [
-    TzCreate2Page,
+    TzCreate4Page,
   ],
   imports: [
-    IonicPageModule.forChild(TzCreate2Page),
+    IonicPageModule.forChild(TzCreate4Page),
   ],
   exports: [
-    TzCreate2Page
+    TzCreate4Page
   ]
 })
-export class TzCreate2PageModule {}
+export class TzCreate4PageModule {}

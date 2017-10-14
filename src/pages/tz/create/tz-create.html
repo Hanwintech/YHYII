@@ -14,7 +14,7 @@
 
 <ion-menu id="tzCreateMenu" class="menu" type="overlay" [content]="tzCreateNav">
   <ion-list>
-    <button *ngFor="let menu of menuList" [class.selected]="menu.id==selectedMenuId" ion-item (click)="openPage(menu.id)">
+    <button *ngFor="let menu of menuList" [class.selected]="menu.id==selectedMenuId" ion-item (click)="scrollTo(menu.id)">
       {{menu.name}}
     </button>
   </ion-list>
@@ -22,13 +22,13 @@
 <ion-nav id="tzCreateNav" #tzCreateNav [root]="TZCreatePage"> </ion-nav>
 
 <ion-content>
-  <ion-toolbar class="left-bar">
+  <!-- <ion-toolbar class="left-bar">
     <button ion-button class="left-button" (click)="toggleMenu()">
       <ion-icon *ngFor="let menu of menuList" class="menu.id" [class.active]="menu.id==selectedMenuId" name="arrow-dropright"></ion-icon>    
       <br />
     </button>
-  </ion-toolbar>
+  </ion-toolbar> -->
+
 
   <div #formContent></div>
-
 </ion-content>
