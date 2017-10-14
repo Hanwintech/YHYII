@@ -107,32 +107,32 @@ export class InspectDetailPage {
   }
   submitData() {
     this.dataSource.parentId=1111;
-    this.sqlService.insertDetailData(this.dataSource).subscribe(res => {
-      if (res == "1") {
-        let toast = this.toastCtrl.create({
-          message: '数据暂存成功！',
-          cssClass: 'background:#ddd;',
-          duration: 1000
-        });
-        toast.present();
-      }
-      else {
-        let alert = this.alertCtrl.create({
-          title: '提示',
-          subTitle: '保存出错！',
-          buttons: ['确定']
-        });
-        alert.present();
-        console.log(res);
-      }
-    }, (error => {
-      let alert = this.alertCtrl.create({
-        title: '提示',
-        subTitle: '保存出错2！',
-        buttons: ['确定']
-      });
-      alert.present();
-    }))
+    // this.sqlService.insertDetailData(this.dataSource).subscribe(res => {
+    //   if (res == "1") {
+    //     let toast = this.toastCtrl.create({
+    //       message: '数据暂存成功！',
+    //       cssClass: 'background:#ddd;',
+    //       duration: 1000
+    //     });
+    //     toast.present();
+    //   }
+    //   else {
+    //     let alert = this.alertCtrl.create({
+    //       title: '提示',
+    //       subTitle: '保存出错！',
+    //       buttons: ['确定']
+    //     });
+    //     alert.present();
+    //     console.log(res);
+    //   }
+    // }, (error => {
+    //   let alert = this.alertCtrl.create({
+    //     title: '提示',
+    //     subTitle: '保存出错2！',
+    //     buttons: ['确定']
+    //   });
+    //   alert.present();
+    // }))
   }
 
   selectData(id){
