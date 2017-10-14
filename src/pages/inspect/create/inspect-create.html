@@ -9,11 +9,35 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-list *ngFor="let item of structure" class="gray-title">
-    <ion-list-header style="color:#9d9e9e">{{item.name}}</ion-list-header>
+    <ion-card *ngFor="let item of first">
+        <ion-card-header>
+          {{item.PositionName}}
+        </ion-card-header>
 
-    <ion-item *ngFor="let diseaseItem of item.disease" [class.selected]="diseaseItem.checked" (click)="itemCheck(diseaseItem)">
-        <ion-label>{{diseaseItem.value}}</ion-label>
-    </ion-item>
-  </ion-list>
+        <ion-card-content>
+            <ion-list *ngFor="let item of second" class="gray-title">
+                <ion-list-header style="color:#9d9e9e">{{item.name}}</ion-list-header>
+            
+                <ion-item *ngFor="let diseaseItem of item.disease" [class.selected]="diseaseItem.checked" (click)="itemCheck(diseaseItem.key,item.id)">
+                    <ion-label>{{diseaseItem.value}}</ion-label>
+                </ion-item>
+              </ion-list>        
+            </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+          <ion-card-header>
+          大力木架
+          </ion-card-header>
+          <ion-card-content>
+              <ion-list *ngFor="let item of daMuGouJia" class="gray-title">
+                  <ion-list-header style="color:#9d9e9e">{{item.name}}</ion-list-header>
+              
+                  <ion-item *ngFor="let diseaseItem of item.disease" [class.selected]="diseaseItem.checked" (click)="itemCheck(diseaseItem)">
+                      <ion-label>{{diseaseItem.value}}</ion-label>
+                  </ion-item>
+                </ion-list>       
+               </ion-card-content>
+        </ion-card>
+
 </ion-content>

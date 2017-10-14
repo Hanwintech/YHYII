@@ -16,18 +16,11 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col (click)='statisticsChart(1)' text-center>
-            <img src="assets/icon/ic_title_bar_chart_press.png">
-            <p>按时间统计</p>
+      <ion-col *ngFor="let item of sceneryArea" (click)='statisticsChart(item.ID)'>
+          <img src="assets/icon/ic_self_case_statistic.png">
+          <p>{{item.Name}}</p>
       </ion-col>
-      <ion-col (click)='statisticsChart(2)' text-center>
-            <img src="assets/icon/ic_search_month.png">
-            <p>按周期统计</p>
-      </ion-col>
-      <ion-col (click)='statisticsChart(3)' text-center>
-            <img src="assets/icon/ic_search_area.png">
-            <p>按遗产点统计</p>
-      </ion-col>
+     
     </ion-row>
     <ion-row>
       <ion-col (click)='statisticsChart(4)' text-center>

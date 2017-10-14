@@ -9,18 +9,58 @@ export class InspectService extends _baseService {
     token: string;
     constructor(private http: Http) { super(); }
 
-    getPropertyList(inspectSearchPara: any) {
+    getDiseaseInspection(){
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
-            method: RequestMethod.Post,
-            url: this.baseUrl + '/api/Inspect/ListProperty',
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/Inspect/DiseaseInspection',
             headers: headers,
-            body: inspectSearchPara,
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
 
+    getAreaList() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/Inspect/ListInspectArea',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getSceneryList() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/Inspect/ListScenery',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+
+    getListAncientArchitecture() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/Inspect/ListAncientArchitecture',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getListDisInspectPosition() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/Inspect/ListDisInspectPosition',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
     getPositionList(recordId: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');

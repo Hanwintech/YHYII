@@ -1,30 +1,31 @@
 export class addInsepct {
-    recordId: number;
-    positionId: string;
-    name: string;
-    // 巡查状态
-    inpectStatus: number;
-    //巡查情况描述
-    inspectDescription: string;
-    //所有可选的问题类型
-    questionTypeSource: any[];
-    //问题类型
-    questionType:string[];
-    //巡查人员
-    inspectPerson: string;
-    //巡查时间
-    inspectTime: string;
-    //巡查附件
-    picUrl: string[];
-    sPicUrl: string[];
+    recordId = null;
+    parentId = null;
+    location = null;
 
-    //整改描述
-    reformDescription: string;
-    //整改人员
-    reformPerson: string;
-    //整改时间
-    reformTime: string;
-    //整改附件
-    reformPicUrl: string[];
-    reformSPicUrl: string[];
+    //严重程度
+    damamgeDegreeSource: any[];
+    //严重程度
+    damamgeDegree = null;
+    //工种
+    workTypeSource: any[];
+    //工种
+    workType = null;
+    //巡检描述
+    inspectDescription: string;
+    //巡检附件
+    picUrl = [];
+
+    //是否修缮
+    respair = "0";
+    //修缮描述
+    respairDescription = null;
+    //巡检人员
+    inspectPerson = null;
+    //巡检时间
+    inspectTime = null;
+    //巡检人员
+    respairPerson = null;
+    //巡检时间
+    respairTime = null;
 }

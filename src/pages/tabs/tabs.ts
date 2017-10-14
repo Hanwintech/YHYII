@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Tabs, Platform } from 'ionic-angular';
 import { BackButtonService } from "../../services/backButton.service";
-import { InspectIndexPage } from './../inspect/index/inspect-index';
+import { StatisticsPage } from './../statistics/statistics';
 import { TZIndexPage } from './../tz/index/tz-index';
 import { MyPage } from './../my/my';
 
@@ -22,9 +22,9 @@ export class TabsPage {
         tabIcon: 'analytics'
       },
       {
-        root: InspectIndexPage,
-        tabTitle: '巡查',
-        tabIcon: 'home'
+        root: StatisticsPage,
+        tabTitle: '巡检',
+        tabIcon: 'navigate'
       },
       // {
       //   root: StatisticsPage,

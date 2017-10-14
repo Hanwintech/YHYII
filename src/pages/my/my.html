@@ -7,16 +7,34 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>我的</ion-title>
+    <ion-title>系统设置</ion-title>
+    <ion-buttons right>
+        <button ion-button icon-only (click)="exitMenu()">
+          <ion-icon name="md-log-out"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding class="action-sheets-basic-page">
-  <div  class="button-content">
+<ion-content class="action-sheets-basic-page">
+  <div style="width:100%;height:15em;overflow:hidden;text-align:center;">
+      <img src="http://img1.lvyou114.com/TukuMax/72/201358172111.jpg">
+  </div>
+
+      <button ion-button outline  icon-left padding block text-left (click)="getData()">
+          <ion-icon name="md-cloud-download"></ion-icon>
+        获取数据
+        </button>
+        
+      <button ion-button outline  icon-left padding block text-left (click)="uploadData()" >
+          <ion-icon name="md-cloud-upload"></ion-icon>
+       上传数据
+        </button>
+  <!-- <div  class="button-content">
      <button ion-button color="danger" class="exitbutton" block (click)="exitMenu()">
     退出系统
   </button>
-</div>
+</div> -->
 </ion-content>
