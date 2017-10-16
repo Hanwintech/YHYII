@@ -11,3 +11,5 @@ package-lock.json
 
 .DS_Store
 Thumbs.db
+src/pages/login/login.ts
+src/pages/login/login.ts

@@ -33,7 +33,6 @@ export class MyApp {
       this.splashScreen.hide();
       this.sqlite.echoTest().then(res=>{
         this.inspectService.getDiseaseInspection().subscribe((res) => {
-          console.log(res);
           this.json = {
             "structure": {
               "tables": {
@@ -41,7 +40,7 @@ export class MyApp {
                 "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
                 "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
                 "AncientArchitecture": "(ID,Name,SceneryName)",
-                "DiseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
+                "DiseaseRecord": "(InspectionPositionID int identity(1,1),ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
               }
             },
             "data": {

@@ -101,6 +101,12 @@ console.log(error);
     // });
     if (this.network.type === 'wifi') {
       //alert('we got a wifi connection,23213214324!');
+this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res=>{
+  console.log(res);
+},(error)=>{});
+
+
+
     }
 
 
@@ -145,14 +151,9 @@ console.log(error);
       fileName: 'name.jpg',
     }
     fileTransfer.upload(uploadImg,
-      encodeURI(this.baseService.baseUrl + '/api/Upload/SaveTempFile'),
+      encodeURI(this.baseService.baseUrl + '/Inspect/SaveTempFile'),
       options, true).then((data) => {
-        if (category == 0) {
-          //this.dataSource.picUrl.unshift(JSON.parse(data.response).data);
-        }
-        else {
-          // this.dataSource.reformPicUrl.unshift(JSON.parse(data.response).data);
-        }
+    
       }, (err) => {
         let alert = this.alertCtrl.create({
           title: '提示',

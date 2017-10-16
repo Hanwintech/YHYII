@@ -18,8 +18,8 @@ export class StatisticsPage {
     private inspectService: InspectService,
   ) { }
 
-  statisticsChart(scenenryId) {
-    this.navCtrl.push("InspectIndexPage", scenenryId);
+  statisticsChart(scenenryInfo) {
+    this.navCtrl.push("InspectIndexPage", scenenryInfo);
   }
 
   ionViewDidEnter() {

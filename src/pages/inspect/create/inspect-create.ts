@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { IonicPage, NavParams,NavController,MenuController,PopoverController ,ModalController,Platform} from 'ionic-angular';
+import { IonicPage, NavParams, NavController, MenuController, PopoverController, ModalController, Platform } from 'ionic-angular';
 import { InspectMorePage } from '../more/inspect-more';
 import { BackButtonService } from "./../../../services/backButton.service";
 import { SqlService } from "./../../../services/sqlite.service";
@@ -15,20 +15,16 @@ import { SqlService } from "./../../../services/sqlite.service";
 export class InspectCreatePage {
   @ViewChild('fileInput') fileInput;
   @ViewChild('panel') panel: ElementRef;
-  menuList=[];
-  structureTaiMing=[];
-  structureDaliMu=[];
+  menuList = [];
+  structureTaiMing = [];
+  structureDaliMu = [];
   titleName = "涵虚牌楼";
   //itemCheckBox的变量控制
-  itemCheckBox=true;
-  disPosition={};
-  first;
-  second;
-  third;
-  jsonStr;
+  itemCheckBox = true;
+  dataSource;
   constructor(
     public navCtrl: NavController,
-    public menuCtrl:MenuController,
+    public menuCtrl: MenuController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
     public backButtonService: BackButtonService,
@@ -37,76 +33,65 @@ export class InspectCreatePage {
     public popoverCtrl: PopoverController) {
 
   }
-  ionViewDidEnter(){
-   // this.menuCtrl.toggle("tzCreateMenu");
+  ionViewDidEnter() {
+    // this.menuCtrl.toggle("tzCreateMenu");
 
-  this.getData();
+    this.getData();
 
   }
- 
-  getData(){
-    this.sqlService.getSelectData('select * from DisInspectPosition where PID="0"').subscribe(res1=>{
-        this.first = res1;
-        for(let i=0;i<this.first.length;i++){
-          this.sqlService.getSelectData('select * from DisInspectPosition where PID="'+this.first[i].ID+'"').subscribe(res2=>{
-              this.second = res2;
-              for(let j=0;j<this.second.length;j++){
-                 if(this.second[i].type == 1){
-                    this.sqlService.getSelectData('select isRepaired from DiseaseRecord where InspectionPositionID="'+this.third[i].ID+'" and ancientArcID ="'+this.navParams.data+'"  ').subscribe(res4=>{
-                      if(res4 != null){
-                          this.jsonStr += "{key:" + this.third[i].Name + "," + "value:" + res4[0] + "},";
-                      }else{
-                          this.jsonStr += "{key:" + this.third[i].Name + "," + "value:0},";
-                      }
-                    })
-                 }else{
-                    this.sqlService.getSelectData('select * from DisInspectPosition where PID="'+this.first[i].ID+'"').subscribe(res3=>{
-                      this.third = res3;//沉降
-                      for(let k=0;k<this.third.length;k++){
-                          this.sqlService.getSelectData('select isRepaired from DiseaseRecord where InspectionPositionID="'+this.third[i].ID+'" and ancientArcID ="'+this.navParams.data+'"  ').subscribe(res4=>{
-                            if(res4 != null){
-                                this.jsonStr += "{key:" + this.third[i].Name + "," + "value:" + res4[0] + "},";
-                            }else{
-                                this.jsonStr += "{key:" + this.third[i].Name + "," + "value:0},";
-                            }
-                          })
-                      }
-                    })
-                 }
-                 //去掉末尾逗号
-              }
-              this.jsonStr += "key:" + this.second[i].Name + "," + "value:[" + this.jsonStr + "],";
-              this.jsonStr += "[key:" + this.first[i].Name + "," + "value:[" + this.jsonStr + "]]";
-          })
-        }
-        console.log(this.jsonStr);
-    },(error)=>{
 
+  getData() {
+    let queryStr = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="'+this.navParams.data+'") b on b.InspectionPositionID = a.ID';
+    this.sqlService.getSelectData(queryStr).subscribe(res => {
+      console.log(res);
+     this.dataSource=this.list_to_tree(res);
+     //console.log(this.dataSource);
+    }, (error) => {
     });
+
   }
-  menuMore(){
+  menuMore() {
     let popover = this.popoverCtrl.create(InspectMorePage);
-    popover.onDidDismiss(data=>{
+    popover.onDidDismiss(data => {
       console.log(data);
     })
     popover.present();
   }
 
-  leftMenu(){
+  leftMenu() {
     this.menuCtrl.toggle("inspectCreateMenu");
   }
-  itemCheck(diseaseItem,nameId){
-
-    
-
-    let inspectDetail=this.modalCtrl.create("InspectDetailPage");
-    inspectDetail.onDidDismiss(data=>{
-   
+  itemCheck(diseaseInfo) {
+    let inspectDetail = this.modalCtrl.create("InspectDetailPage",diseaseInfo);
+    inspectDetail.onDidDismiss(data => {
+      diseaseInfo.isRepaired="1";
+      console.log(diseaseInfo);
     })
     inspectDetail.present();
 
 
   }
+  private list_to_tree(list) {
+    var tree = [];
+    var refer = [];
+    for (var i = 0; i < list.length; i++) {
+      refer[list[i].ID] = list[i];
+    }
 
- 
+    for (var i = 0; i < list.length; i++) {
+      var parentId = list[i].PID;
+      if (0 == parentId) {
+        tree.push(list[i]);
+      } else {
+        if (refer[parentId]) {
+          let parent = refer[parentId];
+          if (!parent.child) parent.child = [];
+          parent.child.push(list[i]);
+        }
+      }
+    }
+    return tree;
+  }
+
+
 }
