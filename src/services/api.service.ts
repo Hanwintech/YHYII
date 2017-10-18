@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
+import { Md5 } from "ts-md5/dist/md5";
 import 'rxjs/add/operator/map';
 
 import { BaseRequest } from './baseRequest';
@@ -57,11 +58,11 @@ export class ApiService {
             headers.append('Content-Type', 'application/json');
         }
         var timestamp = Math.round(new Date().getTime() / 1000) + 28800;
-        //var nonce = "hygzf_app";
-        //var signature = Md5.hashStr("sipmch2017" + timestamp + nonce);
+        var nonce = "hygzf_app";
+        var signature = Md5.hashStr("sipmch2017" + timestamp + nonce);
         headers.append('timestamp', timestamp.toString());
-        //headers.append('nonce', nonce);
-        //headers.append('signature', signature.toString().toUpperCase());
+        headers.append('nonce', nonce);
+        headers.append('signature', signature.toString().toUpperCase());
         let options = {
             method: request.method,
             url: this.baseUrl + request.requestUrl,

@@ -31,7 +31,20 @@ export class SqlService {
 
     initialData(json) {
         this.initDB();
-        this.sqlitePorter.importJsonToDb(this.database, json).then(() => console.log('Imported'))
+        this.sqlitePorter.importJsonToDb(this.database, json)
+            .then(() => console.log('Imported'))
+            .catch(e => console.error(e));
+    }
+
+    importJsonToDb(json) {
+        this.initDB();
+        return this.sqlitePorter.importJsonToDb(this.database, json);
+    }
+
+    execSqlToDb(sql) {
+        this.initDB();
+        this.sqlitePorter.importSqlToDb(this.database, sql)
+            .then(() => console.log('Imported'))
             .catch(e => console.error(e));
     }
 
@@ -43,9 +56,9 @@ export class SqlService {
     }
     insertData(dataSource): Observable<string> {
         var resultData = "INSERT INTO DiseaseRecord (InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType) VALUES ('" +
-        +  + "','" + dataSource.parentId + "','" + dataSource.location + "','" + dataSource.damamgeDegree + "','" +
-        + dataSource.workType + "','" + dataSource.inspectDescription + "','" + dataSource.picUrl.join(",") + "','" +
-        + dataSource.respair + "','" + dataSource.respairDescription + "','" + dataSource.inspectPerson + "','" + dataSource.inspectTime + "')";
+            +  + "','" + dataSource.parentId + "','" + dataSource.location + "','" + dataSource.damamgeDegree + "','" +
+            + dataSource.workType + "','" + dataSource.inspectDescription + "','" + dataSource.picUrl.join(",") + "','" +
+            + dataSource.respair + "','" + dataSource.respairDescription + "','" + dataSource.inspectPerson + "','" + dataSource.inspectTime + "')";
 
         return Observable.create(observer => {
             this.sqlite.create({
@@ -77,6 +90,8 @@ export class SqlService {
                             arr.push(item);
                         }
                         observer.next(arr);
+                    } else {
+                        observer.next(false);
                     }
                 }, (error) => {
                     observer.next(error);

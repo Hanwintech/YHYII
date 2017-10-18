@@ -106,9 +106,9 @@ export class MyPage {
     // });
     if (this.network.type === 'wifi') {
       //alert('we got a wifi connection,23213214324!');
-this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res=>{
-  console.log(res);
-},(error)=>{});
+      this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res => {
+        console.log(res);
+      }, (error) => { });
 
 
 
@@ -158,7 +158,7 @@ this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res=>{
     fileTransfer.upload(uploadImg,
       encodeURI(this.apiService.baseUrl + '/Inspect/SaveTempFile'),
       options, true).then((data) => {
-    
+
       }, (err) => {
         let alert = this.alertCtrl.create({
           title: '提示',
@@ -206,47 +206,36 @@ this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res=>{
   }
   //古建台账数据同步
   synchronousData() {
-    // this.http
-    //   .get('http://10.10.10.110:9000/api/AncientArchiteture/GetAncientArchitectureList', {}, {})
-    //   .then(
-    //   data => {
-    //     alert(1);
-    //     alert(data);
-    //     alert(data.data.length);
-    //   })
-    //   .catch(error => {
-    //     console.log(error.status);
-    //     console.log(error.error); // error message as string
-    //     console.log(error.headers);
-
-    //   });
-
-
-
-
-
-
     let request: BaseRequest = new BaseRequest();
     request.method = "GET";
     request.requestUrl = "/api/AncientArchiteture/GetAncientArchitectureList";
     this.apiService.sendApi(request).subscribe(
       (res) => {
-        alert(222222)
-        // let filltz = res.data as any[];
-        // alert(filltz.length);
-        // this.json = {
-        //   "data": {
-        //     "inserts": {
-        //       "Tz": JSON.parse(filltz[0]),
-        //     }
-        //   }
-        // };
-        // this.sqlService.initialData(this.json);
-        // alert(3);
-
-        // this.sqlService.getSelectData("select * from Tz").subscribe((res) => {
-        //   alert(res);
-        // });
+        let filltz = res.data;
+        console.log(filltz.length);
+        this.json = {
+          "structure": {
+            "tables": {
+              "Tz": `(id,status,date,_01bh,_01mc,_01jzmj,_01ssjq,_01jglx,_01jzxs,_01jzgn,_01sjnd,_01xcnd,_01zhxssj,_02pmxz,_02lt,
+_02bs,_02ql,_02zwl,_02hl,_02mk,_02tmkcc,_02js,_02tjscc,_03tjcl,_03tjxs,_03tjgd,_03dmcl,_03dmzf,_03yt,_03ytlglb,_03tj,_03tjzs,_03bgs,
+_03bgssl,_04cl,_04qsqf,_04xjqf,_04xjgd,_05ljcl,_05ljxs,_05yzzj,_05ttsl,_06xydg,_06dkcc,_06ms,_06jkcs,_06ztkcs,_06pskcs,_06sydg,_06dkcc2,
+_06ms2,_06jkcs2,_06ztkcs2,_06pskcs2,_07gslj,_07gscl,_07fm,_07lccl,_07yc,_07ycxz,_07yzjlg,_07dgmz,_07zdmz,_07th,_08xjzz,_08ljch,_08ljchlx,
+_08thch,_08thchlx,_09wdxs,_09wmlx,_09llwys,_09jbys,_09ws,_09xrzs,_09zssl,_09qtgj,_09fcxpgd,_09zjgd,_10gjbz,_11wtms)`
+            }
+          },
+          "data": {
+            "inserts": {
+              "Tz": (filltz[0] as fillTz),
+            }
+          }
+        };
+        this.sqlService.importJsonToDb(this.json)
+          .then(() => {
+            this.sqlService.getSelectData("select * from Tz").subscribe((res) => {
+              console.log(res);
+            });
+          })
+          .catch(e => console.error(e));
       },
       (error) => {
         alert(error);

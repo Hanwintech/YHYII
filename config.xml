@@ -3,7 +3,7 @@
     <name>颐和园移动APP</name>
     <description>颐和园移动APP</description>
     <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.10.10.110:8100" />
     <access origin="*" />
     <allow-navigation href="http://*/*" />
     <allow-intent href="http://*/*" />
@@ -79,6 +79,8 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
     <allow-navigation href="http://10.10.10.110:8100" />
+    <engine name="android" spec="^6.2.3" />
+    <plugin name="cordova-plugin-advanced-http" spec="^1.6.1" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
@@ -96,6 +98,4 @@
         <variable name="APP_KEY" value="960ce03b532dc9d781595c20" />
     </plugin>
     <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="^1.0.0" />
-    <plugin name="cordova-plugin-advanced-http" spec="^1.6.1" />
-    <engine name="android" spec="~6.2.3" />
 </widget>
