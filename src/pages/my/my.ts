@@ -6,9 +6,22 @@ import { Network } from '@ionic-native/network';
 import { SqlService } from "../../services/sqlite.service";
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { File } from '@ionic-native/file';
-import { _baseService } from "./../../services/_base.service"
+import { _baseService } from "./../../services/_base.service";
+import { ApiService } from "./../../services/api.service";
 import { InspectService } from './../../services/inspect.service';
-import { Http, Headers, RequestMethod, Request } from '@angular/http';
+import { Headers, RequestMethod, Request } from '@angular/http';
+import { BaseRequest } from './../../services/baseRequest';
+import { IHttpCommonResponse } from "./../../models/httpCommonResponse.model";
+import { fillTz } from "./../../models/tz/fill-tz.model";
+
+
+
+
+import { HTTP } from '@ionic-native/http';
+
+
+
+
 @IonicPage()
 @Component({
   selector: 'page-my',
@@ -27,12 +40,14 @@ export class MyPage {
     private network: Network,
     private sqlService: SqlService,
     private baseService: _baseService,
+    private apiService: ApiService,
     public sqlite: SQLite,
-    private http: Http,
+    private http: HTTP,
     private file: File,
     public transfer: FileTransfer,
     private inspectService: InspectService,
-    public actionSheetCtrl: ActionSheetController) {
+    public actionSheetCtrl: ActionSheetController
+  ) {
     this.download();
 
   }
@@ -60,33 +75,33 @@ export class MyPage {
     });
     actionSheet.present();
   }
-  ionViewDidEnter(){
-    this.inspectService.getDiseaseInspection().subscribe((res)=>{
-        console.log(res);
+  ionViewDidEnter() {
+    this.inspectService.getDiseaseInspection().subscribe((res) => {
+      console.log(res);
       this.json = {
-       "structure": {
-         "tables": {
-           "Area": "(Description,ID,Name)",
-           "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
-           "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
-           "AncientArchitecture": "(ID,Name,SceneryName)",
-           "diseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
-         }
-       },
-       "data": {
-         "inserts": {
-           "Area": JSON.parse(res[0]),
-           "Scenery":JSON.parse(res[1]),
-           "DisInspectPosition":JSON.parse(res[2]),
-           "AncientArchitecture": JSON.parse(res[3]),
-           "diseaseRecord":JSON.parse(res[4]),
-         }
-       }
-     };
-     this.sqlService.initialData(this.json);
- },(error)=>{
-console.log(error);
- });
+        "structure": {
+          "tables": {
+            "Area": "(Description,ID,Name)",
+            "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
+            "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
+            "AncientArchitecture": "(ID,Name,SceneryName)",
+            "diseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
+          }
+        },
+        "data": {
+          "inserts": {
+            "Area": JSON.parse(res[0]),
+            "Scenery": JSON.parse(res[1]),
+            "DisInspectPosition": JSON.parse(res[2]),
+            "AncientArchitecture": JSON.parse(res[3]),
+            "diseaseRecord": JSON.parse(res[4]),
+          }
+        }
+      };
+      this.sqlService.initialData(this.json);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
 
@@ -173,10 +188,10 @@ console.log(error);
     const url = 'http://www.kingwong.com/images/Beijing/web_xsmall/Yiheyuan/bjing0069.jpg';
     fileTransfer.download(url, this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + 'bjing0069.jpg').then((entry) => {
       console.log('download complete: ' + entry.toURL());
-     // alert(entry.toURL());
-     // alert(this.file.externalRootDirectory);
+      // alert(entry.toURL());
+      // alert(this.file.externalRootDirectory);
       fileTransfer.onProgress;
-     // alert( fileTransfer.onProgress);
+      // alert( fileTransfer.onProgress);
     }, (error) => {
       // handle error
     });
@@ -190,13 +205,61 @@ console.log(error);
 
     }).catch(err => console.log('remove fail'));
   }
-  getData() {
-   
-  this.sqlService.getSelectData("select * from Scenery").subscribe((res)=>{
-    console.log(res);
-  },error=>{
 
-  });
+  getData() {
+    this.sqlService.getSelectData("select * from Scenery").subscribe((res) => {
+      console.log(res);
+    }, error => {
+
+    });
+  }
+  //古建台账数据同步
+  synchronousData() {
+    // this.http
+    //   .get('http://10.10.10.110:9000/api/AncientArchiteture/GetAncientArchitectureList', {}, {})
+    //   .then(
+    //   data => {
+    //     alert(1);
+    //     alert(data);
+    //     alert(data.data.length);
+    //   })
+    //   .catch(error => {
+    //     console.log(error.status);
+    //     console.log(error.error); // error message as string
+    //     console.log(error.headers);
+
+    //   });
+
+
+
+
+
+
+    let request: BaseRequest = new BaseRequest();
+    request.method = "GET";
+    request.requestUrl = "/api/AncientArchiteture/GetAncientArchitectureList";
+    this.apiService.sendApi(request).subscribe(
+      (res) => {
+        alert(222222)
+        // let filltz = res.data as any[];
+        // alert(filltz.length);
+        // this.json = {
+        //   "data": {
+        //     "inserts": {
+        //       "Tz": JSON.parse(filltz[0]),
+        //     }
+        //   }
+        // };
+        // this.sqlService.initialData(this.json);
+        // alert(3);
+
+        // this.sqlService.getSelectData("select * from Tz").subscribe((res) => {
+        //   alert(res);
+        // });
+      },
+      (error) => {
+        alert(error);
+      });
   }
 }
 

@@ -41,7 +41,12 @@ export class MyApp {
                 "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
                 "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
                 "AncientArchitecture": "(ID,Name,SceneryName)",
-                "DiseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
+                "DiseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)",
+                "Tz":`(id,status,date,_01bh,_01mc,_01jzmj,_01ssjq,_01jglx,_01jzxs,_01jzgn,_01sjnd,_01xcnd,_01zhxssj,_02pmxz,_02lt,
+_02bs,_02ql,_02zwl,_02hl,_02mk,_02tmkcc,_02js,_02tjscc,_03tjcl,_03tjxs,_03tjgd,_03dmcl,_03dmzf,_03yt,_03ytlglb,_03tj,_03tjzs,_03bgs,
+_03bgssl,_04cl,_04qsqf,_04xjqf,_04xjgd,_05ljcl,_05ljxs,_05yzzj,_05ttsl,_06xydg,_06dkcc,_06ms,_06jkcs,_06ztkcs,_06pskcs,_06sydg,_06dkcc2,
+_06ms2,_06jkcs2,_06ztkcs2,_06pskcs2,_07gslj,_07gscl,_07fm,_07lccl,_07yc,_07ycxz,_07yzjlg,_07dgmz,_07zdmz,_07th,_08xjzz,_08ljch,_08ljchlx,
+_08thch,_08thchlx,_09wdxs,_09wmlx,_09llwys,_09jbys,_09ws,_09xrzs,_09zssl,_09qtgj,_09fcxpgd,_09zjgd,_10gjbz,_11wtms)`
               }
             },
             "data": {

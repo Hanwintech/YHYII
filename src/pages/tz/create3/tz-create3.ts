@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { tzDataSource } from './../../../models/tz/tzDataSource.model';
 @IonicPage()
 @Component({
   selector: 'page-tz-create3',
   templateUrl: 'tz-create3.html',
 })
 export class TzCreate3Page {
-  propertyId: string;
+  public propertyId: string;
   show1: boolean;
   show2: boolean;
   show3: boolean;
-  // dataSource=[];
+  public dropdownDS: tzDataSource;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     // this.dataSource = [
     //   { ytvalue: "true"},
@@ -28,25 +28,13 @@ export class TzCreate3Page {
   }
 
   showOrHide1(value) {
-    if (value) {
-      this.show1 = true;
-    } else {
-      this.show1 = false;
-    }
+      this.show1 = value;
   }
 
   showOrHide2(value) {
-    if (value) {
-      this.show2 = true;
-    } else {
-      this.show2 = false;
-    }
+      this.show2 = value;
   }
   showOrHide3(value) {
-    if (value) {
-      this.show3 = true;
-    } else {
-      this.show3 = false;
-    }
+    this.show3 = value;
   }
 }

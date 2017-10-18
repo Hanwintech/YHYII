@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform, IonicPage, AlertController, NavParams } from 'ionic-angular';
+import { tzDataSource } from './../../../models/tz/tzDataSource.model';
 
 @IonicPage()
 @Component({
@@ -7,7 +8,8 @@ import { NavController, Platform, IonicPage, AlertController, NavParams } from '
   templateUrl: 'tz-create1.html',
 })
 export class TzCreate1Page {
-  propertyId: string;
+  public propertyId: string;
+  public dropdownDS: tzDataSource;
 
   constructor(
     public navCtrl: NavController,
@@ -15,9 +17,4 @@ export class TzCreate1Page {
     public platform: Platform,
     public alertCtrl: AlertController
   ) { }
-
-
-
-
-
 }
