@@ -25,7 +25,7 @@ export class ApiService {
         if (!this._baseUrl) {
             this._baseUrl = localStorage.getItem('baseUrl');
             if (!this._baseUrl || this._baseUrl.length == 0) {
-                this._baseUrl = "http://10.10.10.219:8000";
+                this._baseUrl = "http://10.10.10.110:9000";
             }
         }
         return this._baseUrl;

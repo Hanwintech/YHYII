@@ -14,7 +14,7 @@ export class InspectService extends ApiService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/Inspect/DiseaseInspection',
+            url: this.baseUrl + '/api/Inspect/DiseaseInspection',
             headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json());
@@ -25,7 +25,7 @@ export class InspectService extends ApiService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/Inspect/ListInspectArea',
+            url: this.baseUrl + '/api/Inspect/ListInspectArea',
             headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json());
@@ -35,7 +35,7 @@ export class InspectService extends ApiService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/Inspect/ListScenery',
+            url: this.baseUrl + '/api/Inspect/ListScenery',
             headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json());
@@ -46,7 +46,7 @@ export class InspectService extends ApiService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/Inspect/ListAncientArchitecture',
+            url: this.baseUrl + '/api/Inspect/ListAncientArchitecture',
             headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json());
@@ -56,7 +56,7 @@ export class InspectService extends ApiService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/Inspect/ListDisInspectPosition',
+            url: this.baseUrl + '/api/Inspect/ListDisInspectPosition',
             headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json());
