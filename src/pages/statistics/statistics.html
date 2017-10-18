@@ -16,7 +16,7 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let item of sceneryArea" (click)='statisticsChart(item.ID)'>
+      <ion-col *ngFor="let item of sceneryArea" (click)='statisticsChart(item)'>
           <img src="assets/icon/ic_self_case_statistic.png">
           <p>{{item.Name}}</p>
       </ion-col>

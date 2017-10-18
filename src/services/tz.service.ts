@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { _baseService } from "./_base.service"
-
 @Injectable()
-export class TzService extends _baseService {
+export class TzService {
     token: string;
-    constructor(private http: Http) { super(); }
+    constructor(private http: Http) { }
 
     // getDiseaseInspection(){
     //     let headers = new Headers();

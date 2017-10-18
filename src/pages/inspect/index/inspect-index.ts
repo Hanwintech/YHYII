@@ -40,18 +40,24 @@ export class InspectIndexPage {
 
   }
   ionViewDidEnter() {
-    this.sqlService.getSelectData('select * from Scenery where InspectAreaID="' + this.navParams.data + '"').subscribe(res => {
+    this.menuCtrl.enable(false, 'tzAreaMenu');
+    this.menuCtrl.enable(false, 'tzcreateMenu');
+    this.menuCtrl.enable(true, 'inspectListMenu');
+    this.sqlService.getSelectData('select * from Scenery where InspectAreaID="' + this.navParams.data.ID + '"').subscribe(res => {
       this.scenery = res;
       console.log(this.scenery[0].Name);
       this.getBuilding(this.scenery[0].Name);
     }, (error) => {
       console.log(error);
     })
-
+    this.titleName = this.navParams.data.Name;
 
   }
   select() {
-    this.menuCtrl.toggle("inspectListMenu");
+    //this.menuCtrl.isOpen("inspectListMenu");
+    this.menuCtrl.open("inspectListMenu");
+    console.log(this.menuCtrl.isEnabled("inspectListMenu"));
+    console.log(this.menuCtrl.open());
   }
 
   getBuilding(selectedName) {
@@ -64,10 +70,10 @@ export class InspectIndexPage {
   }
   openPage(selectedName) {
     this.getBuilding(selectedName);
-    this.menuCtrl.toggle("inspectListMenu");
+    this.menuCtrl.close("inspectListMenu");
   }
   openCreatePage(selectedId) {
-    this.navCtrl.push("InspectCreatePage");
+    this.navCtrl.push("InspectCreatePage", selectedId);
   }
 
 }

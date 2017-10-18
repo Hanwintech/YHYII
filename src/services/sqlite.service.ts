@@ -17,7 +17,7 @@ export class SqlService {
             this.initDB();
         }, (error) => { return });
     }
-    
+
     initDB() {
         this.sqlite.create({
             name: 'data.db',
@@ -40,6 +40,25 @@ export class SqlService {
             name: "data.db",
             location: "default"
         })
+    }
+    insertData(dataSource): Observable<string> {
+        var resultData = "INSERT INTO DiseaseRecord (InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType) VALUES ('" +
+        +  + "','" + dataSource.parentId + "','" + dataSource.location + "','" + dataSource.damamgeDegree + "','" +
+        + dataSource.workType + "','" + dataSource.inspectDescription + "','" + dataSource.picUrl.join(",") + "','" +
+        + dataSource.respair + "','" + dataSource.respairDescription + "','" + dataSource.inspectPerson + "','" + dataSource.inspectTime + "')";
+
+        return Observable.create(observer => {
+            this.sqlite.create({
+                name: "data.db",
+                location: "default"
+            }).then((db: SQLiteObject) => {
+                db.executeSql(resultData, {}).then((rs) => {
+                    console.log(rs);
+                }, (error) => {
+                    observer.next(error);
+                })
+            });
+        });
     }
 
     getSelectData(InsertQuery: string): Observable<string> {

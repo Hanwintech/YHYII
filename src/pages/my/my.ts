@@ -6,21 +6,13 @@ import { Network } from '@ionic-native/network';
 import { SqlService } from "../../services/sqlite.service";
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { File } from '@ionic-native/file';
-import { _baseService } from "./../../services/_base.service";
+
 import { ApiService } from "./../../services/api.service";
 import { InspectService } from './../../services/inspect.service';
 import { Headers, RequestMethod, Request } from '@angular/http';
 import { BaseRequest } from './../../services/baseRequest';
 import { IHttpCommonResponse } from "./../../models/httpCommonResponse.model";
 import { fillTz } from "./../../models/tz/fill-tz.model";
-
-
-
-
-import { HTTP } from '@ionic-native/http';
-
-
-
 
 @IonicPage()
 @Component({
@@ -39,10 +31,8 @@ export class MyPage {
     public platform: Platform,
     private network: Network,
     private sqlService: SqlService,
-    private baseService: _baseService,
     private apiService: ApiService,
     public sqlite: SQLite,
-    private http: HTTP,
     private file: File,
     public transfer: FileTransfer,
     private inspectService: InspectService,
@@ -116,6 +106,12 @@ export class MyPage {
     // });
     if (this.network.type === 'wifi') {
       //alert('we got a wifi connection,23213214324!');
+this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res=>{
+  console.log(res);
+},(error)=>{});
+
+
+
     }
 
 
@@ -160,14 +156,9 @@ export class MyPage {
       fileName: 'name.jpg',
     }
     fileTransfer.upload(uploadImg,
-      encodeURI(this.baseService.baseUrl + '/api/Upload/SaveTempFile'),
+      encodeURI(this.apiService.baseUrl + '/Inspect/SaveTempFile'),
       options, true).then((data) => {
-        if (category == 0) {
-          //this.dataSource.picUrl.unshift(JSON.parse(data.response).data);
-        }
-        else {
-          // this.dataSource.reformPicUrl.unshift(JSON.parse(data.response).data);
-        }
+    
       }, (err) => {
         let alert = this.alertCtrl.create({
           title: '提示',

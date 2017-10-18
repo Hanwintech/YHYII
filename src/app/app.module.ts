@@ -16,7 +16,6 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { GlobalCache } from './../services/globalCache.service';
 import { ApiService } from './../services/api.service';
 import { InspectService } from './../services/inspect.service';
-import { _baseService } from './../services/_base.service';
 import { StatisticsService } from './../services/statistics.service';
 import { nativeImgService } from "./../services/nativeImg.service";
 import { SqlService } from "./../services/sqlite.service";
@@ -68,7 +67,6 @@ import { Geolocation } from '@ionic-native/geolocation';
     GlobalCache,
     ApiService,
     InspectService,
-    _baseService,
     StatisticsService,
     FileTransfer,
     Geolocation,

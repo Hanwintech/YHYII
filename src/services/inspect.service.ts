@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { _baseService } from "./_base.service"
+import { ApiService } from './api.service';
 
 @Injectable()
-export class InspectService extends _baseService {
+export class InspectService extends ApiService {
     token: string;
-    constructor(private http: Http) { super(); }
+    constructor(public http: Http) { super(http); }
 
     getDiseaseInspection(){
         let headers = new Headers();

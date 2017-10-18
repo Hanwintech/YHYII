@@ -33,7 +33,6 @@ export class MyApp {
       this.splashScreen.hide();
       this.sqlite.echoTest().then(res=>{
         this.inspectService.getDiseaseInspection().subscribe((res) => {
-          console.log(res);
           this.json = {
             "structure": {
               "tables": {
