@@ -64,7 +64,8 @@ export class InspectCreatePage {
   itemCheck(diseaseInfo) {
     let inspectDetail = this.modalCtrl.create("InspectDetailPage",{ID:diseaseInfo.ID,ancientArcID:this.navParams.data});
     inspectDetail.onDidDismiss(data => {
-      diseaseInfo.isRepaired="1";
+    alert(data);
+      diseaseInfo.isRepaired=data;
     })
     inspectDetail.present();
 

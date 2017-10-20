@@ -11,7 +11,6 @@ export class fillTz {
     _01jzxs: string;// 建筑形式
     _01jzgn: string;// 建筑功能
     _01sjnd: string;// 始建年代
-    _01xcnd: string;// 现存年代
     _01zhxssj: string;// 最后修缮时间
 
     _02pmxz: string;//平面形状
@@ -91,4 +90,7 @@ export class fillTz {
     _10gjbz:string;//古建备注
 
     _11wtms:string;//问题描述
+
+
+    modifyTime
 }   

@@ -6,12 +6,18 @@
       </button>
     </ion-buttons>
     <ion-title>巡检内容</ion-title>
+    <ion-buttons right>
+      <button ion-button outline icon-left padding block text-left (click)="submitData()">
+        <ion-icon name="md-cloud-done"></ion-icon>
+      保存
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <form *ngIf="dataSource">
+  <form *ngIf="dataSource" name="dataSource">
     <ion-list>
       <ion-list class="gray-title">
         <ion-list-header>位置</ion-list-header>
@@ -54,14 +60,14 @@
           </div>
         </ion-item>
       </ion-list>
-      <ion-list radio-group class="gray-title">
+      <ion-list radio-group class="gray-title" [(ngModel)]="dataSource.isRepaired" name="dataSource.isRepaired">
         <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">
           是否修缮
         </ion-list-header>
 
         <ion-item style="border-bottom:1px solid #ddd;">
           <ion-label>否</ion-label>
-          <ion-radio checked="true" value="0"></ion-radio>
+          <ion-radio checked value="0"></ion-radio>
         </ion-item>
 
         <ion-item style="border-bottom:1px solid #ddd;">
@@ -69,11 +75,6 @@
           <ion-radio value="1"></ion-radio>
         </ion-item>
       </ion-list>
-
-    </ion-list>
-    <ion-list ion-right style="text-align:right;">
-      <button ion-button color="default" (click)="submitData()">确定</button>
-      <button ion-button color="default" (click)="selectData()">selectData</button>
     </ion-list>
   </form>
 </ion-content>

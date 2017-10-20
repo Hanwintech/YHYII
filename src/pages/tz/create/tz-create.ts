@@ -28,7 +28,7 @@ export class TZCreatePage {
   selectedMenuId = "";
   public dropdownDS: tzDataSource;
   lt: boolean;
-
+  relationship;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -77,7 +77,9 @@ export class TZCreatePage {
       this.dropdownDS._09llwys = ["黄","绿","蓝","其他"];//琉璃瓦颜色
       this.dropdownDS._09jbys = ["黄","绿","蓝","其他"];//剪边颜色
   }
-
+  submitData(){
+    alert(this.relationship);
+  }
   toggleMenu() {
     this.menuCtrl.toggle("tzCreateMenu");
   }

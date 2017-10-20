@@ -9,7 +9,6 @@ import { PreviewPicturePage } from "../../../shared/preview-picture/preview-pict
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 
-<<<<<<< HEAD
 
 /**
  * Generated class for the InspectDetailPage page.
@@ -18,9 +17,6 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
  * on Ionic pages and navigation.
  */
 
-=======
-declare var imgUrl;
->>>>>>> d88be1b03cc9515bb52b9eb11046347b923c7aea
 @IonicPage()
 @Component({
   selector: 'page-inspect-detail',
@@ -131,48 +127,17 @@ export class InspectDetailPage {
     });
     actionSheet.present();
   }
-<<<<<<< HEAD
-=======
-
-  damamgeDegreeEvent(value){
-    this.dataSource.damamgeDegree=value;
+  questionEvent(data){
+    alert(data);
   }
-  workTypeEvent(value){
-    this.dataSource.workType=value;
-  }
-
-  private uploadFile(uploadImg) {
-    //上传图片
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    let options: FileUploadOptions = {
-      fileKey: 'file',
-      fileName: 'name.jpg',
-    }
-    fileTransfer.upload(uploadImg,
-      encodeURI(this.apiService.baseUrl + '/Inspect/SaveTempFile'),
-      options, true).then((data) => {
-    
-      }, (err) => {
-        let alert = this.alertCtrl.create({
-          title: '提示',
-          subTitle: '文件上传出错！',
-          buttons: ['确定']
-        });
-        alert.present();
-      })
-  }
->>>>>>> d88be1b03cc9515bb52b9eb11046347b923c7aea
   submitData() {
     let jsonData;
     this.dataSource.InspectionPositionID = this.navParams.data.ID;
-    this.dataSource.ancientArcID = this.navParams.data.ancientArcID;
-    this.dataSource.recordId = this.guid();
-    console.log("图片为：");
-    console.log(this.dataSource.picUrl);
+    this.dataSource.ancientArcID = this.navParams.data.ancientArcID; 
     let myDate = new Date();
     this.dataSource.inspectTime = myDate.toLocaleDateString();
     console.log(this.dataSource);
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.dataSource.isRepaired);
     if (this.isHaveData) {
       jsonData = {
         "data": {
@@ -188,6 +153,7 @@ export class InspectDetailPage {
       };
     }
     else {
+      this.dataSource.recordId = this.guid();
       jsonData = {
         "data": {
           "inserts": {

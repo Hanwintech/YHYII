@@ -66,32 +66,58 @@ export class MyPage {
 
   }
 
-  uploadData(): Observable<boolean> {
 
-    return Observable.create(observe => {
+  synchronousData(){
+    this.inspectService.getListAncientArchitecture().subscribe((res)=>{
+      console.log
+      this.json = {
+        "structure": {
+          "tables": {
+            "BuildingInfo": `(id,status,modifyTime,_01bh,_01mc,_01jzmj,_01ssjq,_01jglx,_01jzxs,_01jzgn,_01sjnd,_01xcnd,_01zhxssj,_02pmxz,_02lt,
+              _02bs,_02ql,_02zwl,_02hl,_02mk,_02tmkcc,_02js,_02tjscc,_03tjcl,_03tjxs,_03tjgd,_03dmcl,_03dmzf,_03yt,_03ytlglb,_03tj,_03tjzs,_03bgs,
+              _03bgssl,_04cl,_04qsqf,_04xjqf,_04xjgd,_05ljcl,_05ljxs,_05yzzj,_05ttsl,_06xydg,_06dkcc,_06ms,_06jkcs,_06ztkcs,_06pskcs,_06sydg,_06dkcc2,
+              _06ms2,_06jkcs2,_06ztkcs2,_06pskcs2,_07gslj,_07gscl,_07fm,_07lccl,_07yc,_07ycxz,_07yzjlg,_07dgmz,_07zdmz,_07th,_08xjzz,_08ljch,_08ljchlx,
+              _08thch,_08thchlx,_09wdxs,_09wmlx,_09llwys,_09jbys,_09ws,_09xrzs,_09zssl,_09qtgj,_09fcxpgd,_09zjgd,_10gjbz,_11wtms)`
+          }
+        },
+        "data": {
+          "inserts": {
+            "BuildingInfo": res.data,
+          }
+        }
+      };
+      this.sqlService.initialData(this.json).subscribe((res)=>{
+        console.log(res);
+      },(error)=>{});
+
+    },error=>{});
+  }
+
+
+
+  uploadData() {
       this.uploadFile().subscribe(res => {
         if (!res) {
           alert("上传附件失败");
         }
       }, error => {
-        observe.next(false);
+        console.log(error);
       });
       this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
-        observe.next(true);
+        ///console.log(res);
       }, error => {
-        observe.next(false);
+    
       });
-    }, error => { });
+
   }
-
-
   //上传图片
   uploadFile(): Observable<boolean> {
     return Observable.create(observer => {
       this.getPicName().subscribe(res => {
-        console.log(res);
         for (let i = 0; i < res.length; i++) {
-          this.uploadSingleFile(res[i]).subscribe(res => {
+          let tempPic=res[i];
+          this.uploadSingleFile(tempPic).subscribe(res => {
+            this.removeSingleFile(tempPic);
             observer.next(true);
           }, error => {
             observer.next(false);
@@ -104,7 +130,6 @@ export class MyPage {
   }
 
   uploadSingleFile(uploadImg): Observable<boolean> {
-
     return Observable.create(res => {
       const fileTransfer: FileTransferObject = this.transfer.create();
       let options: FileUploadOptions = {
@@ -112,10 +137,11 @@ export class MyPage {
         fileName: uploadImg,
       }
       fileTransfer.upload(this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + uploadImg,
-        encodeURI(this.apiService.baseUrl + '/Inspect/SaveTempFile'),
+        encodeURI(this.apiService.baseUrl + '/api/Inspect/SaveTempFile'),
         options, true).then((data) => {
           res.next(true);
         }, (err) => {
+          console.log(err);
           res.next(false);
         })
     }, error => { });
@@ -139,28 +165,36 @@ export class MyPage {
     });
   }
 
-  private download(imgData) {
+  private download(url,imgName) {
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
     }
-    const url = 'http://www.kingwong.com/images/Beijing/web_xsmall/Yiheyuan/bjing0069.jpg';
-    fileTransfer.download(url, this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + '' + imgData + '').then((entry) => {
-      console.log('download complete: ' + entry.toURL());
-      // alert(entry.toURL());
-      alert(this.file.externalRootDirectory);
-      fileTransfer.onProgress;
-      // alert( fileTransfer.onProgress);
+    fileTransfer.download(url, this.file.externalRootDirectory + 'com.hanwintech.yhyii/' +imgName).then((entry) => {
+
     }, (error) => {
-      // handle error
+      console.log(error);
     });
 
-    fileTransfer.onProgress;
   }
 
-  private removeFile(imgData) {
-    this.file.removeFile(this.file.externalRootDirectory + 'com.hanwintech.yhyii/', '' + imgData + '').then(res => {
-      console.log(res);
-    }).catch(err => console.log(err));
+downLoadTest(){
+  this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
+    this.inspectService.getFiles().subscribe((res)=>{
+      for(let i=0;i<res.data.length;i++){
+        let tempPicUrl=this.apiService.getPicUrl(res.data[i]);
+        let tempPicName=res.data[i].split("/").pop();
+        this.download(tempPicUrl,tempPicName);
+      }
+    },(error)=>{
+      console.log(error);
+    });
+  }).catch(err => console.log('create fail'));
+
+}
+
+  private removeSingleFile(picName) {
+    this.file.removeFile(this.file.externalRootDirectory + 'com.hanwintech.yhyii', picName).then(res => {
+    }).catch(err => { console.log("删除附件失败");console.log(err);});
   }
 
   getDiseaseData(selectStr: string): Observable<string> {

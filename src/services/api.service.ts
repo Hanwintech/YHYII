@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
-import { Md5 } from "ts-md5/dist/md5";
+//import { Md5 } from "ts-md5/dist/md5";
 import 'rxjs/add/operator/map';
 
 import { BaseRequest } from './baseRequest';
@@ -20,13 +20,12 @@ export class ApiService {
         localStorage.setItem('token', v);
         this._token = v;
     }
-
     private _baseUrl: string;
     public get baseUrl(): string {
         if (!this._baseUrl) {
             this._baseUrl = localStorage.getItem('baseUrl');
             if (!this._baseUrl || this._baseUrl.length == 0) {
-                this._baseUrl = "http://10.10.10.110:9000";
+                this._baseUrl = "http://10.10.10.219:9020";
             }
         }
         return this._baseUrl;
@@ -37,6 +36,14 @@ export class ApiService {
     }
 
     constructor(public http: Http) { }
+
+    getPicUrl(pic: string): string {
+        if (pic.length > 0 && pic[0] == "~") {
+            return this.baseUrl + pic.substring(1);
+        } else {
+            return pic;
+        }
+    }
 
     getToken(account: string, password: string) {
         let headers = new Headers();
@@ -59,10 +66,10 @@ export class ApiService {
         }
         var timestamp = Math.round(new Date().getTime() / 1000) + 28800;
         var nonce = "hygzf_app";
-        var signature = Md5.hashStr("sipmch2017" + timestamp + nonce);
+        //var signature = Md5.hashStr("sipmch2017" + timestamp + nonce);
         headers.append('timestamp', timestamp.toString());
         headers.append('nonce', nonce);
-        headers.append('signature', signature.toString().toUpperCase());
+        //headers.append('signature', signature.toString().toUpperCase());
         let options = {
             method: request.method,
             url: this.baseUrl + request.requestUrl,

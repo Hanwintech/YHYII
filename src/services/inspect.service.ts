@@ -9,7 +9,7 @@ export class InspectService extends ApiService {
     token: string;
     constructor(public http: Http) { super(http); }
 
-    getDiseaseInspection(){
+    getDiseaseInspection() {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
@@ -17,93 +17,45 @@ export class InspectService extends ApiService {
             url: this.baseUrl + '/api/Inspect/DiseaseInspection',
             headers: headers,
         };
-        return this.http.request(new Request(options)).map(res => res.json() );
-    }
-
-    getAreaList() {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        let options = {
-            method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/ListInspectArea',
-            headers: headers,
-        };
         return this.http.request(new Request(options)).map(res => res.json());
     }
-    getSceneryList() {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        let options = {
-            method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/ListScenery',
-            headers: headers,
-        };
-        return this.http.request(new Request(options)).map(res => res.json());
-    }
-
-    getListAncientArchitecture() {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        let options = {
-            method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/ListAncientArchitecture',
-            headers: headers,
-        };
-        return this.http.request(new Request(options)).map(res => res.json());
-    }
-    getListDisInspectPosition() {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        let options = {
-            method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/ListDisInspectPosition',
-            headers: headers,
-        };
-        return this.http.request(new Request(options)).map(res => res.json());
-    }
-    getPositionList(recordId: any) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        let options = {
-            method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/ListPosition?recordId=' + recordId,
-            headers: headers
-        };
-        return this.http.request(new Request(options)).map(res => res.json());
-    }
-    getInspect(positionRecordId: any) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        let options = {
-            method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/GetInspect?positionRecordId=' + positionRecordId,
-            headers: headers
-        };
-        return this.http.request(new Request(options)).map(res => res.json());
-    }
-
     getSaveInspect(inspectContent: any) {
-        console.log(inspectContent);
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         //headers.append('Authorization', 'bearer ' + this.token);
         let options = {
             method: RequestMethod.Post,
-            url: this.baseUrl + '/Inspect/SaveDiseaseInspect',
+            url: this.baseUrl + '/api/Inspect/SaveDiseaseInspect',
             headers: headers,
-            body:inspectContent,
+            body: inspectContent,
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
 
-    getsubmitInspect(inspectRecordId: any) {
+    //获取附件xinxi
+
+getFiles(){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    let options = {
+        method: RequestMethod.Get,
+        url: this.baseUrl + '/api/Inspect/InspectAttachmentList',
+        headers: headers,
+    };
+    return this.http.request(new Request(options)).map(res => res.json());
+}
+
+    // 台账信息列表
+    getListAncientArchitecture() {
         let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/api/Inspect/SubmitInspect?id=' + inspectRecordId,
-            headers: headers
+            url: this.baseUrl + '/api/AncientArchiteture/ListAncientArchitecture',
+            headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
+
+
 }
