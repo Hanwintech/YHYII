@@ -2,24 +2,85 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { _baseService } from "./_base.service"
+import { ApiService } from './api.service';
 
 @Injectable()
-export class InspectService extends _baseService {
+export class InspectService extends ApiService {
     token: string;
-    constructor(private http: Http) { super(); }
+    constructor(public http: Http) { super(http); }
 
     getDiseaseInspection(){
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Get,
-            url: this.baseUrl + '/Inspect/DiseaseInspection',
+            url: this.baseUrl + '/api/Inspect/DiseaseInspection',
             headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json() );
     }
 
+    getAreaList() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListInspectArea',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getSceneryList() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListScenery',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+
+    getListAncientArchitecture() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListAncientArchitecture',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getListDisInspectPosition() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListDisInspectPosition',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getPositionList(recordId: any) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListPosition?recordId=' + recordId,
+            headers: headers
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getInspect(positionRecordId: any) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/GetInspect?positionRecordId=' + positionRecordId,
+            headers: headers
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
 
     getSaveInspect(inspectContent: any) {
         console.log(inspectContent);

@@ -6,7 +6,8 @@ import { Network } from '@ionic-native/network';
 import { SqlService } from "../../services/sqlite.service";
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { File } from '@ionic-native/file';
-import { _baseService } from "./../../services/_base.service"
+
+import { ApiService } from "./../../services/api.service";
 import { InspectService } from './../../services/inspect.service';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import { Observable } from "rxjs";
@@ -27,9 +28,8 @@ export class MyPage {
     public platform: Platform,
     private network: Network,
     private sqlService: SqlService,
-    private baseService: _baseService,
+    private apiService: ApiService,
     public sqlite: SQLite,
-    private http: Http,
     private file: File,
     public transfer: FileTransfer,
     private inspectService: InspectService,
@@ -112,7 +112,7 @@ export class MyPage {
         fileName: uploadImg,
       }
       fileTransfer.upload(this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + uploadImg,
-        encodeURI(this.baseService.baseUrl + '/Inspect/SaveTempFile'),
+        encodeURI(this.apiService.baseUrl + '/Inspect/SaveTempFile'),
         options, true).then((data) => {
           res.next(true);
         }, (err) => {

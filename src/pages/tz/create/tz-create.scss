@@ -35,14 +35,40 @@
     .active {
         color: red;
     }
-    .bottom-bar{
+    .bottom-bar {
         float: right;
-        padding:0;
-        height:20px;
-        width:100%;
-        margin:0;
+        padding: 0;
+        height: 20px;
+        width: 100%;
+        margin: 0;
     }
-    .item-radio .input-wrapper{
-        text-align: right; 
+    .list-md[role=radiogroup] {
+        margin-top: 0;
     }
+    .item-radio {
+        padding-left: 0;
+        float: left;
+        width: 25%;
+    }
+    .item-radio .input-wrapper {
+        text-align: right;
+    }
+    .input-wrapper .disabled {
+        opacity: 0.3;
+    }
+    .list-md[role=radiogroup] > :first-child {
+        float: left;
+        width: 50%;
+    } 
+    // .item1 {
+    //     float: left;
+    //     width: 50%;
+    // }
+    .list-md > .item-block:last-child .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
+    .text-input-md {
+        text-align: right;
+    }
+   
 }

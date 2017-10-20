@@ -1,32 +1,26 @@
-
-
-  <ion-list>
-    <ion-list-header>
-      构架形制
-    </ion-list-header>
-    <ion-item>
-      <ion-label>梁架材料</ion-label>
-      <ion-select okText="确定" cancelText="取消" placeholder="请输入梁架材料" name="" multiple="false">
-        <ion-option value="1">木</ion-option>
-        <ion-option value="2">石</ion-option>
-        <ion-option value="3">铜</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>梁架形式</ion-label>
-      <ion-select okText="确定" cancelText="取消" placeholder="请输入梁架形式" name="" multiple="false">
-        <ion-option value="1">抬梁式</ion-option>
-        <ion-option value="2">穿斗式</ion-option>
-        <ion-option value="3">混合式</ion-option>
-        <ion-option value="4">其他式</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>檐柱直径【mm】</ion-label>
-      <ion-input right type="text" placeholder="请输入檐柱直径" value=""></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>檀条数量【根】</ion-label>
-      <ion-input right type="text" placeholder="请输入檀条数量" value=""></ion-input>
-    </ion-item>
-  </ion-list>
+<ion-item-group>
+  <ion-item-divider color="light" style="font-size:1.3em;">
+    构架形制
+  </ion-item-divider>
+  <ion-item>
+    <ion-label>梁架材料</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="请输入梁架材料" name="" multiple="false">
+      <ion-option *ngFor="let item of dropdownDS._05ljcl"  value="{{item}}">{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>梁架形式</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="请输入梁架形式" name="" multiple="false">
+      <ion-option *ngFor="let item of dropdownDS._05ljxs"  value="{{item}}">{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>檐柱直径【mm】</ion-label>
+    <ion-input right type="text" placeholder="请输入檐柱直径" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>檀条数量【根】</ion-label>
+    <ion-input right type="text" placeholder="请输入檀条数量" value=""></ion-input>
+  </ion-item>
+  <div style="clear:both;"></div>
+</ion-item-group>

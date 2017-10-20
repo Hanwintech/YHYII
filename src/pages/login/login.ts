@@ -47,11 +47,15 @@ export class LoginPage {
     });
   }
 
-  private login(u: User) { 
+  private login(u: User) {
+    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
+    loading.present();
+
+
+    this.apiService.token = "11111";
     this.navCtrl.setRoot('TabsPage');
 
-    // let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
-    // loading.present();
+
     // if (u) {
     //   this.navCtrl.setRoot('TabsPage');
     // } else {

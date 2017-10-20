@@ -52,10 +52,10 @@ export class SqlService {
         });
     }
     insertData(dataSource): Observable<string> {
-        var resultData = "INSERT INTO DiseaseRecord (InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType) VALUES ('" 
-        + dataSource.parentId + "','" + dataSource.ancientArcID + "','" + dataSource.damamgeDegree + "','" + dataSource.inspectDescription + "','"
-        + dataSource.inspectPerson + "','" + dataSource.inspectTime + "','" +  dataSource.respair+ "','"
-        +dataSource.location+ "','" + dataSource.picUrl.join(",") + "','" + dataSource.recordId+ "','" + dataSource.repairDescription+ "','" + dataSource.respairTime+ "','" + dataSource.workType + "')";
+        var resultData = "INSERT INTO DiseaseRecord (InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType) VALUES ('" +
+            +  + "','" + dataSource.parentId + "','" + dataSource.location + "','" + dataSource.damamgeDegree + "','" +
+            + dataSource.workType + "','" + dataSource.inspectDescription + "','" + dataSource.picUrl.join(",") + "','" +
+            + dataSource.respair + "','" + dataSource.respairDescription + "','" + dataSource.inspectPerson + "','" + dataSource.inspectTime + "')";
 
         return Observable.create(observer => {
             this.sqlite.create({
@@ -88,11 +88,11 @@ export class SqlService {
                         }
                         observer.next(arr);
                     }
-                    else{
+                     else {
                         observer.next(false);
-                    }
-                }, (error) => {
-                    observer.next(error);
+                        }
+                },error=>{
+                    observer.next(false); 
                 })
             });
         });

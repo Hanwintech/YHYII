@@ -4,11 +4,12 @@ import { addInsepct } from './../../../models/inspect/add-inspect.model';
 import { nativeImgService } from './../../../services/nativeImg.service';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { SqlService } from "../../../services/sqlite.service";
-import { _baseService } from "./../../../services/_base.service"
+import { ApiService } from "./../../../services/api.service"
 import { PreviewPicturePage } from "../../../shared/preview-picture/preview-picture";
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 
+<<<<<<< HEAD
 
 /**
  * Generated class for the InspectDetailPage page.
@@ -17,6 +18,9 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
  * on Ionic pages and navigation.
  */
 
+=======
+declare var imgUrl;
+>>>>>>> d88be1b03cc9515bb52b9eb11046347b923c7aea
 @IonicPage()
 @Component({
   selector: 'page-inspect-detail',
@@ -39,7 +43,7 @@ export class InspectDetailPage {
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
     private sqlService: SqlService,
-    private baseService: _baseService,
+    private apiService: ApiService,
     public actionSheetCtrl: ActionSheetController,
     private file: File,
     public transfer: FileTransfer,
@@ -127,6 +131,37 @@ export class InspectDetailPage {
     });
     actionSheet.present();
   }
+<<<<<<< HEAD
+=======
+
+  damamgeDegreeEvent(value){
+    this.dataSource.damamgeDegree=value;
+  }
+  workTypeEvent(value){
+    this.dataSource.workType=value;
+  }
+
+  private uploadFile(uploadImg) {
+    //上传图片
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    let options: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: 'name.jpg',
+    }
+    fileTransfer.upload(uploadImg,
+      encodeURI(this.apiService.baseUrl + '/Inspect/SaveTempFile'),
+      options, true).then((data) => {
+    
+      }, (err) => {
+        let alert = this.alertCtrl.create({
+          title: '提示',
+          subTitle: '文件上传出错！',
+          buttons: ['确定']
+        });
+        alert.present();
+      })
+  }
+>>>>>>> d88be1b03cc9515bb52b9eb11046347b923c7aea
   submitData() {
     let jsonData;
     this.dataSource.InspectionPositionID = this.navParams.data.ID;
