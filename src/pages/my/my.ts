@@ -9,6 +9,7 @@ import { File } from '@ionic-native/file';
 import { _baseService } from "./../../services/_base.service"
 import { InspectService } from './../../services/inspect.service';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
+import { Observable } from "rxjs";
 @IonicPage()
 @Component({
   selector: 'page-my',
@@ -33,8 +34,9 @@ export class MyPage {
     public transfer: FileTransfer,
     private inspectService: InspectService,
     public actionSheetCtrl: ActionSheetController) {
-    this.download();
-
+    //this.download();
+    //this.getPicName();
+    //this.removeFile('bjing0069');
   }
 
   exitMenu() {
@@ -60,124 +62,94 @@ export class MyPage {
     });
     actionSheet.present();
   }
-  ionViewDidEnter(){
-    this.inspectService.getDiseaseInspection().subscribe((res)=>{
-        console.log(res);
-      this.json = {
-       "structure": {
-         "tables": {
-           "Area": "(Description,ID,Name)",
-           "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
-           "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
-           "AncientArchitecture": "(ID,Name,SceneryName)",
-           "diseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
-         }
-       },
-       "data": {
-         "inserts": {
-           "Area": JSON.parse(res[0]),
-           "Scenery":JSON.parse(res[1]),
-           "DisInspectPosition":JSON.parse(res[2]),
-           "AncientArchitecture": JSON.parse(res[3]),
-           "diseaseRecord":JSON.parse(res[4]),
-         }
-       }
-     };
-     this.sqlService.initialData(this.json);
- },(error)=>{
-console.log(error);
- });
+  ionViewDidEnter() {
+
+  }
+
+  uploadData(): Observable<boolean> {
+
+    return Observable.create(observe => {
+      this.uploadFile().subscribe(res => {
+        if (!res) {
+          alert("上传附件失败");
+        }
+      }, error => {
+        observe.next(false);
+      });
+      this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
+        observe.next(true);
+      }, error => {
+        observe.next(false);
+      });
+    }, error => { });
   }
 
 
-  uploadData() {
+  //上传图片
+  uploadFile(): Observable<boolean> {
+    return Observable.create(observer => {
+      this.getPicName().subscribe(res => {
+        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          this.uploadSingleFile(res[i]).subscribe(res => {
+            observer.next(true);
+          }, error => {
+            observer.next(false);
+          });
+        }
+      }, error => {
+        observer.next(false);
+      });
+    });
+  }
 
-    // let connectSubscription = this.network.onConnect().subscribe((res) => {
-    //   alert('network connected!');
-    //   alert(res);
-    //     if (this.network.type === 'wifi') {
-    //       alert('we got a wifi connection, woohoo!');
-    //     }
-    // });
-    if (this.network.type === 'wifi') {
-      //alert('we got a wifi connection,23213214324!');
-this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res=>{
-  console.log(res);
-},(error)=>{});
+  uploadSingleFile(uploadImg): Observable<boolean> {
 
+    return Observable.create(res => {
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      let options: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: uploadImg,
+      }
+      fileTransfer.upload(this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + uploadImg,
+        encodeURI(this.baseService.baseUrl + '/Inspect/SaveTempFile'),
+        options, true).then((data) => {
+          res.next(true);
+        }, (err) => {
+          res.next(false);
+        })
+    }, error => { });
 
-
-    }
-
-
-    let alert = this.alertCtrl.create({
-      title: '提交巡检数据？',
-      subTitle: '若提交数据后，您之前巡检的内容将被清空，是否继续？',
-      buttons: [
-        {
-          text: '暂不提交',
-          handler: () => {
-            return;
-          }
-        },
-        {
-          text: '提交',
-          handler: () => {
-            console.log('Agree clicked');
+  }
+  getPicName(): Observable<Array<string>> {
+    return Observable.create(observer => {
+      let imgData;
+      let imgName = [];
+      this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res => {
+        imgData = res;
+        for (let i = 0; i < imgData.length; i++) {
+          if (imgData[i].picUrl != "") {
+            imgName.push(imgData[i].picUrl);
           }
         }
-      ]
+        observer.next(imgName.join(",").split(","));
+      }, (error) => {
+        observer.next(false);
+      });
     });
-    alert.present();
   }
 
-  // private uploadItemData() {
-  //   this.sqlService.getSelectData("select * from detail").subscribe(res => {
-  //     console.log(res[0]);
-  //     console.log(res);
-  //   }, (error => {
-  //     console.log(error);
-  //   }));
-
-
-
-  // }
-
-  private uploadFile(uploadImg, category) {
-    //上传图片
+  private download(imgData) {
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
-      fileKey: 'file',
-      fileName: 'name.jpg',
-    }
-    fileTransfer.upload(uploadImg,
-      encodeURI(this.baseService.baseUrl + '/Inspect/SaveTempFile'),
-      options, true).then((data) => {
-    
-      }, (err) => {
-        let alert = this.alertCtrl.create({
-          title: '提示',
-          subTitle: '文件上传出错！',
-          buttons: ['确定']
-        });
-        alert.present();
-      })
-  }
-  private download() {
-    console.log(1);
-    //上传图片
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    let options: FileUploadOptions = {
-      fileKey: 'file',
-      fileName: 'name.jpg',
     }
     const url = 'http://www.kingwong.com/images/Beijing/web_xsmall/Yiheyuan/bjing0069.jpg';
-    fileTransfer.download(url, this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + 'bjing0069.jpg').then((entry) => {
+    fileTransfer.download(url, this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + '' + imgData + '').then((entry) => {
       console.log('download complete: ' + entry.toURL());
-     // alert(entry.toURL());
-     // alert(this.file.externalRootDirectory);
+      // alert(entry.toURL());
+      alert(this.file.externalRootDirectory);
       fileTransfer.onProgress;
-     // alert( fileTransfer.onProgress);
+      // alert( fileTransfer.onProgress);
     }, (error) => {
       // handle error
     });
@@ -185,19 +157,44 @@ this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res=>{
     fileTransfer.onProgress;
   }
 
-
-  private removeDir() {
-    this.file.removeDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii').then(_ => {
-
-    }).catch(err => console.log('remove fail'));
+  private removeFile(imgData) {
+    this.file.removeFile(this.file.externalRootDirectory + 'com.hanwintech.yhyii/', '' + imgData + '').then(res => {
+      console.log(res);
+    }).catch(err => console.log(err));
   }
-  getData() {
-   
-  this.sqlService.getSelectData("select * from Scenery").subscribe((res)=>{
-    console.log(res);
-  },error=>{
 
-  });
+  getDiseaseData(selectStr: string): Observable<string> {
+    return Observable.create(observer => {
+      this.sqlite.create({
+        name: "data.db",
+        location: "default"
+      }).then((db: SQLiteObject) => {
+        db.executeSql(selectStr, {}).then((rs) => {
+          if (rs.rows.length > 0) {
+            for (var i = 0; i < rs.rows.length; i++) {
+              var item = rs.rows.item(i);
+              item.picUrl = item.picUrl.split(",");
+              this.inspectService.getSaveInspect(item).subscribe(res => {
+                observer.next(res);
+                console.log(res);
+              }, error => { console.log(error); });
+            }
+
+          }
+          else {
+            observer.next(false);
+          }
+        }, (error) => {
+          observer.next(error);
+        })
+      });
+    });
+  }
+  deleteData() {
+    this.sqlService.deleteData('delete from DiseaseRecord').subscribe(res => {
+      console.log(res);
+    });
+
   }
 }
 

@@ -40,16 +40,16 @@ export class MyApp {
                 "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
                 "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
                 "AncientArchitecture": "(ID,Name,SceneryName)",
-                "DiseaseRecord": "(InspectionPositionID int identity(1,1),ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
+                "DiseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
               }
             },
             "data": {
               "inserts": {
-                "Area": JSON.parse(res[0]),
-                "Scenery": JSON.parse(res[1]),
-                "DisInspectPosition": JSON.parse(res[2]),
-                "AncientArchitecture": JSON.parse(res[3]),
-                "DiseaseRecord": JSON.parse(res[4]),
+                "Area": JSON.parse(res.data[0]),
+                "Scenery": JSON.parse(res.data[1]),
+                "DisInspectPosition": JSON.parse(res.data[2]),
+                "AncientArchitecture": JSON.parse(res.data[3]),
+                "DiseaseRecord": JSON.parse(res.data[4]),
               }
             }
           };

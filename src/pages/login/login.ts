@@ -47,37 +47,39 @@ export class LoginPage {
     });
   }
 
-  private login(u: User) {
-    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
-    loading.present();
-    if (u) {
-      this.navCtrl.setRoot('TabsPage');
-    } else {
-      this.apiService.getToken(this.auth.account, this.auth.password)
-        .subscribe(res => {
-          let user: User = <User>res;
-          user.account = this.auth.account;
-          user.password = this.auth.password;
-          this.apiService.token = user.access_token;
-          if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-            (<any>window).plugins.jPushPlugin.setAlias([user.account],
-              sucMsg => {
-                //alert(sucMsg);
-              },
-              errMsg => {
-                loading.dismiss();
-                let alert = this.alertCtrl.create({ title: '推送服务注册失败！', subTitle: errMsg, buttons: ['确定'] });
-                alert.present();;
-              });
-          }
-          this.globalCache.cacheUser(user);
-          this.navCtrl.setRoot('TabsPage');
-        },
-        error => {
-          loading.dismiss();
-          let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
-          alert.present();
-        });
-    }
+  private login(u: User) { 
+    this.navCtrl.setRoot('TabsPage');
+
+    // let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
+    // loading.present();
+    // if (u) {
+    //   this.navCtrl.setRoot('TabsPage');
+    // } else {
+    //   this.apiService.getToken(this.auth.account, this.auth.password)
+    //     .subscribe(res => {
+    //       let user: User = <User>res;
+    //       user.account = this.auth.account;
+    //       user.password = this.auth.password;
+    //       this.apiService.token = user.access_token;
+    //       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+    //         (<any>window).plugins.jPushPlugin.setAlias([user.account],
+    //           sucMsg => {
+    //             //alert(sucMsg);
+    //           },
+    //           errMsg => {
+    //             loading.dismiss();
+    //             let alert = this.alertCtrl.create({ title: '推送服务注册失败！', subTitle: errMsg, buttons: ['确定'] });
+    //             alert.present();;
+    //           });
+    //       }
+    //       this.globalCache.cacheUser(user);
+    //       this.navCtrl.setRoot('TabsPage');
+    //     },
+    //     error => {
+    //       loading.dismiss();
+    //       let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
+    //       alert.present();
+    //     });
+    // }
   }
 }

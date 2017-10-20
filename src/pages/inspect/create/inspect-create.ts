@@ -62,10 +62,9 @@ export class InspectCreatePage {
     this.menuCtrl.toggle("inspectCreateMenu");
   }
   itemCheck(diseaseInfo) {
-    let inspectDetail = this.modalCtrl.create("InspectDetailPage",diseaseInfo);
+    let inspectDetail = this.modalCtrl.create("InspectDetailPage",{ID:diseaseInfo.ID,ancientArcID:this.navParams.data});
     inspectDetail.onDidDismiss(data => {
       diseaseInfo.isRepaired="1";
-      console.log(diseaseInfo);
     })
     inspectDetail.present();
 

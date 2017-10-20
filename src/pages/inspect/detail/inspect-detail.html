@@ -1,75 +1,79 @@
 <ion-header>
   <ion-navbar>
-      <ion-buttons left>
-          <button ion-button icon-only (click)="closePage()">
-                <ion-icon name="md-arrow-back"></ion-icon>
-          </button>
-        </ion-buttons>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="closePage()">
+        <ion-icon name="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>巡检内容</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list  class="gray-title">
-      <ion-list-header>位置</ion-list-header>
-      <ion-item>
-        <ion-textarea placeholder="请输入病害位置" [(ngModel)]="dataSource.location" style="height:80px;" name="name"></ion-textarea>
-      </ion-item>
-    </ion-list>
-  
-    <ion-list class="gray-title">
-      <ion-list-header style="border-top:none;">巡查描述</ion-list-header>
-      <ion-item>
-        <ion-textarea placeholder="请输入情况描述" [(ngModel)]="dataSource.inspectDescription" style="height:80px;" name="name"></ion-textarea>
-      </ion-item>
-    </ion-list>
+  <form *ngIf="dataSource">
+    <ion-list>
+      <ion-list class="gray-title">
+        <ion-list-header>位置</ion-list-header>
+        <ion-item>
+          <ion-textarea placeholder="请输入病害位置" [(ngModel)]="dataSource.location" style="height:80px;" name="name"></ion-textarea>
+        </ion-item>
+      </ion-list>
 
-    <ion-item style="border-top:1px solid #ddd">
-      <ion-label>严重程度</ion-label>
-      <ion-select okText="确定" cancelText="取消" name="damamgeDegree" placeholder="请选择严重程度" (ngModelChange)="damamgeDegreeEvent($event)" [(ngModel)]="dataSource.damamgeDegree"   multiple="false">
-          <ion-option *ngFor="let item of dataSource.damamgeDegreeSource" value={{item.key}}>{{item.value}}</ion-option>          
-      </ion-select>
-    </ion-item>
-    <ion-item style="border-bottom:1px solid #ddd">
-      <ion-label>工种</ion-label>
-      <ion-select okText="确定" cancelText="取消" name="workType" placeholder="请选择工种类别" (ngModelChange)="workTypeEvent($event)" [(ngModel)]="dataSource.workType"  multiple="false">
-          <ion-option *ngFor="let item of dataSource.workTypeSource" value={{item.key}}>{{item.value}}</ion-option>                    
-      </ion-select>
-    </ion-item>
+      <ion-list class="gray-title">
+        <ion-list-header style="border-top:none;">巡查描述</ion-list-header>
+        <ion-item>
+          <ion-textarea placeholder="请输入情况描述" [(ngModel)]="dataSource.inspectDescription" style="height:80px;" name="name"></ion-textarea>
+        </ion-item>
+      </ion-list>
 
-    <ion-list class="gray-title" style="margin-bottom:2em;">
-      <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">巡检附件</ion-list-header>
-      <ion-item>
-        <div class="addPics-wrapper">
+      <ion-item style="border-top:1px solid #ddd">
+        <ion-label>严重程度</ion-label>
+        <ion-select okText="确定" cancelText="取消" name="damamgeDegree" placeholder="请选择严重程度"
+          [(ngModel)]="dataSource.diseaseLevel" multiple="false">
+          <ion-option *ngFor="let item of damamgeDegreeSource" value={{item.key}}>{{item.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item style="border-bottom:1px solid #ddd">
+        <ion-label>工种</ion-label>
+        <ion-select okText="确定" cancelText="取消" name="workType" placeholder="请选择工种类别"  [(ngModel)]="dataSource.workType"
+          multiple="false">
+          <ion-option *ngFor="let item of workTypeSource" value={{item.key}}>{{item.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-list class="gray-title" style="margin-bottom:2em;">
+        <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">巡检附件</ion-list-header>
+        <ion-item>
+          <div class="addPics-wrapper">
             <div *ngFor="let fileObj of fileObjList;let i = index" class="pictures" (press)="deleteInspectPicture(i)">
-                <img src="{{fileObj}}" (click)="viewerInspectPicture(i)">
-              </div>
-          <div class="profile-image-wrapper" (click)="getPicture()">
+              <img src="{{getPicUrl(fileObj)}}" (click)="viewerInspectPicture(i)">
+            </div>
+            <div class="profile-image-wrapper" (click)="getPicture()">
+            </div>
           </div>
-        </div>
-      </ion-item>
-    </ion-list>
-    <ion-list radio-group class="gray-title" >
-      <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">
-       是否修缮
-      </ion-list-header>
-    
-      <ion-item style="border-bottom:1px solid #ddd;">
-        <ion-label>否</ion-label>
-        <ion-radio checked="true" value="0"></ion-radio>
-      </ion-item>
-    
-      <ion-item style="border-bottom:1px solid #ddd;">
-        <ion-label>是</ion-label>
-        <ion-radio value="1"></ion-radio>
-      </ion-item>
-    </ion-list>
+        </ion-item>
+      </ion-list>
+      <ion-list radio-group class="gray-title">
+        <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">
+          是否修缮
+        </ion-list-header>
 
-  </ion-list>
+        <ion-item style="border-bottom:1px solid #ddd;">
+          <ion-label>否</ion-label>
+          <ion-radio checked="true" value="0"></ion-radio>
+        </ion-item>
+
+        <ion-item style="border-bottom:1px solid #ddd;">
+          <ion-label>是</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+    </ion-list>
     <ion-list ion-right style="text-align:right;">
       <button ion-button color="default" (click)="submitData()">确定</button>
       <button ion-button color="default" (click)="selectData()">selectData</button>
     </ion-list>
+  </form>
 </ion-content>

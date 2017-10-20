@@ -20,20 +20,11 @@ export class StatisticsPage {
 
   statisticsChart(scenenryInfo) {
     this.navCtrl.push("InspectIndexPage", scenenryInfo);
+    //this.navCtrl.push("InspectDetailPage",{ID:3123,ancientArcID:32131});
   }
 
   ionViewDidEnter() {
     this.sqlite.echoTest().then((res) => {
-      // let sql = "select * from Area"
-      // this.sqlService.selectData(sql).subscribe(res => {
-      //   console.log(res);
-      //   console.log(22222);
-      // }, (error) => {
-      //   console.log(error);
-      //   console.log(33333);
-      // });
-
-
       this.sqlService.getSelectData("select * from Area").subscribe(res => {
         this.sceneryArea=res;
       }, (error) => {
