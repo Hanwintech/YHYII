@@ -4,11 +4,11 @@
   </ion-item-divider>
   <ion-item>
     <ion-label>下架柱子</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入下架柱子" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.lowerFrame" okText="确定" cancelText="取消" placeholder="请输入下架柱子" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._08xjzz"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
-  <ion-list radio-group>
+  <ion-list  [(ngModel)]="dataSource.frameColorWheather" radio-group>
     <ion-item class="item1">梁架彩画</ion-item>
     <ion-item class="item2">
       <ion-label>有</ion-label>
@@ -20,12 +20,12 @@
     </ion-item>
   </ion-list>
   <ion-item>
-    <ion-label [class.disabled]="show1">彩画类型</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入彩画类型" name="" multiple="false" [disabled]="show1">
+    <ion-label [class.disabled]="show1">梁架彩画类型</ion-label>
+    <ion-select  [(ngModel)]="dataSource.frameColorType" okText="确定" cancelText="取消" placeholder="请输入梁架彩画类型" name="" multiple="false" [disabled]="show1">
       <ion-option *ngFor="let item of dropdownDS._08ljchlx"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
-  <ion-list radio-group>
+  <ion-list  [(ngModel)]="dataSource.doorPaintWheather" radio-group>
     <ion-item class="item1">天花彩画</ion-item>
     <ion-item class="item2">
       <ion-label>有</ion-label>
@@ -37,8 +37,8 @@
     </ion-item>
   </ion-list>
   <ion-item>
-    <ion-label [class.disabled]="show2">彩画类型</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入彩画类型" name="" multiple="false" [disabled]="show2">
+    <ion-label [class.disabled]="show2">天花彩画类型</ion-label>
+    <ion-select  [(ngModel)]="dataSource.doorPaintColorType" okText="确定" cancelText="取消" placeholder="请输入天花彩画类型" name="" multiple="false" [disabled]="show2">
       <ion-option *ngFor="let item of dropdownDS._08thchlx"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>

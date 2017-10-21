@@ -1,6 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar placeholder="古建台账搜索" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar>
+    <!-- <ion-searchbar placeholder="古建台账搜索" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar> -->
+   
+    <ion-buttons left>
+        <button ion-button icon-only (click)="leftScenery()">
+          景区
+          <ion-icon md="ios-funnel-outline"></ion-icon>
+        </button>
+      </ion-buttons>
     <ion-buttons right>
       <button ion-button icon-only (click)="select()">
         筛选
@@ -10,9 +17,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-menu id="tzAreaMenu" class="menu" type="overlay" [content]="tzListNav">
+<!-- <ion-menu id="tzAreaMenu" class="menu" type="overlay" [content]="tzListNav">
   <ion-list>
-    <button *ngFor="let menu of dataSource" ion-item>
+    <button *ngFor="let menu of scenery" (click)="openBUilding()" ion-item>
       {{menu.area}}
     </button>
   </ion-list>
@@ -30,8 +37,8 @@
       <ion-input right type="text" placeholder="请输入所属景区" [(ngModel)]="dataSource.area" value=""></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>建筑功能</ion-label>
-      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="buildingFunction" (ngModelChange)="functionEvent($event)"
+      <ion-label>建筑功能</ion-label> -->
+      <!-- <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="buildingFunction" (ngModelChange)="functionEvent($event)"
         [ngModel]="dataSource.function" multiple="false">
         <ion-option value="1">办公用房</ion-option>
         <ion-option value="2">监控室</ion-option>
@@ -41,11 +48,11 @@
         <ion-option value="6">厕所</ion-option>
         <ion-option value="7">库房</ion-option>
         <ion-option value="8">其他</ion-option>
-      </ion-select>
-    </ion-item>
+      </ion-select> -->
+    <!-- </ion-item>
     <ion-item>
       <ion-label>台账状态</ion-label>
-      <ion-select okText="确定" cancelText="取消" placeholder="请输入台账状态" name="tzState" (ngModelChange)="statusEvent($event)" [ngModel]="dataSource.status"
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入台账状态" name="tzState"  [ngModel]="dataSource.status"
         multiple="false">
         <ion-option value="0">全部</ion-option>
         <ion-option value="1">已完成</ion-option>
@@ -59,15 +66,15 @@
   </ion-item-group>
 
 </ion-menu>
-<ion-nav id="tzListNav" #tzListNav [root]="TZIndexPage"> </ion-nav>
+<ion-nav id="tzListNav" #tzListNav [root]="TZIndexPage"> </ion-nav> -->
 
-<ion-content>
-  <button ion-item *ngFor="let tz of dataSource" class="item-ios" (click)="itemSelected(tz)">
-  <h2 style="font-weight:bold;">{{ tz.number + tz.name }}</h2>
+<!-- <ion-content>
+  <button ion-item *ngFor="let tz of building" class="item-ios" (click)="itemSelected(tz)">
+  <h2>{{ tz.number + tz.name }}</h2>
   <p>{{ tz.area }}</p>
   <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已完成</button>
   <button ion-button clear item-end color="danger" *ngIf="tz.status == 2" style="font-size:1.4rem;">未完成</button>
   <button ion-button clear item-end *ngIf="tz.time" style="font-size:1.4rem;">{{ tz.time }}</button>
   <button ion-button clear item-end *ngIf="!tz.time" style="font-size:1.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——</button>
   </button>
-</ion-content>
+</ion-content> -->

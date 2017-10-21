@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform, IonicPage, AlertController, NavParams,Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { SqlService } from "./../../../services/sqlite.service";
 import { ApiService } from './../../../services/api.service';
 import { BaseRequest } from './../../../services/baseRequest';
 import { IHttpCommonResponse } from './../../../models/httpCommonResponse.model';
@@ -16,7 +16,8 @@ declare var BMap;
 })
 export class TZIndexPage {
   dataSource = [];
-  
+  scenery;
+  building;
   searchQuery: string = '';
  
 
@@ -25,6 +26,7 @@ export class TZIndexPage {
     public navParams: NavParams,
     public platform: Platform,
     public geolocation: Geolocation,
+    private sqlService: SqlService,
     public apiService: ApiService,
     public alertCtrl: AlertController,
     public menuCtrl: MenuController,
@@ -46,7 +48,42 @@ export class TZIndexPage {
   }
   ionViewDidEnter(){
       this.menuCtrl.enable(true, 'tzAreaMenu');
-      this.menuCtrl.enable(false, 'tzcreateMenu');
+      //this.menuCtrl.enable(false, 'tzcreateMenu');
+
+      this.sqlService.getSelectData('select * from AncientArchitecture where SceneryName="西堤"').subscribe(res => {
+        this.scenery = res;
+        console.log(res);
+        // console.log(this.scenery[0].Name);
+        // this.getBuilding(this.scenery[0].Name);
+      }, (error) => {
+        console.log(error);
+      })
+      this.sqlService.getSelectData('select * from BuildingInfo where ancientBelong ="西堤"').subscribe(res => {
+        this.scenery = res;
+        console.log(res);
+        // console.log(this.scenery[0].Name);
+        // this.getBuilding(this.scenery[0].Name);
+      }, (error) => {
+        console.log(error);
+      })
+
+      let queryStr='select a.ID,a.Name,b.status from (select * from AncientArchitecture where SceneryName="西堤") a left join (select * from BuildingInfo where ancientBelong ="西堤") b on a.SceneryName=b.ancientBelong';   
+      this.sqlService.getSelectData(queryStr).subscribe(res => {
+     this.scenery = res;
+     console.log(res);
+     // console.log(this.scenery[0].Name);
+     // this.getBuilding(this.scenery[0].Name);
+   }, (error) => {
+     console.log(error);
+   })
+  }
+  getBuilding(selectedName) {
+    this.sqlService.getSelectData('select * from AncientArchitecture where SceneryName="' + selectedName + '"').subscribe(res => {
+      this.building = res;
+      console.log(this.building);
+    }, (error) => {
+      console.log(error);
+    })
   }
   itemSelected() {
     this.navCtrl.push("TZCreatePage");
@@ -54,6 +91,13 @@ export class TZIndexPage {
 
   select() {
     this.menuCtrl.open("tzListMenu");
+  }
+  leftScenery(){
+    this.menuCtrl.open("tzAreaMenu");
+  }
+  openBUilding(buildingArea){
+    this.menuCtrl.close("tzAreaMenu");
+    this.openBUilding(buildingArea);
   }
   closeSelect() {
     this.menuCtrl.close("tzListMenu");

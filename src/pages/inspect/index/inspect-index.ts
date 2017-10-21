@@ -18,7 +18,6 @@ declare var BMap;
 export class InspectIndexPage {
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('header') header;
-  menuList;
   scenery;
   building;
   titleName = "巡检一区";

@@ -3,52 +3,44 @@
     基本信息
   </ion-item-divider>
   <ion-item>
-    <ion-label>建筑编号</ion-label>
-    <ion-input right type="text" placeholder="请输入建筑编号" value=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>建筑名称</ion-label>
-    <ion-input right type="text" placeholder="请输入建筑名称" value=""></ion-input>
+    <ion-label>古建编号</ion-label>
+    <ion-input  [(ngModel)]="dataSource.ancientNumber" right type="text" placeholder="请输入古建编号" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>建筑面积【m²】</ion-label>
-    <ion-input right type="text" placeholder="请输入建筑面积" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.ancientArea" right type="text" placeholder="请输入建筑面积" value=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>建筑名称</ion-label>
+    <ion-input  [(ngModel)]="dataSource.ancientName" right type="text" placeholder="请输入建筑名称" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>所属景区</ion-label>
-    <ion-input right type="text" placeholder="请输入所属景区" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.ancientBelong" right type="text" placeholder="请输入所属景区" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>结构类型</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入结构类型" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.structureType" okText="确定" cancelText="取消" placeholder="请输入结构类型" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._01jglx"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label>建筑形式</ion-label>
-    <ion-textarea placeholder="请输入建筑形式" name="Type"></ion-textarea>
-  </ion-item>
-  <ion-item>
     <ion-label>建筑功能</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.buildingFunction" okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._01jzgn"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
+    <ion-label>建筑形式</ion-label>
+    <ion-textarea  [(ngModel)]="dataSource.buildingStyle" placeholder="请输入建筑形式" name="Type"></ion-textarea>
+  </ion-item>
+  <ion-item>
     <ion-label>始建年代【年】</ion-label>
-    <ion-input right type="text" placeholder="请输入始建年代" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.constructionTime" right type="text" placeholder="请输入始建年代" value=""></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>现存年代【年】</ion-label>
-    <ion-input right type="text" placeholder="请输入现存年代" value=""></ion-input>
-  </ion-item>
-  <!-- <ion-item>
     <ion-label>最后修缮时间【年】</ion-label>
-    <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="请输入建筑最后修缮时间" cancelText="取消" doneText="确定"></ion-datetime>
-  </ion-item> -->
-  <ion-item>
-    <ion-label>最后修缮时间【年】</ion-label>
-    <ion-input right type="text" placeholder="请输入最后修缮时间" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.finalRepair" right type="text" placeholder="请输入最后修缮时间" value=""></ion-input>
   </ion-item>
   <div style="clear:both;"></div>
 </ion-item-group>

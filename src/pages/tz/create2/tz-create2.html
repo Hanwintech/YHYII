@@ -4,12 +4,12 @@
   </ion-item-divider>
   <ion-item>
     <ion-label>平面形状</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入平面形状" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.planeForm" okText="确定" cancelText="取消" placeholder="请输入平面形状" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._02pmxz"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
 
-  <ion-list radio-group  class="radio">
+  <ion-list  [(ngModel)]="dataSource.basicShapesLouti" radio-group  class="radio">
     <ion-item class="item1">楼梯</ion-item>
     <ion-item >
       <ion-label>有</ion-label>
@@ -20,7 +20,7 @@
       <ion-radio value="无"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-list radio-group  class="radio">
+  <ion-list  [(ngModel)]="dataSource.basicShapesBaosha" radio-group  class="radio">
     <ion-item  class="item1">抱厦</ion-item>
     <ion-item >
       <ion-label>有</ion-label>
@@ -31,7 +31,7 @@
       <ion-radio value="无"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-list radio-group  class="radio">
+  <ion-list  [(ngModel)]="dataSource.basicShapesQianlang" radio-group  class="radio">
     <ion-item  class="item1">前廊</ion-item>
     <ion-item >
       <ion-label>有</ion-label>
@@ -42,7 +42,7 @@
       <ion-radio value="无"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-list radio-group  class="radio">
+  <ion-list  [(ngModel)]="dataSource.basicShapeszhouweilang" radio-group  class="radio">
     <ion-item  class="item1">周围廊</ion-item>
     <ion-item >
       <ion-label>有</ion-label>
@@ -53,7 +53,7 @@
       <ion-radio value="无"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-list radio-group  class="radio">
+  <ion-list  [(ngModel)]="dataSource.basicShapesHoulang" radio-group  class="radio">
     <ion-item class="item1">后廊</ion-item>
     <ion-item>
       <ion-label>有</ion-label>
@@ -66,23 +66,23 @@
   </ion-list>
   <ion-item>
     <ion-label>面阔</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入面阔" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.miankuo" okText="确定" cancelText="取消" placeholder="请输入面阔" name="" multiple="false">
        <ion-option *ngFor="let item of dropdownDS._02mk"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>通面阔尺寸【mm】</ion-label>
-    <ion-input right type="text" placeholder="请输入通面阔尺寸" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.throughSurface" right type="text" placeholder="请输入通面阔尺寸" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>进深</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入进深" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.depth" okText="确定" cancelText="取消" placeholder="请输入进深" name="" multiple="false">
        <ion-option *ngFor="let item of dropdownDS._02js"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>通进深尺寸【mm】</ion-label>
-    <ion-input right type="text" placeholder="请输入通进深尺寸" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.depthofM" right type="text" placeholder="请输入通进深尺寸" value=""></ion-input>
   </ion-item>
   <div style="clear:both;"></div>
 </ion-item-group>

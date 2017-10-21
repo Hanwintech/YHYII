@@ -4,23 +4,23 @@
   </ion-item-divider>
   <ion-item>
     <ion-label>梁架材料</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入梁架材料" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.beamFrame"  okText="确定" cancelText="取消" placeholder="请输入梁架材料" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._05ljcl"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>梁架形式</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入梁架形式" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.beamForm" okText="确定" cancelText="取消" placeholder="请输入梁架形式" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._05ljxs"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>檐柱直径【mm】</ion-label>
-    <ion-input right type="text" placeholder="请输入檐柱直径" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.eavesColumnDiameter" right type="text" placeholder="请输入檐柱直径" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>檀条数量【根】</ion-label>
-    <ion-input right type="text" placeholder="请输入檀条数量" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.numberOfCanopies" right type="text" placeholder="请输入檀条数量" value=""></ion-input>
   </ion-item>
   <div style="clear:both;"></div>
 </ion-item-group>

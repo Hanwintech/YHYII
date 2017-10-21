@@ -4,29 +4,29 @@
   </ion-item-divider>
   <ion-item>
     <ion-label>屋顶形式</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入屋顶形式" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.roofRorm" okText="确定" cancelText="取消" placeholder="请输入屋顶形式" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._09wdxs"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>瓦面类型</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入瓦面类型" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.tileType" okText="确定" cancelText="取消" placeholder="请输入瓦面类型" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._09wmlx"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>琉璃瓦颜色</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入琉璃瓦颜色" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.glazedColor" okText="确定" cancelText="取消" placeholder="请输入琉璃瓦颜色" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._09llwys"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>剪边颜色</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入剪边颜色" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.cutEdgeColor" okText="确定" cancelText="取消" placeholder="请输入剪边颜色" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._09jbys"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
-  <ion-list radio-group>
+  <ion-list  [(ngModel)]="dataSource.kissAnimalWheather" radio-group>
     <ion-item class="item1">吻兽</ion-item>
     <ion-item class="item2">
       <ion-label>有</ion-label>
@@ -37,7 +37,7 @@
       <ion-radio value="false"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-list radio-group>
+  <ion-list  [(ngModel)]="dataSource.beastWheather" radio-group>
     <ion-item class="item1">仙人走兽</ion-item>
     <ion-item class="item2">
       <ion-label>有</ion-label>
@@ -50,19 +50,19 @@
   </ion-list>
   <ion-item>
     <ion-label>走兽数量【个】</ion-label>
-    <ion-input right type="text" placeholder="请输入走兽数量" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.beastNumber" right type="text" placeholder="请输入走兽数量" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>其他构件</ion-label>
-    <ion-textarea placeholder="请输入其他构件" name="Type"></ion-textarea>
+    <ion-textarea  [(ngModel)]="dataSource.otherComponent" placeholder="请输入其他构件" name="Type"></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label>飞椽下皮高度【mm】</ion-label>
-    <ion-input right type="text" placeholder="请输入飞椽下皮高度" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.eavesHeight" right type="text" placeholder="请输入飞椽下皮高度" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>正脊高度【mm】</ion-label>
-    <ion-input right type="text" placeholder="请输入正脊高度" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.positiveHeight" right type="text" placeholder="请输入正脊高度" value=""></ion-input>
   </ion-item>
   <div style="clear:both;"></div>
 </ion-item-group>

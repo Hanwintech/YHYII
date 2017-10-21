@@ -4,33 +4,33 @@
   </ion-item-divider>
   <ion-item>
     <ion-label>台基材料</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入台基材料" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.baseMaterial" okText="确定" cancelText="取消" placeholder="请输入台基材料" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._03tjcl"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>台基形式</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入台基形式" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.baseForm" okText="确定" cancelText="取消" placeholder="请输入台基形式" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._03tjxs"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>台基高度【mm】</ion-label>
-    <ion-input right type="text" placeholder="请输入台基高度" value=""></ion-input>
+    <ion-input  [(ngModel)]="dataSource.platformSize" right type="text" placeholder="请输入台基高度" value=""></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>地面材料</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入地面材料" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.groundMaterial" okText="确定" cancelText="取消" placeholder="请输入地面材料" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._03dmcl"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>地面做法</ion-label>
-    <ion-select okText="确定" cancelText="取消" placeholder="请输入地面做法" name="" multiple="false">
+    <ion-select  [(ngModel)]="dataSource.groundPractice" okText="确定" cancelText="取消" placeholder="请输入地面做法" name="" multiple="false">
       <ion-option *ngFor="let item of dropdownDS._03dmzf"  value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
-  <ion-list radio-group>
+  <ion-list  [(ngModel)]="dataSource.platformWheather" radio-group>
     <ion-item class="item1">月台</ion-item>
     <ion-item>
       <ion-label>有</ion-label>
@@ -41,9 +41,9 @@
       <ion-radio value="false" (click)="showOrHide1(true)"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-list radio-group>
+  <ion-list  [(ngModel)]="dataSource.tailgateWheather" radio-group>
     <ion-item class="item1">
-      <ion-label [class.disabled]="show1">月台栏杆、栏板</ion-label>
+      <ion-label [class.disabled]="show1">栏杆、栏板</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>有</ion-label>
@@ -54,8 +54,11 @@
       <ion-radio value="false" [disabled]="show1"></ion-radio>
     </ion-item>
   </ion-list>
-
-  <ion-list radio-group>
+  <ion-item>
+    <ion-label>栏杆、栏板数【个】</ion-label>
+    <ion-input  [(ngModel)]="dataSource.tailgateNumber" right type="text" placeholder="请输入栏杆、栏板数" value=""></ion-input>
+  </ion-item>
+  <ion-list  [(ngModel)]="dataSource.stepsWheather" radio-group>
     <ion-item class="item1">台阶</ion-item>
     <ion-item>
       <ion-label>有</ion-label>
@@ -68,10 +71,10 @@
   </ion-list>
   <ion-item>
     <ion-label [class.disabled]="show2">台阶组数【组】</ion-label>
-    <ion-input right type="text" placeholder="请输入台阶组数" value="" [disabled]="show2"></ion-input>
+    <ion-input  [(ngModel)]="dataSource.stepsNumber" right type="text" placeholder="请输入台阶组数" value="" [disabled]="show2"></ion-input>
   </ion-item>
 
-  <ion-list radio-group>
+  <ion-list  [(ngModel)]="dataSource.drumStone" radio-group>
     <ion-item class="item1">抱鼓石</ion-item>
     <ion-item>
       <ion-label>有</ion-label>
@@ -84,7 +87,7 @@
   </ion-list>
   <ion-item>
     <ion-label [class.disabled]="show3">抱鼓石数量【个】</ion-label>
-    <ion-input right type="text" placeholder="请输入抱鼓石数量" value="" [disabled]="show3"></ion-input>
+    <ion-input  [(ngModel)]="dataSource.drumStoneNumber" right type="text" placeholder="请输入抱鼓石数量" value="" [disabled]="show3"></ion-input>
   </ion-item>
 
   <div style="clear:both;"></div>

@@ -26,24 +26,5 @@
       <br />
     </button>
   </ion-toolbar> -->
-  <ion-list radio-group [(ngModel)]="relationship">
-
-      <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">
-          是否修缮
-        </ion-list-header>
-    <ion-item>
-      <ion-label>Friends</ion-label>
-      <ion-radio value="friends" checked="true"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Family</ion-label>
-      <ion-radio value="family"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Enemies</ion-label>
-      <ion-radio value="enemies" [disabled]="isDisabled"></ion-radio>
-    </ion-item>
-  </ion-list>
-
   <div #formContent></div>
 </ion-content>
