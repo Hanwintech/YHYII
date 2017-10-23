@@ -13,6 +13,7 @@ import { TzCreate9Page } from './../create9/tz-create9';
 import { TzCreate10Page } from './../create10/tz-create10';
 import { TzCreate11Page } from './../create11/tz-create11';
 import { tzDataSource } from './../../../models/tz/tzDataSource.model';
+import { SqlService } from "./../../../services/sqlite.service";
 
 @IonicPage()
 @Component({
@@ -21,11 +22,9 @@ import { tzDataSource } from './../../../models/tz/tzDataSource.model';
 })
 export class TZCreatePage {
   propertyId: string;
-  componentRef: ComponentRef<TzCreate1Page>;
-  @ViewChild("formContent", { read: ViewContainerRef }) container: ViewContainerRef;
-  @ViewChild(Content) content: Content;
   menuList = [];
   selectedMenuId = "";
+  aa = "cavav";
   public dropdownDS: tzDataSource;
   lt: boolean;
   dataSource;
@@ -33,22 +32,19 @@ export class TZCreatePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public platform: Platform,
+    private sqlService: SqlService,
     public alertCtrl: AlertController,
     public resolver: ComponentFactoryResolver,
     public menuCtrl: MenuController
   ) {
-    this.menuList = [
-      { id: "1", name: "基本信息" },
-      { id: "2", name: "平面形制" },
-      { id: "3", name: "台基地面" },
-      { id: "4", name: "墙体墙面" },
-      { id: "5", name: "构架形制" },
-      { id: "6", name: "斗栱" },
-      { id: "7", name: "装修形制" },
-      { id: "8", name: "油饰彩画" },
-      { id: "9", name: "屋顶瓦面" },
-      { id: "10", name: "古建备注" },
-      { id: "11", name: "问题描述" }];
+  }
+  ionViewDidEnter() {
+    this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data + '"').subscribe(res => {
+      this.dataSource = res[0];
+      console.log(res);
+    }, (error) => {
+      console.log(error);
+    })
 
     //获取下拉框数据源
     this.dropdownDS = new tzDataSource();
@@ -77,22 +73,32 @@ export class TZCreatePage {
     this.dropdownDS._09llwys = ["黄", "绿", "蓝", "其他"];//琉璃瓦颜色
     this.dropdownDS._09jbys = ["黄", "绿", "蓝", "其他"];//剪边颜色
   }
+
   submitData() {
-    let myDate=new Date();
-    this.dataSource.status="1";
-    this.dataSource.modifyTime=myDate.toLocaleDateString();
-    let  jsonData = {
+    let myDate = new Date();
+    this.dataSource.status = "1";
+    this.dataSource.modifyTime = myDate.toLocaleDateString();
+    console.log(this.navParams.data);
+    let jsonData = {
       "data": {
         "updates": {
           "BuildingInfo": [
             {
               "set": this.dataSource,
-              "where": this.navParams.data.ID
+              "where": {"ancientName":this.navParams.data}
             }
           ],
         }
       }
     };
+
+
+    this.sqlService.initialData(jsonData).subscribe((res) => {
+      console.log(res);
+    }, (error) => { });
+    this.sqlService.getSelectData('select * from BuildingInfo where status="1"').subscribe((res) => {
+      console.log(res);
+    }, (error) => { });
   }
   toggleMenu() {
     this.menuCtrl.toggle("tzCreateMenu");
@@ -101,93 +107,6 @@ export class TZCreatePage {
   enabletzCreateMenu() {
     this.menuCtrl.enable(true, 'tzCreateMenu');
     this.menuCtrl.enable(false, 'tzAreaMenu');
-  }
-  scrollTo(menuId) {
-    if (menuId == "1") { this.content.scrollToTop(); }
-    else if (menuId == "2") { this.content.scrollTo(0, 572.17, 300); }
-    else if (menuId == "3") { this.content.scrollTo(0, 1132.14, 300); }
-    else if (menuId == "4") { this.content.scrollTo(0, 1744.91, 300); }
-    else if (menuId == "5") { this.content.scrollTo(0, 1988.1, 300); }
-    else if (menuId == "6") { this.content.scrollTo(0, 2231.29, 300); }
-    else if (menuId == "7") { this.content.scrollTo(0, 2896.85, 300); }
-    else if (menuId == "8") { this.content.scrollTo(0, 3509.62, 300); }
-    else if (menuId == "9") { this.content.scrollTo(0, 3805.6, 300); }
-    else if (menuId == "10") { this.content.scrollTo(0, 4064.6, 300); }
-    else if (menuId == "11") { this.content.scrollTo(0, 4423.6, 300); }
-    this.selectedMenuId = menuId;
-    this.toggleMenu();
-  }
-
-  ionViewDidLoad() {
-    this.enabletzCreateMenu();
-
-    this.selectedMenuId = this.menuList[0].id;
-    {
-      const factory: ComponentFactory<TzCreate1Page> = this.resolver.resolveComponentFactory(TzCreate1Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate2Page> = this.resolver.resolveComponentFactory(TzCreate2Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate3Page> = this.resolver.resolveComponentFactory(TzCreate3Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate4Page> = this.resolver.resolveComponentFactory(TzCreate4Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate5Page> = this.resolver.resolveComponentFactory(TzCreate5Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate6Page> = this.resolver.resolveComponentFactory(TzCreate6Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-
-    }
-    {
-      const factory: ComponentFactory<TzCreate7Page> = this.resolver.resolveComponentFactory(TzCreate7Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate8Page> = this.resolver.resolveComponentFactory(TzCreate8Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate9Page> = this.resolver.resolveComponentFactory(TzCreate9Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-      componentRef.instance.dropdownDS = this.dropdownDS;
-    }
-    {
-      const factory: ComponentFactory<TzCreate10Page> = this.resolver.resolveComponentFactory(TzCreate10Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-
-    }
-    {
-      const factory: ComponentFactory<TzCreate11Page> = this.resolver.resolveComponentFactory(TzCreate11Page);
-      let componentRef = this.container.createComponent(factory);
-      componentRef.instance.propertyId = this.propertyId;
-
-    }
   }
 
 }

@@ -17,12 +17,20 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-menu id="tzAreaMenu" class="menu" type="overlay" [content]="tzListNav">
-  <ion-list>
-    <button *ngFor="let menu of scenery" (click)="openBUilding()" ion-item>
-      {{menu.area}}
-    </button>
-  </ion-list>
+<ion-menu id="tzAreaMenu" class="menu" type="overlay" [content]="tzListNav">
+    <ion-header>
+        <ion-toolbar>
+          <ion-title>巡检一区</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+          <button ion-button item-end large color="secondary" (click)="closeSelect()">完成</button>
+          <ion-list>
+              <button *ngFor="let menu of scenery" (click)="getBuilding(menu.Name)" ion-item>
+                {{menu.Name}}
+              </button>
+            </ion-list>
+      </ion-content>
 </ion-menu>
 
 <ion-menu id="tzListMenu" class="menu" type="overlay" side="right" [content]="tzListNav">
@@ -38,7 +46,7 @@
     </ion-item>
     <ion-item>
       <ion-label>建筑功能</ion-label> -->
-      <!-- <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="buildingFunction" (ngModelChange)="functionEvent($event)"
+      <ion-select okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="buildingFunction" (ngModelChange)="functionEvent($event)"
         [ngModel]="dataSource.function" multiple="false">
         <ion-option value="1">办公用房</ion-option>
         <ion-option value="2">监控室</ion-option>
@@ -48,8 +56,8 @@
         <ion-option value="6">厕所</ion-option>
         <ion-option value="7">库房</ion-option>
         <ion-option value="8">其他</ion-option>
-      </ion-select> -->
-    <!-- </ion-item>
+      </ion-select>
+     </ion-item>
     <ion-item>
       <ion-label>台账状态</ion-label>
       <ion-select okText="确定" cancelText="取消" placeholder="请输入台账状态" name="tzState"  [ngModel]="dataSource.status"
@@ -66,15 +74,15 @@
   </ion-item-group>
 
 </ion-menu>
-<ion-nav id="tzListNav" #tzListNav [root]="TZIndexPage"> </ion-nav> -->
+<ion-nav id="tzListNav" #tzListNav [root]="TZIndexPage"> </ion-nav>
 
-<!-- <ion-content>
-  <button ion-item *ngFor="let tz of building" class="item-ios" (click)="itemSelected(tz)">
-  <h2>{{ tz.number + tz.name }}</h2>
-  <p>{{ tz.area }}</p>
-  <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已完成</button>
-  <button ion-button clear item-end color="danger" *ngIf="tz.status == 2" style="font-size:1.4rem;">未完成</button>
-  <button ion-button clear item-end *ngIf="tz.time" style="font-size:1.4rem;">{{ tz.time }}</button>
-  <button ion-button clear item-end *ngIf="!tz.time" style="font-size:1.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——</button>
+<ion-content>
+  <button ion-item *ngFor="let tz of building" class="item-ios" (click)="itemSelected(tz.ancientName)">
+  <h2>{{ tz.ancientName}}</h2>
+  <p>{{ tz.ancientBelong }}</p>
+  <button ion-button clear item-end color="secondary" *ngIf="tz.status == '0'" style="font-size:1.4rem;">未完成</button>
+  <button ion-button clear item-end color="danger" *ngIf="tz.status == '1'" style="font-size:1.4rem;">已完成</button>
+<!-- <button ion-button clear item-end *ngIf="tz.time" style="font-size:1.4rem;">{{ tz.time }}</button>
+  <button ion-button clear item-end *ngIf="!tz.time" style="font-size:1.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——</button> -->
   </button>
-</ion-content> -->
+</ion-content>

@@ -145,7 +145,7 @@ export class InspectDetailPage {
             "DiseaseRecord": [
               {
                 "set": this.dataSource,
-                "where": this.navParams.data.ID
+                "where": {"recordId":this.navParams.data.ID}
               }
             ],
           }

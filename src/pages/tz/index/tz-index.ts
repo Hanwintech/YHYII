@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Platform, IonicPage, AlertController, NavParams,Events } from 'ionic-angular';
+import { NavController, Platform, IonicPage, AlertController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SqlService } from "./../../../services/sqlite.service";
 import { ApiService } from './../../../services/api.service';
@@ -19,7 +19,7 @@ export class TZIndexPage {
   scenery;
   building;
   searchQuery: string = '';
- 
+
 
   constructor(
     public navCtrl: NavController,
@@ -31,7 +31,7 @@ export class TZIndexPage {
     public alertCtrl: AlertController,
     public menuCtrl: MenuController,
     public events: Events) {
-   
+
     this.dataSource = [
       { id: "1", number: "A00001", name: "东宫门牌坊", area: "AAAAAAAA景区", function: "3", time: "2017-08-16", status: "1" },
       { id: "2", number: "A00001", name: "东宫门", area: "ABCD景区", function: "3", time: "", status: "2" },
@@ -41,70 +41,48 @@ export class TZIndexPage {
       { id: "6", number: "A00001", name: "东宫门", area: "AAAA景区", function: "4", time: "2017-08-16", status: "2" },
       { id: "7", number: "A00001", name: "东宫门", area: "AAAA景区", function: "4", time: "2017-08-16", status: "1" }];
 
-     
+
   }
 
-  ionViewDidLoad() { 
+  ionViewDidLoad() {
   }
-  ionViewDidEnter(){
-      this.menuCtrl.enable(true, 'tzAreaMenu');
-      //this.menuCtrl.enable(false, 'tzcreateMenu');
-
-      this.sqlService.getSelectData('select * from AncientArchitecture where SceneryName="西堤"').subscribe(res => {
-        this.scenery = res;
-        console.log(res);
-        // console.log(this.scenery[0].Name);
-        // this.getBuilding(this.scenery[0].Name);
-      }, (error) => {
-        console.log(error);
-      })
-      this.sqlService.getSelectData('select * from BuildingInfo where ancientBelong ="西堤"').subscribe(res => {
-        this.scenery = res;
-        console.log(res);
-        // console.log(this.scenery[0].Name);
-        // this.getBuilding(this.scenery[0].Name);
-      }, (error) => {
-        console.log(error);
-      })
-
-      let queryStr='select a.ID,a.Name,b.status from (select * from AncientArchitecture where SceneryName="西堤") a left join (select * from BuildingInfo where ancientBelong ="西堤") b on a.SceneryName=b.ancientBelong';   
-      this.sqlService.getSelectData(queryStr).subscribe(res => {
-     this.scenery = res;
-     console.log(res);
-     // console.log(this.scenery[0].Name);
-     // this.getBuilding(this.scenery[0].Name);
-   }, (error) => {
-     console.log(error);
-   })
-  }
-  getBuilding(selectedName) {
-    this.sqlService.getSelectData('select * from AncientArchitecture where SceneryName="' + selectedName + '"').subscribe(res => {
-      this.building = res;
-      console.log(this.building);
+  ionViewDidEnter() {
+    this.menuCtrl.enable(true, 'tzAreaMenu');
+    this.menuCtrl.enable(true, 'tzListMenu');
+    this.sqlService.getSelectData('select * from Scenery where InspectAreaID="1"').subscribe(res => {
+      this.scenery = res;
+      if(this.scenery[0].Name){
+        this.getBuilding(this.scenery[0].Name);       
+      }
     }, (error) => {
       console.log(error);
     })
   }
-  itemSelected() {
-    this.navCtrl.push("TZCreatePage");
+  getBuilding(selectedName) {
+    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="'+selectedName+'"').subscribe(res => {
+      this.building = res;
+      console.log(res);
+    }, (error) => {
+      console.log(error);
+    })
+    this.menuCtrl.close("tzAreaMenu");
+  }
+  itemSelected(selectedName) {
+    this.navCtrl.push("TZCreatePage",selectedName);
   }
 
   select() {
     this.menuCtrl.open("tzListMenu");
   }
-  leftScenery(){
+  leftScenery() {
     this.menuCtrl.open("tzAreaMenu");
   }
-  openBUilding(buildingArea){
-    this.menuCtrl.close("tzAreaMenu");
-    this.openBUilding(buildingArea);
-  }
   closeSelect() {
-    this.menuCtrl.close("tzListMenu");
+    this.menuCtrl.close("tzAreaMenu");
     //this.viewCtrl.dismiss(this.dataSource);
   }
-  
- 
+
+
   filterItems(ev: any) {
     this.dataSource = [
       { id: "1", number: "A00001", name: "东宫门牌坊", area: "AAAAAAAA景区", function: "3", time: "2017-08-16", status: "1" },

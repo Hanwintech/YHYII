@@ -66,9 +66,20 @@ export class MyPage {
 
   }
 
+  UploadsynchronousData() {
 
-  synchronousData(){
-    this.inspectService.getListAncientArchitecture().subscribe((res)=>{
+    this.sqlService.getSelectData('select * from BuildingInfo where status="1"').subscribe((res) => {
+      let tempData = { "saveList": res};
+      this.inspectService.saveListAncientArchitecture(tempData).subscribe((res) => {
+        console.log("上传数据");
+        console.log(res);
+      }, (error) => { });
+    }, (error) => { });
+
+
+  }
+  synchronousData() {
+    this.inspectService.getListAncientArchitecture().subscribe((res) => {
       this.json = {
         "structure": {
           "tables": {
@@ -81,35 +92,35 @@ export class MyPage {
           }
         }
       };
-      this.sqlService.initialData(this.json).subscribe((res)=>{
+      this.sqlService.initialData(this.json).subscribe((res) => {
         console.log(res);
-        this.sqlService.getSelectData("select * from BuildingInfo").subscribe(res=>{
+        this.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
           console.log(res);
-        },(error)=>{
+        }, (error) => {
           console.log(error);
         });
-      },(error)=>{});
+      }, (error) => { });
 
-    },error=>{});
+    }, error => { });
 
-  
+
   }
 
 
 
   uploadData() {
-      this.uploadFile().subscribe(res => {
-        if (!res) {
-          alert("上传附件失败");
-        }
-      }, error => {
-        console.log(error);
-      });
-      this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
-        ///console.log(res);
-      }, error => {
-    
-      });
+    this.uploadFile().subscribe(res => {
+      if (!res) {
+        alert("上传附件失败");
+      }
+    }, error => {
+      console.log(error);
+    });
+    this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
+      ///console.log(res);
+    }, error => {
+
+    });
 
   }
   //上传图片
@@ -117,7 +128,7 @@ export class MyPage {
     return Observable.create(observer => {
       this.getPicName().subscribe(res => {
         for (let i = 0; i < res.length; i++) {
-          let tempPic=res[i];
+          let tempPic = res[i];
           this.uploadSingleFile(tempPic).subscribe(res => {
             this.removeSingleFile(tempPic);
             observer.next(true);
@@ -167,11 +178,11 @@ export class MyPage {
     });
   }
 
-  private download(url,imgName) {
+  private download(url, imgName) {
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
     }
-    fileTransfer.download(url, this.file.externalRootDirectory + 'com.hanwintech.yhyii/' +imgName).then((entry) => {
+    fileTransfer.download(url, this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + imgName).then((entry) => {
 
     }, (error) => {
       console.log(error);
@@ -179,24 +190,24 @@ export class MyPage {
 
   }
 
-downLoadTest(){
-  this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
-    this.inspectService.getFiles().subscribe((res)=>{
-      for(let i=0;i<res.data.length;i++){
-        let tempPicUrl=this.apiService.getPicUrl(res.data[i]);
-        let tempPicName=res.data[i].split("/").pop();
-        this.download(tempPicUrl,tempPicName);
-      }
-    },(error)=>{
-      console.log(error);
-    });
-  }).catch(err => console.log('create fail'));
+  downLoadTest() {
+    this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
+      this.inspectService.getFiles().subscribe((res) => {
+        for (let i = 0; i < res.data.length; i++) {
+          let tempPicUrl = this.apiService.getPicUrl(res.data[i]);
+          let tempPicName = res.data[i].split("/").pop();
+          this.download(tempPicUrl, tempPicName);
+        }
+      }, (error) => {
+        console.log(error);
+      });
+    }).catch(err => console.log('create fail'));
 
-}
+  }
 
   private removeSingleFile(picName) {
     this.file.removeFile(this.file.externalRootDirectory + 'com.hanwintech.yhyii', picName).then(res => {
-    }).catch(err => { console.log("删除附件失败");console.log(err);});
+    }).catch(err => { console.log("删除附件失败"); console.log(err); });
   }
 
   getDiseaseData(selectStr: string): Observable<string> {

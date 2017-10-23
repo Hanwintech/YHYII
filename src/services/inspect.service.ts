@@ -57,5 +57,15 @@ getFiles(){
         return this.http.request(new Request(options)).map(res => res.json());
     }
 
-
+    saveListAncientArchitecture(data) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let options = {
+            method: RequestMethod.Post,
+            url: this.baseUrl + '/api/AncientArchiteture/SaveAncientArchitectureList',
+            headers: headers,
+            body:data
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
 }
