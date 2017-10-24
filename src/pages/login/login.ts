@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
-
+import { InspectService } from './../../services/inspect.service';
 import { GlobalCache } from './../../services/globalCache.service';
 import { ApiService } from './../../services/api.service';
 import { User } from "./../../models/user.model";
@@ -19,6 +19,7 @@ export class LoginPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private apiService: ApiService,
+    private inspectService: InspectService,
     private device: Device,
     private globalCache: GlobalCache,
     private storage: Storage,
@@ -28,15 +29,7 @@ export class LoginPage {
     this.storage.ready().then(() => {
       this.globalCache.init(() => {
         if (this.navParams.get("logout")) {
-          this.globalCache.clearUser()
-            .then(data => {
-              if (this.device.platform == 'iOS') {
-                (<any>window).plugins.jPushPlugin.setAlias("");
-              } else if (this.device.platform == 'Android') {
-                (<any>window).plugins.jPushPlugin.setAlias("");
-                (<any>window).plugins.jPushPlugin.clearAllNotification()
-              }
-            });
+          this.globalCache.clearUser();
         } else {
           let user = this.globalCache.user;
           if (user) {
@@ -50,40 +43,26 @@ export class LoginPage {
   private login(u: User) {
     let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
     loading.present();
-
-
-    this.apiService.token = "11111";
-    this.navCtrl.setRoot('TabsPage');
-
-
-    // if (u) {
-    //   this.navCtrl.setRoot('TabsPage');
-    // } else {
-    //   this.apiService.getToken(this.auth.account, this.auth.password)
-    //     .subscribe(res => {
-    //       let user: User = <User>res;
-    //       user.account = this.auth.account;
-    //       user.password = this.auth.password;
-    //       this.apiService.token = user.access_token;
-    //       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-    //         (<any>window).plugins.jPushPlugin.setAlias([user.account],
-    //           sucMsg => {
-    //             //alert(sucMsg);
-    //           },
-    //           errMsg => {
-    //             loading.dismiss();
-    //             let alert = this.alertCtrl.create({ title: '推送服务注册失败！', subTitle: errMsg, buttons: ['确定'] });
-    //             alert.present();;
-    //           });
-    //       }
-    //       this.globalCache.cacheUser(user);
-    //       this.navCtrl.setRoot('TabsPage');
-    //     },
-    //     error => {
-    //       loading.dismiss();
-    //       let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
-    //       alert.present();
-    //     });
-    // }
+    if (u) {
+      this.navCtrl.setRoot('TabsPage');
+    } else {
+      this.apiService.getToken(this.auth.account, this.auth.password)
+        .subscribe(res => {
+          console.log(res);
+          let user: User = <User>res;
+          console.log(user);
+          user.account = this.auth.account;
+          user.password = this.auth.password;
+          this.apiService.token = user.access_token;
+          this.inspectService.token=user.access_token;
+          this.globalCache.cacheUser(user);
+          this.navCtrl.setRoot('TabsPage');
+        },
+        error => {
+         loading.dismiss();
+          let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
+          alert.present();
+        });
+    }
   }
 }

@@ -36,17 +36,17 @@
         <ion-label>所属景区</ion-label>
         <ion-input [(ngModel)]="dataSource.ancientBelong" right type="text" placeholder="请输入所属景区" value=""></ion-input>
       </ion-item>
-      <!-- <ion-item>
+      <ion-item>
         <ion-label>结构类型</ion-label>
         <ion-select  [(ngModel)]="dataSource.structureType" okText="确定" cancelText="取消" placeholder="请输入结构类型" name="" multiple="false">
           <ion-option *ngFor="let item of dropdownDS._01jglx"  value="{{item}}">{{item}}</ion-option>
         </ion-select>
-      </ion-item> -->
+      </ion-item>
       <ion-item>
         <ion-label>建筑功能</ion-label>
-        <!-- <ion-select  [(ngModel)]="dataSource.buildingFunction" okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="" multiple="false">
+        <ion-select  [(ngModel)]="dataSource.buildingFunction" okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="" multiple="false">
           <ion-option *ngFor="let item of dropdownDS._01jzgn"  value="{{item}}">{{item}}</ion-option>
-        </ion-select> -->
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>建筑形式</ion-label>
@@ -54,11 +54,11 @@
       </ion-item>
       <ion-item>
         <ion-label>始建年代【年】</ion-label>
-        <ion-input [(ngModel)]="dataSource.constructionTime" right type="text" placeholder="请输入始建年代" value=""></ion-input>
+        <ion-input [(ngModel)]="dataSource.constructionTime" right  placeholder="请输入始建年代" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>最后修缮时间【年】</ion-label>
-        <ion-input [(ngModel)]="dataSource.finalRepair" right type="text" placeholder="请输入最后修缮时间" value=""></ion-input>
+        <ion-input [(ngModel)]="dataSource.finalRepair" right  placeholder="请输入最后修缮时间" ></ion-input>
       </ion-item>
     </ion-item-group>
 
@@ -136,7 +136,7 @@
     </ion-item>
     <ion-item>
       <ion-label>通面阔尺寸【mm】</ion-label>
-      <ion-input [(ngModel)]="dataSource.throughSurface" right type="text" placeholder="请输入通面阔尺寸" value=""></ion-input>
+      <ion-input [(ngModel)]="dataSource.throughSurface" right placeholder="请输入通面阔尺寸" ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>进深</ion-label>
@@ -573,8 +573,8 @@
         </ion-item>
       </ion-list>
       <ion-item>
-        <ion-label>走兽数量【个】</ion-label>
-        <ion-input [(ngModel)]="dataSource.beastNumber" right type="text" placeholder="请输入走兽数量" value=""></ion-input>
+        <ion-label>走兽数量【个】 dgsg</ion-label>
+        <ion-input [(ngModel)]="dataSource.beastNumber" right placeholder="请输入走兽数量" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>其他构件</ion-label>
@@ -582,11 +582,11 @@
       </ion-item>
       <ion-item>
         <ion-label>飞椽下皮高度【mm】</ion-label>
-        <ion-input [(ngModel)]="dataSource.eavesHeight" right type="text" placeholder="请输入飞椽下皮高度" value=""></ion-input>
+        <ion-input [(ngModel)]="dataSource.eavesHeight" right  placeholder="请输入飞椽下皮高度" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>正脊高度【mm】</ion-label>
-        <ion-input [(ngModel)]="dataSource.positiveHeight" right type="text" placeholder="请输入正脊高度" value=""></ion-input>
+        <ion-input [(ngModel)]="dataSource.positiveHeight" right placeholder="请输入正脊高度" ></ion-input>
       </ion-item>
       <div style="clear:both;"></div>
     </ion-item-group>

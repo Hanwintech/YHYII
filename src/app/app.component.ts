@@ -28,41 +28,41 @@ export class MyApp {
     private sqlite: SQLite,
     private splashScreen: SplashScreen
   ) {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      this.sqlite.echoTest().then(res=>{
-        this.inspectService.getDiseaseInspection().subscribe((res) => {
-          this.json = {
-            "structure": {
-              "tables": {
-                "Area": "(Description,ID,Name)",
-                "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
-                "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
-                "AncientArchitecture": "(ID,Name,SceneryName)",
-                "DiseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
-              }
-            },
-            "data": {
-              "inserts": {
-                "Area": JSON.parse(res.data[0]),
-                "Scenery": JSON.parse(res.data[1]),
-                "DisInspectPosition": JSON.parse(res.data[2]),
-                "AncientArchitecture": JSON.parse(res.data[3]),
-                "DiseaseRecord": JSON.parse(res.data[4]),
-              }
-            }
-          };
-          this.sqlService.initialData(this.json);
-        }, (error) => {
-          console.log(error);
-        });
-      },(error)=>{
-        return;
-      });
+    // this.platform.ready().then(() => {
+    //   this.statusBar.styleDefault();
+    //   this.splashScreen.hide();
+    //   this.sqlite.echoTest().then(res=>{
+    //     this.inspectService.getDiseaseInspection().subscribe((res) => {
+    //       this.json = {
+    //         "structure": {
+    //           "tables": {
+    //             "Area": "(Description,ID,Name)",
+    //             "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
+    //             "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
+    //             "AncientArchitecture": "(ID,Name,SceneryName)",
+    //             "DiseaseRecord": "(InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
+    //           }
+    //         },
+    //         "data": {
+    //           "inserts": {
+    //             "Area": JSON.parse(res.data[0]),
+    //             "Scenery": JSON.parse(res.data[1]),
+    //             "DisInspectPosition": JSON.parse(res.data[2]),
+    //             "AncientArchitecture": JSON.parse(res.data[3]),
+    //             "DiseaseRecord": JSON.parse(res.data[4]),
+    //           }
+    //         }
+    //       };
+    //       this.sqlService.initialData(this.json);
+    //     }, (error) => {
+    //       console.log(error);
+    //     });
+    //   },(error)=>{
+    //     return;
+    //   });
 
 
-    });
+    // });
   }
 
 }

@@ -10,8 +10,10 @@ export class InspectService extends ApiService {
     constructor(public http: Http) { super(http); }
 
     getDiseaseInspection() {
+        console.log(this.token);
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
         let options = {
             method: RequestMethod.Get,
             url: this.baseUrl + '/api/Inspect/DiseaseInspection',
@@ -22,7 +24,7 @@ export class InspectService extends ApiService {
     getSaveInspect(inspectContent: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        //headers.append('Authorization', 'bearer ' + this.token);
+        headers.append('Authorization', 'bearer ' + this.token);
         let options = {
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/Inspect/SaveDiseaseInspect',
@@ -32,11 +34,12 @@ export class InspectService extends ApiService {
         return this.http.request(new Request(options)).map(res => res.json());
     }
 
-    //获取附件xinxi
+    //获取附件信息
 
 getFiles(){
     let headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Authorization', 'bearer ' + this.token);
     let options = {
         method: RequestMethod.Get,
         url: this.baseUrl + '/api/Inspect/InspectAttachmentList',
@@ -47,8 +50,10 @@ getFiles(){
 
     // 台账信息列表
     getListAncientArchitecture() {
+        console.log(this.token);
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
         let options = {
             method: RequestMethod.Get,
             url: this.baseUrl + '/api/AncientArchiteture/ListAncientArchitecture',
@@ -60,6 +65,7 @@ getFiles(){
     saveListAncientArchitecture(data) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'bearer ' + this.token);
         let options = {
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/AncientArchiteture/SaveAncientArchitectureList',

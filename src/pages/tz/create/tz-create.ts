@@ -78,14 +78,21 @@ export class TZCreatePage {
     let myDate = new Date();
     this.dataSource.status = "1";
     this.dataSource.modifyTime = myDate.toLocaleDateString();
+    for(var item in this.dataSource){
+      if(this.dataSource[item]=="null"){
+        this.dataSource[item]="";
+        console.log(111);
+      }
+    }
     console.log(this.navParams.data);
+    console.log(this.dataSource);
     let jsonData = {
       "data": {
         "updates": {
           "BuildingInfo": [
             {
               "set": this.dataSource,
-              "where": {"ancientName":this.navParams.data}
+              "where": { "ancientName": this.navParams.data }
             }
           ],
         }

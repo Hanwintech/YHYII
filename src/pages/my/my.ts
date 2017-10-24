@@ -83,7 +83,7 @@ export class MyPage {
       this.json = {
         "structure": {
           "tables": {
-            "BuildingInfo": `(basicDataId,ancientNumber,ancientArea,ancientName,ancientBelong,structureType,buildingFunction,buildingStyle,constructionTime,finalRepair,planeForm,basicShapesLouti,basicShapesBaosha,basicShapesQianlang,basicShapeszhouweilang,basicShapesHoulang,miankuo,throughSurface,depth,depthofM,baseMaterial,baseForm,platformSize,groundMaterial,groundPractice,platformWheather,tailgateWheather,tailgateNumber,stepsWheather,stepsNumber,drumStone,drumStoneNumber,materialScience,wallmethod,lowerMethod,beamFrame,beamForm,eavesColumnDiameter,numberOfCanopies,underBrackets,underBucketSize,underBucketRemark,underCornerSection,underNumberOfStigma,underFamilies,upperBrackets,upperBucketSize,upperBucketRemark,upperCornerSection,upperNumberOfStigma,upperFamilies,curtainFrameWheather,paneMaterial,windDoorWheather,windowSillMaterial,windowWindowWheather,windowShape,eavesBetweenWheather,daoGuaMeizi,zuoDengMeizi,ceilingWheather,lowerFrame,frameColorWheather,frameColorType,doorPaintWheather,doorPaintColorType,roofRorm,tileType,glazedColor,cutEdgeColor,kissAnimalWheather,beastWheather,beastNumber,otherComponent,eavesHeight,positiveHeight,otherDescript,problemDescription,modifyTime,status)`
+            "BuildingInfo": `(basicDataId,ancientNumber,ancientArea,ancientName,ancientBelong,structureType,buildingFunction,buildingStyle,constructionTime,finalRepair,planeForm,basicShapesLouti,basicShapesBaosha,basicShapesQianlang,basicShapeszhouweilang,basicShapesHoulang,miankuo,throughSurface,depth,depthofM,baseMaterial,baseForm,platformSize,groundMaterial,groundPractice,platformWheather,tailgateWheather,tailgateNumber,stepsWheather,stepsNumber,drumStone,drumStoneNumber,materialScience,wallmethod,lowerMethod,beamFrame,beamForm,eavesColumnDiameter,numberOfCanopies,underBrackets,underBucketSize,underBucketRemark,underCornerSection,underNumberOfStigma,underFamilies,upperBrackets,upperBucketSize,upperBucketRemark,upperCornerSection,upperNumberOfStigma,upperFamilies,curtainFrameWheather,paneMaterial,windDoorWheather,windowSillMaterial,windowWindowWheather,windowShape,eavesBetweenWheather,daoGuaMeizi,zuoDengMeizi,ceilingWheather,lowerFrame,frameColorWheather,frameColorType,doorPaintWheather,doorPaintColorType,roofRorm,tileType,glazedColor,cutEdgeColor,kissAnimalWheather,beastWheather,beastNumber INTEGER,otherComponent,eavesHeight,positiveHeight,otherDescript,problemDescription,modifyTime,status)`
           }
         },
         "data": {
@@ -106,8 +106,7 @@ export class MyPage {
 
   }
 
-
-
+// 巡检数据上传
   uploadData() {
     this.uploadFile().subscribe(res => {
       if (!res) {
@@ -123,7 +122,7 @@ export class MyPage {
     });
 
   }
-  //上传图片
+  //根据图片名称上传所有图片
   uploadFile(): Observable<boolean> {
     return Observable.create(observer => {
       this.getPicName().subscribe(res => {
@@ -141,7 +140,7 @@ export class MyPage {
       });
     });
   }
-
+//图片上传（单张上传）
   uploadSingleFile(uploadImg): Observable<boolean> {
     return Observable.create(res => {
       const fileTransfer: FileTransferObject = this.transfer.create();
@@ -160,6 +159,7 @@ export class MyPage {
     }, error => { });
 
   }
+  //获取所有record中图片名称
   getPicName(): Observable<Array<string>> {
     return Observable.create(observer => {
       let imgData;

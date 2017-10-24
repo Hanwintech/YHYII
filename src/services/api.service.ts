@@ -1,61 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
-//import { Md5 } from "ts-md5/dist/md5";
 import 'rxjs/add/operator/map';
 
+import { _baseService } from "./_base.service"
 import { BaseRequest } from './baseRequest';
 import { IHttpCommonResponse } from "./../models/httpCommonResponse.model";
 
 @Injectable()
-export class ApiService {
-
-    private _token: string;
-    public get token(): string {
-        if (!this._token) {
-            this._token = localStorage.getItem('token');
-        }
-        return this._token;
-    }
-    public set token(v: string) {
-        localStorage.setItem('token', v);
-        this._token = v;
-    }
-    private _baseUrl: string;
-    public get baseUrl(): string {
-        if (!this._baseUrl) {
-            this._baseUrl = localStorage.getItem('baseUrl');
-            if (!this._baseUrl || this._baseUrl.length == 0) {
-                this._baseUrl = "http://10.10.10.219:9020";
-            }
-        }
-        return this._baseUrl;
-    }
-    public set baseUrl(v: string) {
-        localStorage.setItem('baseUrl', v);
-        this._baseUrl = v;
-    }
-
-    constructor(public http: Http) { }
-
-    getPicUrl(pic: string): string {
-        if (pic.length > 0 && pic[0] == "~") {
-            return this.baseUrl + pic.substring(1);
-        } else {
-            return pic;
-        }
-    }
+export class ApiService extends _baseService {
+    token: string;
+    constructor(public http: Http) { super(); }
 
     getToken(account: string, password: string) {
         let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Content-Type', 'application/json');        
         let options = {
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/token',
             headers: headers,
-            body: "grant_type=custom" + "&username=" + account + "&password=" + password + "&user_type=2"
+            body: "grant_type=password&username=" + account + "&password=" + password
         };
         return this.http.request(new Request(options))
-            .map(res => res.json());
+            .map(res =>{
+
+                console.log(res);
+                console.log(res.json());
+                
+                return res.json();
+                });
     }
 
     sendApi(request: BaseRequest) {
@@ -64,12 +36,6 @@ export class ApiService {
         if (request.method == 'POST') {
             headers.append('Content-Type', 'application/json');
         }
-        var timestamp = Math.round(new Date().getTime() / 1000) + 28800;
-        var nonce = "hygzf_app";
-        //var signature = Md5.hashStr("sipmch2017" + timestamp + nonce);
-        headers.append('timestamp', timestamp.toString());
-        headers.append('nonce', nonce);
-        //headers.append('signature', signature.toString().toUpperCase());
         let options = {
             method: request.method,
             url: this.baseUrl + request.requestUrl,
