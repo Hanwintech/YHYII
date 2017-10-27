@@ -1,5 +1,5 @@
 export class addInsepct {
-    InspectionPositionID = null;
+    inspectionPositionID = null;
     ancientArcID = null;
     //严重程度
     diseaseLevel = null;

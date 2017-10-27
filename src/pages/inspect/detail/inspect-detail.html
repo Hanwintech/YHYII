@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content>
-  <form *ngIf="dataSource" name="dataSource">
+  <div *ngIf="dataSource" name="dataSource">
     <ion-list>
       <ion-list class="gray-title">
         <ion-list-header>位置</ion-list-header>
@@ -60,14 +60,14 @@
           </div>
         </ion-item>
       </ion-list>
-      <ion-list radio-group class="gray-title" [(ngModel)]="dataSource.isRepaired" name="dataSource.isRepaired">
+      <ion-list radio-group class="gray-title" [(ngModel)]="dataSource.isRepaired">
         <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">
           是否修缮
         </ion-list-header>
 
         <ion-item style="border-bottom:1px solid #ddd;">
           <ion-label>否</ion-label>
-          <ion-radio checked value="0"></ion-radio>
+          <ion-radio  value="0"></ion-radio>
         </ion-item>
 
         <ion-item style="border-bottom:1px solid #ddd;">
@@ -75,6 +75,13 @@
           <ion-radio value="1"></ion-radio>
         </ion-item>
       </ion-list>
+      <ion-list class="gray-title" *ngIf='dataSource.isRepaired=="1"'>
+        <ion-list-header style="border-top:none;">修缮描述</ion-list-header>
+        <ion-item>
+          <ion-textarea placeholder="请输入修缮描述" [(ngModel)]="dataSource.repairDescription" style="height:80px;"></ion-textarea>
+        </ion-item>
+      </ion-list>
+
     </ion-list>
-  </form>
+  </div>
 </ion-content>

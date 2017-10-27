@@ -18,17 +18,6 @@ import { TzCreate11Page } from './../create11/tz-create11';
 @NgModule({
   declarations: [
     TZCreatePage,
-    TzCreate1Page,
-    TzCreate2Page,
-    TzCreate3Page,
-    TzCreate4Page,
-    TzCreate5Page, 
-    TzCreate6Page, 
-    TzCreate7Page ,
-    TzCreate8Page ,
-    TzCreate9Page, 
-    TzCreate10Page,
-    TzCreate11Page,
   ],
   imports: [
     IonicPageModule.forChild(TZCreatePage),
@@ -36,18 +25,7 @@ import { TzCreate11Page } from './../create11/tz-create11';
   exports: [
     TZCreatePage
   ],
-  entryComponents: [
-    TzCreate1Page,
-    TzCreate2Page,
-    TzCreate3Page,
-    TzCreate4Page,
-    TzCreate5Page, 
-    TzCreate6Page, 
-    TzCreate7Page ,
-    TzCreate8Page ,
-    TzCreate9Page, 
-    TzCreate10Page, 
-    TzCreate11Page,   
+  entryComponents: [  
   ],
   providers: [
     Geolocation

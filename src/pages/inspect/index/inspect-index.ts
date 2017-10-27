@@ -44,6 +44,7 @@ export class InspectIndexPage {
     this.menuCtrl.enable(true, 'inspectListMenu');
     this.sqlService.getSelectData('select * from Scenery where InspectAreaID="' + this.navParams.data.ID + '"').subscribe(res => {
       this.scenery = res;
+      console.log(this.scenery);
       console.log(this.scenery[0].Name);
       this.getBuilding(this.scenery[0].Name);
     }, (error) => {

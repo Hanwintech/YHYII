@@ -35,27 +35,33 @@ export class InspectCreatePage {
   }
   ionViewDidEnter() {
     // this.menuCtrl.toggle("tzCreateMenu");
-
     this.getData();
-
   }
 
   getData() {
-    let queryStr = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="'+this.navParams.data+'") b on b.InspectionPositionID = a.ID';
-    this.sqlService.getSelectData(queryStr).subscribe(res => {
+
+    let queryStr1 = 'select * from DisInspectPosition';
+    this.sqlService.getSelectData(queryStr1).subscribe(res => {
+      console.log(res);
+     this.dataSource=this.list_to_tree(res);
+     //console.log(this.dataSource);
+    }, (error) => {
+    });
+    let queryStr2 = 'select * from DiseaseRecord';
+    this.sqlService.getSelectData(queryStr2).subscribe(res => {
+      console.log(res);
+     this.dataSource=this.list_to_tree(res);
+     //console.log(this.dataSource);
+    }, (error) => {
+    });
+    let queryStr3 = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="'+this.navParams.data+'") b on b.inspectionPositionID = a.ID';
+    this.sqlService.getSelectData(queryStr3).subscribe(res => {
       console.log(res);
      this.dataSource=this.list_to_tree(res);
      //console.log(this.dataSource);
     }, (error) => {
     });
 
-  }
-  menuMore() {
-    let popover = this.popoverCtrl.create(InspectMorePage);
-    popover.onDidDismiss(data => {
-      console.log(data);
-    })
-    popover.present();
   }
 
   leftMenu() {
@@ -64,8 +70,8 @@ export class InspectCreatePage {
   itemCheck(diseaseInfo) {
     let inspectDetail = this.modalCtrl.create("InspectDetailPage",{ID:diseaseInfo.ID,ancientArcID:this.navParams.data});
     inspectDetail.onDidDismiss(data => {
-    alert(data);
       diseaseInfo.isRepaired=data;
+      alert(diseaseInfo.isRepaired);
     })
     inspectDetail.present();
 

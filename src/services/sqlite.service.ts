@@ -30,9 +30,10 @@ export class SqlService {
     }
 
     initialData(json):Observable<boolean> {
+        console.log(111);
         return Observable.create(res=>{
-            this.sqlitePorter.importJsonToDb(this.database, json).then((result) =>{ res.next(true); console.log('Imported')})
-                .catch(e =>{ console.error(e);res.next(false)});
+            this.sqlitePorter.importJsonToDb(this.database, json).then((result) =>{ res.next(result);console.log("Imported");})
+                .catch(e =>{ console.error(e);res.next(false);console.error(23213213213)});
         },error=>{});
 
     }
@@ -44,25 +45,6 @@ export class SqlService {
                 location: "default"
             }).then((db: SQLiteObject) => {
                 db.executeSql(deleteString, {}).then((rs) => {
-                    console.log(rs);
-                }, (error) => {
-                    observer.next(error);
-                })
-            });
-        });
-    }
-    insertData(dataSource): Observable<string> {
-        var resultData = "INSERT INTO DiseaseRecord (InspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType) VALUES ('" +
-            +  + "','" + dataSource.parentId + "','" + dataSource.location + "','" + dataSource.damamgeDegree + "','" +
-            + dataSource.workType + "','" + dataSource.inspectDescription + "','" + dataSource.picUrl.join(",") + "','" +
-            + dataSource.respair + "','" + dataSource.respairDescription + "','" + dataSource.inspectPerson + "','" + dataSource.inspectTime + "')";
-
-        return Observable.create(observer => {
-            this.sqlite.create({
-                name: "data.db",
-                location: "default"
-            }).then((db: SQLiteObject) => {
-                db.executeSql(resultData, {}).then((rs) => {
                     console.log(rs);
                 }, (error) => {
                     observer.next(error);

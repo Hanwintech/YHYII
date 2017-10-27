@@ -1,46 +1,56 @@
-<ion-item-group>
-  <ion-item-divider color="light" style="font-size:1.3em;">
-    基本信息
-  </ion-item-divider>
-  <ion-item>
-    <ion-label>古建编号</ion-label>
-    <ion-input  [(ngModel)]="dataSource.ancientNumber" right type="text" placeholder="请输入古建编号" value=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>建筑面积【m²】</ion-label>
-    <ion-input  [(ngModel)]="dataSource.ancientArea" right type="text" placeholder="请输入建筑面积" value=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>建筑名称</ion-label>
-    <ion-input  [(ngModel)]="dataSource.ancientName" right type="text" placeholder="请输入建筑名称" value=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>所属景区</ion-label>
-    <ion-input  [(ngModel)]="dataSource.ancientBelong" right type="text" placeholder="请输入所属景区" value=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>结构类型</ion-label>
-    <ion-select  [(ngModel)]="dataSource.structureType" okText="确定" cancelText="取消" placeholder="请输入结构类型" name="" multiple="false">
-      <ion-option *ngFor="let item of dropdownDS._01jglx"  value="{{item}}">{{item}}</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label>建筑功能</ion-label>
-    <ion-select  [(ngModel)]="dataSource.buildingFunction" okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="" multiple="false">
-      <ion-option *ngFor="let item of dropdownDS._01jzgn"  value="{{item}}">{{item}}</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label>建筑形式</ion-label>
-    <ion-textarea  [(ngModel)]="dataSource.buildingStyle" placeholder="请输入建筑形式" name="Type"></ion-textarea>
-  </ion-item>
-  <ion-item>
-    <ion-label>始建年代【年】</ion-label>
-    <ion-input  [(ngModel)]="dataSource.constructionTime" right type="text" placeholder="请输入始建年代" value=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>最后修缮时间【年】</ion-label>
-    <ion-input  [(ngModel)]="dataSource.finalRepair" right type="text" placeholder="请输入最后修缮时间" value=""></ion-input>
-  </ion-item>
-  <div style="clear:both;"></div>
-</ion-item-group>
+<ion-header>
+  <ion-navbar>
+    <ion-title>系统设置</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="exitMenu()">
+          <ion-icon name="md-log-out"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="action-sheets-basic-page">
+  <div style="width:100%;height:15em;overflow:hidden;text-align:center;">
+    <img src="http://img1.lvyou114.com/TukuMax/72/201358172111.jpg">
+  </div>
+
+  <button ion-button outline icon-left padding block text-left (click)="synchronousData()">
+    <ion-icon name="md-sync"></ion-icon>
+  古建台账数据同步
+  </button>
+
+  <button ion-button outline icon-left padding block text-left (click)="UploadsynchronousData()">
+      <ion-icon name="md-sync"></ion-icon>
+    古建台账数据上传
+    </button>
+  <button ion-button outline icon-left padding block text-left (click)="getData()">
+          <ion-icon name="md-cloud-download"></ion-icon>
+        获取数据
+        </button>
+
+  <button ion-button outline icon-left padding block text-left (click)="uploadData()">
+          <ion-icon name="md-cloud-upload"></ion-icon>
+       上传数据
+        </button>
+        <button ion-button outline  icon-left padding block text-left (click)="deleteData()" >
+          <ion-icon name="md-cloud-upload"></ion-icon>
+       shanbiao
+        </button>
+
+        <button ion-button outline  icon-left padding block text-left (click)="downLoadTest()" >
+          <ion-icon name="md-cloud-upload"></ion-icon>
+       附件信息
+        </button>
+
+
+        <button ion-button outline  icon-left padding block text-left (click)="aaa()" >
+          <ion-icon name="md-cloud-upload"></ion-icon>
+       aaa
+        </button>
+  <!-- <div  class="button-content">
+     <button ion-button color="danger" class="exitbutton" block (click)="exitMenu()">
+    退出系统
+  </button>
+</div> -->
+</ion-content>

@@ -24,10 +24,6 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { PreviewPicturePage } from "./../shared/preview-picture/preview-picture";
 import { MLabelComponent } from './../shared/m-label/m-label';
 import { BackButtonService } from "../services/backButton.service";
-import { MyPage } from '../pages/my/my';
-import { StatisticsPage } from './/../pages/statistics/statistics';
-import { InspectMorePage } from '../pages/inspect/more/inspect-more';
-import { TZIndexPage } from '../pages/tz/index/tz-index';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
@@ -35,10 +31,6 @@ import { Geolocation } from '@ionic-native/geolocation';
     MyApp,
     PreviewPicturePage,
     MLabelComponent,
-    TZIndexPage,
-    StatisticsPage,
-    MyPage,
-    InspectMorePage
   ],
   imports: [
     BrowserModule,
@@ -54,11 +46,7 @@ import { Geolocation } from '@ionic-native/geolocation';
   entryComponents: [
     MyApp,
     PreviewPicturePage,
-    MLabelComponent,
-    StatisticsPage,
-    TZIndexPage,
-    MyPage,
-    InspectMorePage
+    MLabelComponent
   ],
   providers: [
     StatusBar,

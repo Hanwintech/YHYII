@@ -10,7 +10,6 @@ export class InspectService extends ApiService {
     constructor(public http: Http) { super(http); }
 
     getDiseaseInspection() {
-        console.log(this.token);
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'bearer ' + this.token);
@@ -21,6 +20,63 @@ export class InspectService extends ApiService {
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }
+    getListInspectArea() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListInspectArea',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getListScenery() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListScenery',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+
+    getInspectAncientArchitecture() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListAncientArchitecture',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getListDisInspectPosition() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/ListDisInspectPosition',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+    getDiseaseRecord() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/NonRepairedDisInsRecord',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+
     getSaveInspect(inspectContent: any) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

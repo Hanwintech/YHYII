@@ -52,13 +52,14 @@ export class InspectDetailPage {
       { key: "316", value: "严重，需立即修复" }
     ];
     this.workTypeSource = [
-      { key: "1", value: "油作" },
-      { key: "2", value: "石作" }];
+      { key: "1", value: "瓦作" },
+      { key: "2", value: "木作" },
+      { key: "3", value: "油作" },
+      { key: "4", value: "石作" }];
   }
 
   ionViewDidLoad() {
-  this.dataSource = new addInsepct();
-    this.sqlService.getSelectData('select * from DiseaseRecord where InspectionPositionID="' + this.navParams.data.ID + '"').subscribe(res => {
+    this.sqlService.getSelectData('select * from DiseaseRecord where inspectionPositionID="' + this.navParams.data.ID + '"').subscribe(res => {
       if (res) {
         this.isHaveData = true;
         this.dataSource = res[0];
@@ -71,6 +72,7 @@ export class InspectDetailPage {
           this.dataSource.picUrl = [];
         }
         this.fileObjList =JSON.parse(JSON.stringify(this.dataSource.picUrl));
+        console.log(res);
       }
       else {
         this.isHaveData = false;
@@ -82,12 +84,6 @@ export class InspectDetailPage {
   }
   getPicUrl(pic: string): string {
     return this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + pic;
-  }
-  itemCheck(radioBtn) {
-    //radioBtn=!radioBtn;
-  }
-  closePage() {
-    this.navCtrl.pop();
   }
   getPicture() {
     this.nativeImgService.getPictureByCamera().subscribe(img => {
@@ -127,25 +123,30 @@ export class InspectDetailPage {
     });
     actionSheet.present();
   }
-  questionEvent(data){
-    alert(data);
+
+  closePage(){
+    this.viewCtrl.dismiss(this.dataSource.isRepaired);
   }
   submitData() {
     let jsonData;
-    this.dataSource.InspectionPositionID = this.navParams.data.ID;
+    this.dataSource.inspectionPositionID = this.navParams.data.ID;
     this.dataSource.ancientArcID = this.navParams.data.ancientArcID; 
     let myDate = new Date();
     this.dataSource.inspectTime = myDate.toLocaleDateString();
+    if(this.dataSource.isRepaired=="1"){
+      this.dataSource.respairTime=myDate.toLocaleDateString();
+    }
     console.log(this.dataSource);
-    this.viewCtrl.dismiss(this.dataSource.isRepaired);
+  
     if (this.isHaveData) {
+      console.log("有数据");
       jsonData = {
         "data": {
           "updates": {
             "DiseaseRecord": [
               {
                 "set": this.dataSource,
-                "where": {"recordId":this.navParams.data.ID}
+                "where": {"inspectionPositionID":this.navParams.data.ID}
               }
             ],
           }
@@ -153,6 +154,7 @@ export class InspectDetailPage {
       };
     }
     else {
+      console.log("无数据");
       this.dataSource.recordId = this.guid();
       jsonData = {
         "data": {
@@ -172,7 +174,11 @@ export class InspectDetailPage {
           duration: 1000
         });
         toast.present();
-      }
+        this.viewCtrl.dismiss(this.dataSource.isRepaired);
+      };
+      this.sqlService.getSelectData("select * from DiseaseRecord").subscribe(res => {
+        console.log(res);
+      }, error => { });
     }, error => {
       let alert = this.alertCtrl.create({
         title: '提示',
@@ -182,9 +188,7 @@ export class InspectDetailPage {
       alert.present();
       console.log(error);
     });
-    this.sqlService.getSelectData("select * from DiseaseRecord").subscribe(res => {
-      console.log(res);
-    }, error => { });
+
 
   }
   private S4() {

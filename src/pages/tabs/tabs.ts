@@ -4,6 +4,7 @@ import { BackButtonService } from "../../services/backButton.service";
 import { StatisticsPage } from './../statistics/statistics';
 import { TZIndexPage } from './../tz/index/tz-index';
 import { MyPage } from './../my/my';
+import { GlobalCache } from './../../services/globalCache.service';
 
 @IonicPage()
 @Component({
@@ -12,39 +13,11 @@ import { MyPage } from './../my/my';
 })
 export class TabsPage {
   tabRoots: Object[];
+  tab1Root = 'MyPage';
+  tab2Root = 'TZIndexPage';
+  tab3Root = 'StatisticsPage';
   @ViewChild('myTabs') tabRef: Tabs;
-  constructor(public backButtonService: BackButtonService,
+  constructor(public backButtonService: BackButtonService, private globalCache: GlobalCache,
     private platform: Platform) {
-    this.tabRoots = [
-      {
-        root: TZIndexPage,
-        tabTitle: '台账',
-        tabIcon: 'analytics'
-      },
-      {
-        root: StatisticsPage,
-        tabTitle: '巡检',
-        tabIcon: 'navigate'
-      },
-      // {
-      //   root: StatisticsPage,
-      //   tabTitle: '修复',
-      //   tabIcon: 'alarm'
-      // },
-      {
-        root: MyPage,
-        tabTitle: '系统',
-        tabIcon: 'person'
-      }
-
-    ];
-
-    platform.ready().then(() => {
-      this.backButtonService.registerBackButtonAction(this.tabRef);
-    });
-  }
-  // tab1Root = 'InspectIndexPage';
-  // tab2Root = 'StatisticsPage';
-  // tab3Root = 'StatisticsPage';
-  // tab4Root = 'MyPage';
+    }
 }

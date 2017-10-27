@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Platform, IonicPage, AlertController, NavParams, Events } from 'ionic-angular';
+import { NavController,ModalController, Platform, IonicPage, AlertController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SqlService } from "./../../../services/sqlite.service";
 import { ApiService } from './../../../services/api.service';
@@ -30,6 +30,7 @@ export class TZIndexPage {
     public apiService: ApiService,
     public alertCtrl: AlertController,
     public menuCtrl: MenuController,
+    private modalCtrl: ModalController,
     public events: Events) {
 
     this.dataSource = [
@@ -51,6 +52,7 @@ export class TZIndexPage {
     this.menuCtrl.enable(true, 'tzListMenu');
     this.sqlService.getSelectData('select * from Scenery where InspectAreaID="1"').subscribe(res => {
       this.scenery = res;
+      console.log(this.scenery);
       if(this.scenery[0].Name){
         this.getBuilding(this.scenery[0].Name);       
       }
@@ -59,7 +61,14 @@ export class TZIndexPage {
     })
   }
   getBuilding(selectedName) {
-    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="'+selectedName+'"').subscribe(res => {
+    // this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="'+selectedName+'"').subscribe(res => {
+    //   this.building = res;
+    //   console.log(res);
+    // }, (error) => {
+    //   console.log(error);
+    // })
+
+    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo order by status').subscribe(res => {
       this.building = res;
       console.log(res);
     }, (error) => {
@@ -67,8 +76,14 @@ export class TZIndexPage {
     })
     this.menuCtrl.close("tzAreaMenu");
   }
-  itemSelected(selectedName) {
-    this.navCtrl.push("TZCreatePage",selectedName);
+  itemSelected(selectedItem) {
+   // this.navCtrl.push("TZCreatePage",selectedName);
+
+   let inspectDetail = this.modalCtrl.create("TZCreatePage",{name:selectedItem.ancientName});
+   inspectDetail.onDidDismiss(data => {
+    selectedItem.status="1";
+   })
+   inspectDetail.present();
   }
 
   select() {

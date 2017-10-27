@@ -13,7 +13,7 @@ export class ApiService extends _baseService {
 
     getToken(account: string, password: string) {
         let headers = new Headers();
-        headers.append('Content-Type', 'application/json');        
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = {
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/token',
@@ -21,13 +21,7 @@ export class ApiService extends _baseService {
             body: "grant_type=password&username=" + account + "&password=" + password
         };
         return this.http.request(new Request(options))
-            .map(res =>{
-
-                console.log(res);
-                console.log(res.json());
-                
-                return res.json();
-                });
+            .map(res => res.json());
     }
 
     sendApi(request: BaseRequest) {

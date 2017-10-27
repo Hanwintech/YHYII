@@ -6,7 +6,7 @@ import { Network } from '@ionic-native/network';
 import { SqlService } from "../../services/sqlite.service";
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { File } from '@ionic-native/file';
-
+import { GlobalCache } from './../../services/globalCache.service';
 import { ApiService } from "./../../services/api.service";
 import { InspectService } from './../../services/inspect.service';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
@@ -33,10 +33,8 @@ export class MyPage {
     private file: File,
     public transfer: FileTransfer,
     private inspectService: InspectService,
+    private globalCache: GlobalCache,
     public actionSheetCtrl: ActionSheetController) {
-    //this.download();
-    //this.getPicName();
-    //this.removeFile('bjing0069');
   }
 
   exitMenu() {
@@ -62,28 +60,31 @@ export class MyPage {
     });
     actionSheet.present();
   }
+
+
   ionViewDidEnter() {
 
   }
 
-  UploadsynchronousData() {
-
+  //台账数据上传
+  uploadBuildingData() {
     this.sqlService.getSelectData('select * from BuildingInfo where status="1"').subscribe((res) => {
-      let tempData = { "saveList": res};
+      let tempData = { "saveList": res };
       this.inspectService.saveListAncientArchitecture(tempData).subscribe((res) => {
         console.log("上传数据");
         console.log(res);
+        this.deleteBuildingData();
       }, (error) => { });
     }, (error) => { });
-
-
   }
-  synchronousData() {
+  //台账数据下载
+  getBuildingData() {
     this.inspectService.getListAncientArchitecture().subscribe((res) => {
+      console.log(res);
       this.json = {
         "structure": {
           "tables": {
-            "BuildingInfo": `(basicDataId,ancientNumber,ancientArea,ancientName,ancientBelong,structureType,buildingFunction,buildingStyle,constructionTime,finalRepair,planeForm,basicShapesLouti,basicShapesBaosha,basicShapesQianlang,basicShapeszhouweilang,basicShapesHoulang,miankuo,throughSurface,depth,depthofM,baseMaterial,baseForm,platformSize,groundMaterial,groundPractice,platformWheather,tailgateWheather,tailgateNumber,stepsWheather,stepsNumber,drumStone,drumStoneNumber,materialScience,wallmethod,lowerMethod,beamFrame,beamForm,eavesColumnDiameter,numberOfCanopies,underBrackets,underBucketSize,underBucketRemark,underCornerSection,underNumberOfStigma,underFamilies,upperBrackets,upperBucketSize,upperBucketRemark,upperCornerSection,upperNumberOfStigma,upperFamilies,curtainFrameWheather,paneMaterial,windDoorWheather,windowSillMaterial,windowWindowWheather,windowShape,eavesBetweenWheather,daoGuaMeizi,zuoDengMeizi,ceilingWheather,lowerFrame,frameColorWheather,frameColorType,doorPaintWheather,doorPaintColorType,roofRorm,tileType,glazedColor,cutEdgeColor,kissAnimalWheather,beastWheather,beastNumber INTEGER,otherComponent,eavesHeight,positiveHeight,otherDescript,problemDescription,modifyTime,status)`
+            "BuildingInfo": `(basicDataId,ancientNumber,ancientArea,ancientName,ancientBelong,structureType,buildingFunction,buildingStyle,constructionTime,finalRepair,planeForm,basicShapesLouti,basicShapesBaosha,basicShapesQianlang,basicShapeszhouweilang,basicShapesHoulang,miankuo,throughSurface,depth,depthofM,baseMaterial,baseForm,platformSize,groundMaterial,groundPractice,platformWheather,tailgateWheather,tailgateNumber,stepsWheather,stepsNumber,drumStone,drumStoneNumber,materialScience,wallmethod,lowerMethod,beamFrame,beamForm,eavesColumnDiameter,numberOfCanopies,underBrackets,underBucketSize,underBucketRemark,underCornerSection,underNumberOfStigma,underFamilies,upperBrackets,upperBucketSize,upperBucketRemark,upperCornerSection,upperNumberOfStigma,upperFamilies,curtainFrameWheather,paneMaterial,windDoorWheather,windowSillMaterial,windowWindowWheather,windowShape,eavesBetweenWheather,daoGuaMeizi,zuoDengMeizi,ceilingWheather,lowerFrame,frameColorWheather,frameColorType,doorPaintWheather,doorPaintColorType,roofRorm,tileType,glazedColor,cutEdgeColor,kissAnimalWheather,beastWheather,beastNumber,otherComponent,eavesHeight,positiveHeight,otherDescript,problemDescription,modifyTime,status INTEGER)`
           }
         },
         "data": {
@@ -93,7 +94,6 @@ export class MyPage {
         }
       };
       this.sqlService.initialData(this.json).subscribe((res) => {
-        console.log(res);
         this.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
           console.log(res);
         }, (error) => {
@@ -106,8 +106,59 @@ export class MyPage {
 
   }
 
-// 巡检数据上传
-  uploadData() {
+
+  //巡检数据获取
+  getInspectData() {
+    this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
+      if (res) {
+        let alert = this.alertCtrl.create({
+          title: '警告',
+          message: '您本地存在未上传的巡检数据，如若继续下载,则会覆盖本地数据！',
+          buttons: [
+            {
+              text: '取消',
+              handler: () => {
+                return;
+              }
+            },
+            {
+              text: '继续下载',
+              handler: () => {
+                this.deleteBuildingData();
+                this.downLoadFile();
+                this.isGetInspectData();
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+      this.deleteInspectData();
+    }, error => {
+    });
+  }
+  //下载巡检数据
+  private isGetInspectData() {
+    this.inspectService.getDiseaseRecord().subscribe((res) => {
+      let inspectData = {
+        "structure": {
+          "tables": {
+            "DiseaseRecord": "(inspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
+          }
+        },
+        "data": {
+          "inserts": {
+            "DiseaseRecord": res,
+          }
+        }
+      }
+      this.sqlService.initialData(inspectData).subscribe((res) => {
+        console.log(res);
+      }, (error) => { });
+    }, (error) => { });
+  }
+  // 巡检数据上传
+  uploadInspectData() {
     this.uploadFile().subscribe(res => {
       if (!res) {
         alert("上传附件失败");
@@ -116,14 +167,15 @@ export class MyPage {
       console.log(error);
     });
     this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
-      ///console.log(res);
+      console.log(res);
+      this.deleteInspectData();
     }, error => {
 
     });
 
   }
   //根据图片名称上传所有图片
-  uploadFile(): Observable<boolean> {
+  private uploadFile(): Observable<boolean> {
     return Observable.create(observer => {
       this.getPicName().subscribe(res => {
         for (let i = 0; i < res.length; i++) {
@@ -140,8 +192,8 @@ export class MyPage {
       });
     });
   }
-//图片上传（单张上传）
-  uploadSingleFile(uploadImg): Observable<boolean> {
+  //图片上传（单张上传）
+  private uploadSingleFile(uploadImg): Observable<boolean> {
     return Observable.create(res => {
       const fileTransfer: FileTransferObject = this.transfer.create();
       let options: FileUploadOptions = {
@@ -160,7 +212,7 @@ export class MyPage {
 
   }
   //获取所有record中图片名称
-  getPicName(): Observable<Array<string>> {
+  private getPicName(): Observable<Array<string>> {
     return Observable.create(observer => {
       let imgData;
       let imgName = [];
@@ -177,7 +229,34 @@ export class MyPage {
       });
     });
   }
+  getBasicData() {
+    this.inspectService.getDiseaseInspection().subscribe((res) => {
+      console.log(res);
+      this.json = {
+        "structure": {
+          "tables": {
+            "Area": "(Description,ID integer,Name)",
+            "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
+            "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
+            "AncientArchitecture": "(ID,Name,SceneryName)"
+          }
+        },
+        "data": {
+          "inserts": {
+            "Area": JSON.parse(res.data[0]),
+            "Scenery": JSON.parse(res.data[1]),
+            "DisInspectPosition": JSON.parse(res.data[2]),
+            "AncientArchitecture": JSON.parse(res.data[3])
+          }
+        }
+      };
+      console.log(JSON.parse(res.data[0]));
+      this.sqlService.initialData(this.json).subscribe((res) => {
+        console.log(res);
+      }, (error) => { });
 
+    }, (error) => { });
+  }
   private download(url, imgName) {
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
@@ -190,7 +269,7 @@ export class MyPage {
 
   }
 
-  downLoadTest() {
+  downLoadFile() {
     this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
       this.inspectService.getFiles().subscribe((res) => {
         for (let i = 0; i < res.data.length; i++) {
@@ -237,11 +316,15 @@ export class MyPage {
       });
     });
   }
-  deleteData() {
+  deleteBuildingData() {
     this.sqlService.deleteData('delete from BuildingInfo').subscribe(res => {
       console.log(res);
     });
-
+  }
+  deleteInspectData() {
+    this.sqlService.deleteData('delete from DiseaseRecord').subscribe(res => {
+      console.log(res);
+    });
   }
 }
 

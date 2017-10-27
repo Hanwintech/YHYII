@@ -1,17 +1,6 @@
 import { Component, ViewChild, ViewContainerRef, ComponentFactory, ComponentRef, ComponentFactoryResolver } from '@angular/core';
-import { NavController, Platform, IonicPage, MenuController, AlertController, NavParams, Content } from 'ionic-angular';
+import { NavController,ViewController, Platform, IonicPage, MenuController, AlertController, NavParams, Content } from 'ionic-angular';
 //import { TZCreatePage } from './tz-create';
-import { TzCreate1Page } from './../create1/tz-create1';
-import { TzCreate2Page } from './../create2/tz-create2';
-import { TzCreate3Page } from './../create3/tz-create3';
-import { TzCreate4Page } from './../create4/tz-create4';
-import { TzCreate5Page } from './../create5/tz-create5';
-import { TzCreate6Page } from './../create6/tz-create6';
-import { TzCreate7Page } from './../create7/tz-create7';
-import { TzCreate8Page } from './../create8/tz-create8';
-import { TzCreate9Page } from './../create9/tz-create9';
-import { TzCreate10Page } from './../create10/tz-create10';
-import { TzCreate11Page } from './../create11/tz-create11';
 import { tzDataSource } from './../../../models/tz/tzDataSource.model';
 import { SqlService } from "./../../../services/sqlite.service";
 
@@ -34,12 +23,13 @@ export class TZCreatePage {
     public platform: Platform,
     private sqlService: SqlService,
     public alertCtrl: AlertController,
+    public viewCtrl: ViewController,
     public resolver: ComponentFactoryResolver,
     public menuCtrl: MenuController
   ) {
   }
   ionViewDidEnter() {
-    this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data + '"').subscribe(res => {
+    this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data.name + '"').subscribe(res => {
       this.dataSource = res[0];
       console.log(res);
     }, (error) => {
@@ -81,11 +71,8 @@ export class TZCreatePage {
     for(var item in this.dataSource){
       if(this.dataSource[item]=="null"){
         this.dataSource[item]="";
-        console.log(111);
       }
     }
-    console.log(this.navParams.data);
-    console.log(this.dataSource);
     let jsonData = {
       "data": {
         "updates": {
@@ -102,9 +89,7 @@ export class TZCreatePage {
 
     this.sqlService.initialData(jsonData).subscribe((res) => {
       console.log(res);
-    }, (error) => { });
-    this.sqlService.getSelectData('select * from BuildingInfo where status="1"').subscribe((res) => {
-      console.log(res);
+      this.viewCtrl.dismiss("1");
     }, (error) => { });
   }
   toggleMenu() {

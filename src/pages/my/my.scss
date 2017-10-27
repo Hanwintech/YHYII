@@ -12,15 +12,8 @@ page-my {
         width: 100%;
         padding: 0 10px;
     }
-
-    .pic{
-        width:80px;
-        height:80px;
-        text-align: center;
-    }
-    .pic img{
-        max-width:80px;
-        max-height:80px;
-        margin: 0 auto;
+    img{
+        width:100%;
+        height:18%;
     }
 }
