@@ -1,5 +1,5 @@
 export class addInsepct {
-    inspectionPositionID = null;
+ 
     ancientArcID = null;
     //严重程度
     diseaseLevel = null;
@@ -7,6 +7,7 @@ export class addInsepct {
     inspectPerson = null;
     //巡检时间
     inspectTime = null;
+    inspectionPositionID = null;
     isRepaired = '0';
     location = null;
     //巡检附件

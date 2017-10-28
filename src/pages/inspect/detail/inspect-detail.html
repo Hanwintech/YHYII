@@ -67,15 +67,15 @@
 
         <ion-item style="border-bottom:1px solid #ddd;">
           <ion-label>否</ion-label>
-          <ion-radio  value="0"></ion-radio>
+          <ion-radio  value="false"></ion-radio>
         </ion-item>
 
         <ion-item style="border-bottom:1px solid #ddd;">
           <ion-label>是</ion-label>
-          <ion-radio value="1"></ion-radio>
+          <ion-radio value="true"></ion-radio>
         </ion-item>
       </ion-list>
-      <ion-list class="gray-title" *ngIf='dataSource.isRepaired=="1"'>
+      <ion-list class="gray-title" *ngIf='dataSource.isRepaired=="true"'>
         <ion-list-header style="border-top:none;">修缮描述</ion-list-header>
         <ion-item>
           <ion-textarea placeholder="请输入修缮描述" [(ngModel)]="dataSource.repairDescription" style="height:80px;"></ion-textarea>

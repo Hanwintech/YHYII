@@ -66,6 +66,8 @@ export class InspectService extends ApiService {
         return this.http.request(new Request(options)).map(res => res.json());
     }
     getDiseaseRecord() {
+
+        alert("获取巡检数据的请求")
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'bearer ' + this.token);

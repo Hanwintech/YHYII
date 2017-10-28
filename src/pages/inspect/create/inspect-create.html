@@ -8,18 +8,18 @@
     <ion-card-header style="font-weight:bold;">
       {{first.PositionName}}
     </ion-card-header>
-    <ion-item *ngIf='first.Type=="1"'  [class.selected]='first.isRepaired=="0"' (click)="itemCheck(first)">
+    <ion-item *ngIf='first.Type=="1"'  [class.selected]='first.isRepaired=="false"' (click)="itemCheck(first)">
       <ion-label>{{first.PositionName}}</ion-label>
     </ion-item>
 
     <ion-card-content>
       <ion-list *ngFor="let second of first.child" class="gray-title">
         <ion-list-header *ngIf='second.Type=="0"' style="color:#9d9e9e">{{second.PositionName}}</ion-list-header>
-        <ion-item *ngIf='second.Type=="1"'  [class.selected]='second.isRepaired=="0"'  (click)="itemCheck(second)">
+        <ion-item *ngIf='second.Type=="1"'  [class.selected]='second.isRepaired=="false"'  (click)="itemCheck(second)">
           <ion-label>{{second.PositionName}}</ion-label>
         </ion-item>
 
-        <ion-item *ngFor="let third of second.child"  [class.selected]='third.isRepaired=="0"'  (click)="itemCheck(third)">
+        <ion-item *ngFor="let third of second.child"  [class.selected]='third.isRepaired=="false"'  (click)="itemCheck(third)">
           <ion-label>{{third.PositionName}}</ion-label>
         </ion-item>
       </ion-list>

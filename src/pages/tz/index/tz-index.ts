@@ -61,14 +61,7 @@ export class TZIndexPage {
     })
   }
   getBuilding(selectedName) {
-    // this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="'+selectedName+'"').subscribe(res => {
-    //   this.building = res;
-    //   console.log(res);
-    // }, (error) => {
-    //   console.log(error);
-    // })
-
-    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo order by status').subscribe(res => {
+    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="'+selectedName+'"').subscribe(res => {
       this.building = res;
       console.log(res);
     }, (error) => {

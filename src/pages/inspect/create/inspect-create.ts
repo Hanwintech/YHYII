@@ -39,21 +39,6 @@ export class InspectCreatePage {
   }
 
   getData() {
-
-    let queryStr1 = 'select * from DisInspectPosition';
-    this.sqlService.getSelectData(queryStr1).subscribe(res => {
-      console.log(res);
-     this.dataSource=this.list_to_tree(res);
-     //console.log(this.dataSource);
-    }, (error) => {
-    });
-    let queryStr2 = 'select * from DiseaseRecord';
-    this.sqlService.getSelectData(queryStr2).subscribe(res => {
-      console.log(res);
-     this.dataSource=this.list_to_tree(res);
-     //console.log(this.dataSource);
-    }, (error) => {
-    });
     let queryStr3 = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="'+this.navParams.data+'") b on b.inspectionPositionID = a.ID';
     this.sqlService.getSelectData(queryStr3).subscribe(res => {
       console.log(res);
@@ -61,7 +46,6 @@ export class InspectCreatePage {
      //console.log(this.dataSource);
     }, (error) => {
     });
-
   }
 
   leftMenu() {
@@ -70,8 +54,9 @@ export class InspectCreatePage {
   itemCheck(diseaseInfo) {
     let inspectDetail = this.modalCtrl.create("InspectDetailPage",{ID:diseaseInfo.ID,ancientArcID:this.navParams.data});
     inspectDetail.onDidDismiss(data => {
-      diseaseInfo.isRepaired=data;
-      alert(diseaseInfo.isRepaired);
+      if(data!=undefined){
+        diseaseInfo.isRepaired=data;
+      }
     })
     inspectDetail.present();
 

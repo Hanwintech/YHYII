@@ -64,14 +64,14 @@ export class InspectDetailPage {
         this.isHaveData = true;
         this.dataSource = res[0];
         if (this.dataSource.picUrl.length > 1) {
-         let tempPic=this.dataSource.picUrl;
-         this.dataSource.picUrl=tempPic.split(",");
+          let tempPic = this.dataSource.picUrl;
+          this.dataSource.picUrl = tempPic.split(",");
         }
         else {
           console.log("没图片");
           this.dataSource.picUrl = [];
         }
-        this.fileObjList =JSON.parse(JSON.stringify(this.dataSource.picUrl));
+        this.fileObjList = JSON.parse(JSON.stringify(this.dataSource.picUrl));
         console.log(res);
       }
       else {
@@ -87,8 +87,8 @@ export class InspectDetailPage {
   }
   getPicture() {
     this.nativeImgService.getPictureByCamera().subscribe(img => {
-      let img_name = ''+img.split('/').pop()+'';
-      console.log(typeof(img_name));
+      let img_name = '' + img.split('/').pop() + '';
+      console.log(typeof (img_name));
       this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
         this.file.moveFile(this.file.externalCacheDirectory, img_name, this.file.externalRootDirectory + 'com.hanwintech.yhyii', '').then(_ => {
           this.fileObjList.push(img_name);
@@ -124,20 +124,38 @@ export class InspectDetailPage {
     actionSheet.present();
   }
 
-  closePage(){
-    this.viewCtrl.dismiss(this.dataSource.isRepaired);
+  closePage() {
+    let alert = this.alertCtrl.create({
+      title: '警告',
+      message: '确定离开本页面？若离开，则本页面的更改数据将不会被保存！',
+      buttons: [
+        {
+          text: '留下',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: '离开',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
   submitData() {
     let jsonData;
     this.dataSource.inspectionPositionID = this.navParams.data.ID;
-    this.dataSource.ancientArcID = this.navParams.data.ancientArcID; 
+    this.dataSource.ancientArcID = this.navParams.data.ancientArcID;
     let myDate = new Date();
     this.dataSource.inspectTime = myDate.toLocaleDateString();
-    if(this.dataSource.isRepaired=="1"){
-      this.dataSource.respairTime=myDate.toLocaleDateString();
+    if (this.dataSource.isRepaired == "1") {
+      this.dataSource.respairTime = myDate.toLocaleDateString();
     }
     console.log(this.dataSource);
-  
+
     if (this.isHaveData) {
       console.log("有数据");
       jsonData = {
@@ -146,7 +164,7 @@ export class InspectDetailPage {
             "DiseaseRecord": [
               {
                 "set": this.dataSource,
-                "where": {"inspectionPositionID":this.navParams.data.ID}
+                "where": { "inspectionPositionID": this.navParams.data.ID }
               }
             ],
           }
@@ -188,8 +206,6 @@ export class InspectDetailPage {
       alert.present();
       console.log(error);
     });
-
-
   }
   private S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);

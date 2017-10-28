@@ -109,7 +109,9 @@ export class MyPage {
 
   //巡检数据获取
   getInspectData() {
-    this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
+    this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res => {
+      console.log("巡检记录表")
+      console.log(res);
       if (res) {
         let alert = this.alertCtrl.create({
           title: '警告',
@@ -124,8 +126,7 @@ export class MyPage {
             {
               text: '继续下载',
               handler: () => {
-                this.deleteBuildingData();
-                this.downLoadFile();
+                this.deleteInspectData();
                 this.isGetInspectData();
               }
             }
@@ -133,7 +134,9 @@ export class MyPage {
         });
         alert.present();
       }
-      this.deleteInspectData();
+      else {
+        this.isGetInspectData();
+      }
     }, error => {
     });
   }
@@ -143,17 +146,21 @@ export class MyPage {
       let inspectData = {
         "structure": {
           "tables": {
-            "DiseaseRecord": "(inspectionPositionID,ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
+            "DiseaseRecord": "(ancientArcID,diseaseLevel,inspectDescription,inspectPerson,inspectTime,inspectionPositionID,isRepaired,location,picUrl,recordId,repairDescription,respairTime,workType)"
           }
         },
         "data": {
           "inserts": {
-            "DiseaseRecord": res,
+            "DiseaseRecord": JSON.parse(res.data)
           }
         }
       }
       this.sqlService.initialData(inspectData).subscribe((res) => {
         console.log(res);
+        this.downLoadFile();
+        this.sqlService.getSelectData("select * from DiseaseRecord").subscribe((res) => {
+          console.log(res);
+        });
       }, (error) => { });
     }, (error) => { });
   }
@@ -173,6 +180,33 @@ export class MyPage {
 
     });
 
+  }
+
+  getDiseaseData(selectStr: string): Observable<string> {
+    return Observable.create(observer => {
+      this.sqlite.create({
+        name: "data.db",
+        location: "default"
+      }).then((db: SQLiteObject) => {
+        db.executeSql(selectStr, {}).then((rs) => {
+          if (rs.rows.length > 0) {
+            for (var i = 0; i < rs.rows.length; i++) {
+              var item = rs.rows.item(i);
+              this.inspectService.getSaveInspect(item).subscribe(res => {
+                observer.next(res);
+                console.log(res);
+              }, error => { console.log(error); });
+            }
+
+          }
+          else {
+            observer.next(false);
+          }
+        }, (error) => {
+          observer.next(error);
+        })
+      });
+    });
   }
   //根据图片名称上传所有图片
   private uploadFile(): Observable<boolean> {
@@ -203,6 +237,8 @@ export class MyPage {
       fileTransfer.upload(this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + uploadImg,
         encodeURI(this.apiService.baseUrl + '/api/Inspect/SaveTempFile'),
         options, true).then((data) => {
+          console.log("图片上传");
+          console.log(this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + uploadImg);
           res.next(true);
         }, (err) => {
           console.log(err);
@@ -288,40 +324,17 @@ export class MyPage {
     this.file.removeFile(this.file.externalRootDirectory + 'com.hanwintech.yhyii', picName).then(res => {
     }).catch(err => { console.log("删除附件失败"); console.log(err); });
   }
-
-  getDiseaseData(selectStr: string): Observable<string> {
-    return Observable.create(observer => {
-      this.sqlite.create({
-        name: "data.db",
-        location: "default"
-      }).then((db: SQLiteObject) => {
-        db.executeSql(selectStr, {}).then((rs) => {
-          if (rs.rows.length > 0) {
-            for (var i = 0; i < rs.rows.length; i++) {
-              var item = rs.rows.item(i);
-              item.picUrl = item.picUrl.split(",");
-              this.inspectService.getSaveInspect(item).subscribe(res => {
-                observer.next(res);
-                console.log(res);
-              }, error => { console.log(error); });
-            }
-
-          }
-          else {
-            observer.next(false);
-          }
-        }, (error) => {
-          observer.next(error);
-        })
-      });
-    });
-  }
   deleteBuildingData() {
     this.sqlService.deleteData('delete from BuildingInfo').subscribe(res => {
       console.log(res);
     });
   }
   deleteInspectData() {
+    this.sqlService.deleteData('delete from DiseaseRecord').subscribe(res => {
+      console.log(res);
+    });
+  }
+  deleteDataInfo(){
     this.sqlService.deleteData('delete from DiseaseRecord').subscribe(res => {
       console.log(res);
     });

@@ -66,7 +66,7 @@ export class TZCreatePage {
 
   submitData() {
     let myDate = new Date();
-    this.dataSource.status = "1";
+    this.dataSource.status = 1;
     this.dataSource.modifyTime = myDate.toLocaleDateString();
     for(var item in this.dataSource){
       if(this.dataSource[item]=="null"){
