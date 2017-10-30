@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewContainerRef, ComponentFactory, ComponentRef, ComponentFactoryResolver } from '@angular/core';
-import { NavController,ViewController, Platform, IonicPage, MenuController, AlertController, NavParams, Content } from 'ionic-angular';
+import { NavController, ViewController, LoadingController, Platform, IonicPage, MenuController, AlertController, NavParams, Content } from 'ionic-angular';
 //import { TZCreatePage } from './tz-create';
 import { tzDataSource } from './../../../models/tz/tzDataSource.model';
 import { SqlService } from "./../../../services/sqlite.service";
@@ -24,16 +24,26 @@ export class TZCreatePage {
     private sqlService: SqlService,
     public alertCtrl: AlertController,
     public viewCtrl: ViewController,
+    private loadingCtrl: LoadingController,
     public resolver: ComponentFactoryResolver,
     public menuCtrl: MenuController
   ) {
   }
   ionViewDidEnter() {
-    this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data.name + '"').subscribe(res => {
-      this.dataSource = res[0];
-      console.log(res);
+    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载台账数据' });
+    loading.present();
+    this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data.buildingName + '" and ancientBelong="' + this.navParams.data.sceneryName + '"').subscribe(res => {
+      if (res) {
+        this.dataSource = res[0];
+        loading.dismiss();
+      }
+      else {
+        let alert = this.alertCtrl.create({ title: '获取数据失败', subTitle: '请先去设置页面获取数据', buttons: ['确定'] });
+        alert.present();
+        return;
+      }
     }, (error) => {
-      console.log(error);
+      loading.dismiss();
     })
 
     //获取下拉框数据源
@@ -68,25 +78,24 @@ export class TZCreatePage {
     let myDate = new Date();
     this.dataSource.status = 1;
     this.dataSource.modifyTime = myDate.toLocaleDateString();
-    for(var item in this.dataSource){
-      if(this.dataSource[item]=="null"){
-        this.dataSource[item]="";
+    for (var item in this.dataSource) {
+      if (this.dataSource[item] == "null" || this.dataSource[item] == null) {
+        this.dataSource[item] = "";
       }
     }
+    console.log(this.dataSource);
     let jsonData = {
       "data": {
         "updates": {
           "BuildingInfo": [
             {
               "set": this.dataSource,
-              "where": { "ancientName": this.navParams.data }
+              "where": { "ancientName": this.navParams.data.buildingName, "ancientBelong": this.navParams.data.sceneryName }
             }
           ],
         }
       }
     };
-
-
     this.sqlService.initialData(jsonData).subscribe((res) => {
       console.log(res);
       this.viewCtrl.dismiss("1");
@@ -95,7 +104,9 @@ export class TZCreatePage {
   toggleMenu() {
     this.menuCtrl.toggle("tzCreateMenu");
   }
-
+  closePage() {
+    this.navCtrl.pop();
+  }
   enabletzCreateMenu() {
     this.menuCtrl.enable(true, 'tzCreateMenu');
     this.menuCtrl.enable(false, 'tzAreaMenu');

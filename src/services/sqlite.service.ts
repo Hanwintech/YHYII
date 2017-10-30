@@ -31,7 +31,7 @@ export class SqlService {
 
     initialData(json):Observable<boolean> {
         return Observable.create(res=>{
-            this.sqlitePorter.importJsonToDb(this.database, json).then((result) =>{ res.next(result);console.log("Imported");})
+            this.sqlitePorter.importJsonToDb(this.database, json).then((result) =>{ res.next(true);console.log("Imported");})
                 .catch(e =>{ console.error(e);res.next(false);console.error("Imported error")});
         },error=>{});
 

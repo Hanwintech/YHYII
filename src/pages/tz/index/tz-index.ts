@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController,ModalController, Platform, IonicPage, AlertController, NavParams, Events } from 'ionic-angular';
+import { NavController, ModalController, Platform, IonicPage, AlertController, NavParams, Events } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SqlService } from "./../../../services/sqlite.service";
 import { ApiService } from './../../../services/api.service';
@@ -19,7 +19,7 @@ export class TZIndexPage {
   scenery;
   building;
   searchQuery: string = '';
-
+  selectedScenery;
 
   constructor(
     public navCtrl: NavController,
@@ -44,39 +44,38 @@ export class TZIndexPage {
 
 
   }
-
-  ionViewDidLoad() {
-  }
   ionViewDidEnter() {
     this.menuCtrl.enable(true, 'tzAreaMenu');
     this.menuCtrl.enable(true, 'tzListMenu');
-    this.sqlService.getSelectData('select * from Scenery where InspectAreaID="1"').subscribe(res => {
+    console.log(this.navParams.data);
+    this.sqlService.getSelectData('select * from Scenery where InspectAreaID="' + this.navParams.data.ID + '"').subscribe(res => {
+      console.log(res);
       this.scenery = res;
-      console.log(this.scenery);
-      if(this.scenery[0].Name){
-        this.getBuilding(this.scenery[0].Name);       
+      this.selectedScenery = this.scenery[0].Name;
+      if (this.scenery[0].Name) {
+        this.getBuilding(this.scenery[0].Name);
       }
     }, (error) => {
       console.log(error);
     })
   }
   getBuilding(selectedName) {
-    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="'+selectedName+'"').subscribe(res => {
+    this.selectedScenery = selectedName;
+    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="' + selectedName + '" order by status ').subscribe(res => {
       this.building = res;
-      console.log(res);
     }, (error) => {
       console.log(error);
     })
     this.menuCtrl.close("tzAreaMenu");
   }
   itemSelected(selectedItem) {
-   // this.navCtrl.push("TZCreatePage",selectedName);
-
-   let inspectDetail = this.modalCtrl.create("TZCreatePage",{name:selectedItem.ancientName});
-   inspectDetail.onDidDismiss(data => {
-    selectedItem.status="1";
-   })
-   inspectDetail.present();
+    let inspectDetail = this.modalCtrl.create("TZCreatePage", { buildingName: selectedItem.ancientName, sceneryName: this.selectedScenery });
+    inspectDetail.onDidDismiss(data => {
+      if (data != undefined) {
+        selectedItem.status = "1";
+      }
+    })
+    inspectDetail.present();
   }
 
   select() {
@@ -87,7 +86,6 @@ export class TZIndexPage {
   }
   closeSelect() {
     this.menuCtrl.close("tzAreaMenu");
-    //this.viewCtrl.dismiss(this.dataSource);
   }
 
 

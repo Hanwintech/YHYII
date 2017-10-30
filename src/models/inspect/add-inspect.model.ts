@@ -8,7 +8,7 @@ export class addInsepct {
     //巡检时间
     inspectTime = null;
     inspectionPositionID = null;
-    isRepaired = '0';
+    isRepaired = 'false';
     location = null;
     //巡检附件
     picUrl = [];

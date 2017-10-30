@@ -29,6 +29,7 @@ export class InspectDetailPage {
   damamgeDegreeSource;
   workTypeSource;
   isHaveData;
+  isView;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -72,11 +73,12 @@ export class InspectDetailPage {
           this.dataSource.picUrl = [];
         }
         this.fileObjList = JSON.parse(JSON.stringify(this.dataSource.picUrl));
-        console.log(res);
+        this.isView=this.dataSource.isRepaired;
       }
       else {
         this.isHaveData = false;
         this.dataSource = new addInsepct();
+        this.isView=this.dataSource.isRepaired;
       }
     }, error => {
       console.log(error);

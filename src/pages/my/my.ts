@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App, AlertController } from 'ionic-angular';
-import { Platform, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, AlertController, ToastController } from 'ionic-angular';
+import { Platform, ActionSheetController, LoadingController } from 'ionic-angular';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Network } from '@ionic-native/network';
 import { SqlService } from "../../services/sqlite.service";
@@ -10,6 +10,7 @@ import { GlobalCache } from './../../services/globalCache.service';
 import { ApiService } from "./../../services/api.service";
 import { InspectService } from './../../services/inspect.service';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import { Observable } from "rxjs";
 @IonicPage()
 @Component({
@@ -21,6 +22,9 @@ export class MyPage {
   scenery;
   building;
   json;
+  role;
+  both;
+  isConnected;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private app: App,
@@ -33,10 +37,12 @@ export class MyPage {
     private file: File,
     public transfer: FileTransfer,
     private inspectService: InspectService,
+    private storage: Storage,
     private globalCache: GlobalCache,
+    private loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
     public actionSheetCtrl: ActionSheetController) {
   }
-
   exitMenu() {
     let actionSheet = this.actionSheetCtrl.create({
       title: '确定要退出登录吗？',
@@ -60,88 +66,198 @@ export class MyPage {
     });
     actionSheet.present();
   }
-
-
   ionViewDidEnter() {
-
+    this.getTestWifi();
+    this.storage.ready().then(() => {
+      this.globalCache.init(() => {
+        let user = this.globalCache.user;
+        this.role = this.globalCache.user.role;
+        if (this.role == "") {
+          let alert = this.alertCtrl.create({ title: '提示', subTitle: '该账号并无查看数据的权限，请登录正确的账号！', buttons: ['确定'] });
+          alert.present();
+        }
+        if (this.role.length > 1) {
+          this.both = true;
+        }
+      });
+    });
   }
 
   //台账数据上传
   uploadBuildingData() {
-    this.sqlService.getSelectData('select * from BuildingInfo where status="1"').subscribe((res) => {
-      let tempData = { "saveList": res };
-      this.inspectService.saveListAncientArchitecture(tempData).subscribe((res) => {
-        console.log("上传数据");
-        console.log(res);
-        this.deleteBuildingData();
+    if (this.isConnected) {
+      let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在上传台账数据' });
+      loading.present();
+      this.sqlService.getSelectData('select * from BuildingInfo where status="1"').subscribe((res) => {
+        let tempData = { "saveList": res };
+        this.inspectService.saveListAncientArchitecture(tempData).subscribe((res) => {
+          if (res.code == "10000") {
+            let toast = this.toastCtrl.create({
+              message: '数据上传成功！',
+              cssClass: 'background:#ddd;',
+              duration: 1000
+            });
+            toast.present();
+          }
+        }, (error) => { });
       }, (error) => { });
-    }, (error) => { });
+    }
+    else {
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      alert.present();
+    }
   }
   //台账数据下载
   getBuildingData() {
-    this.inspectService.getListAncientArchitecture().subscribe((res) => {
-      console.log(res);
-      this.json = {
-        "structure": {
-          "tables": {
-            "BuildingInfo": `(basicDataId,ancientNumber,ancientArea,ancientName,ancientBelong,structureType,buildingFunction,buildingStyle,constructionTime,finalRepair,planeForm,basicShapesLouti,basicShapesBaosha,basicShapesQianlang,basicShapeszhouweilang,basicShapesHoulang,miankuo,throughSurface,depth,depthofM,baseMaterial,baseForm,platformSize,groundMaterial,groundPractice,platformWheather,tailgateWheather,tailgateNumber,stepsWheather,stepsNumber,drumStone,drumStoneNumber,materialScience,wallmethod,lowerMethod,beamFrame,beamForm,eavesColumnDiameter,numberOfCanopies,underBrackets,underBucketSize,underBucketRemark,underCornerSection,underNumberOfStigma,underFamilies,upperBrackets,upperBucketSize,upperBucketRemark,upperCornerSection,upperNumberOfStigma,upperFamilies,curtainFrameWheather,paneMaterial,windDoorWheather,windowSillMaterial,windowWindowWheather,windowShape,eavesBetweenWheather,daoGuaMeizi,zuoDengMeizi,ceilingWheather,lowerFrame,frameColorWheather,frameColorType,doorPaintWheather,doorPaintColorType,roofRorm,tileType,glazedColor,cutEdgeColor,kissAnimalWheather,beastWheather,beastNumber,otherComponent,eavesHeight,positiveHeight,otherDescript,problemDescription,modifyTime,status INTEGER)`
-          }
-        },
-        "data": {
-          "inserts": {
-            "BuildingInfo": res.data,
-          }
+    if (this.isConnected) {
+      let that = this;
+      let loading = that.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载台账数据' });
+      this.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
+        if (res) {
+          let alert = this.alertCtrl.create({
+            title: '提示',
+            message: '您下载的服务器数据将会覆盖本地的数据，是否继续？',
+            buttons: [
+              {
+                text: '取消',
+                handler: () => {
+                  return;
+                }
+              },
+              {
+                text: '继续',
+                handler: () => {
+                  this.deleteBuildingData();
+                  loading.present();
+                  this.insertBuildingData().then(function (data) {
+                    loading.dismiss();
+                    if (data) {
+                      let toast = that.toastCtrl.create({
+                        message: '数据下载成功！',
+                        cssClass: 'background:#ddd;',
+                        duration: 1000
+                      });
+                      toast.present();
+                    }
+                  }).catch(function (reject) {
+                    let alert = that.alertCtrl.create({ title: '警告！', subTitle: '由于网络原因，台账数据下载失败，请待会儿重试', buttons: ['确定'] });
+                    alert.present();
+                  });
+                }
+              }
+            ]
+          });
+          alert.present();
         }
-      };
-      this.sqlService.initialData(this.json).subscribe((res) => {
-        this.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
-          console.log(res);
-        }, (error) => {
-          console.log(error);
-        });
-      }, (error) => { });
-
-    }, error => { });
-
-
+        else {
+          loading.present();
+          this.insertBuildingData().then(function (data) {
+            loading.dismiss();
+            if (data) {
+              let toast = that.toastCtrl.create({
+                message: '数据下载成功！',
+                cssClass: 'background:#ddd;',
+                duration: 1000
+              });
+              toast.present();
+            }
+          }).catch(function (reject) {
+            let alert = that.alertCtrl.create({ title: '警告！', subTitle: '由于网络原因，台账数据下载失败，请待会儿重试', buttons: ['确定'] });
+            alert.present();
+          });
+        }
+      }, (error) => {
+        let alert = that.alertCtrl.create({ title: '警告！', subTitle: '由于网络原因，台账数据下载失败，请待会儿重试', buttons: ['确定'] });
+        alert.present();
+      });
+    }
+    else {
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      alert.present();
+    }
   }
-
-
-  //巡检数据获取
-  getInspectData() {
-    this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res => {
-      console.log("巡检记录表")
-      console.log(res);
-      if (res) {
-        let alert = this.alertCtrl.create({
-          title: '警告',
-          message: '您本地存在未上传的巡检数据，如若继续下载,则会覆盖本地数据！',
-          buttons: [
-            {
-              text: '取消',
-              handler: () => {
-                return;
+  private insertBuildingData() {
+    let that = this;
+    let p = new Promise(function (resolve, reject) {
+      that.inspectService.getListAncientArchitecture().subscribe((res) => {
+        if (res.code == "10000") {
+          let tempBuildingjson = {
+            "structure": {
+              "tables": {
+                "BuildingInfo": `(basicDataId,ancientNumber,ancientArea,ancientName,ancientBelong,structureType,buildingFunction,buildingStyle,constructionTime,finalRepair,planeForm,basicShapesLouti,basicShapesBaosha,basicShapesQianlang,basicShapeszhouweilang,basicShapesHoulang,miankuo,throughSurface,depth,depthofM,baseMaterial,baseForm,platformSize,groundMaterial,groundPractice,platformWheather,tailgateWheather,tailgateNumber,stepsWheather,stepsNumber,drumStone,drumStoneNumber,materialScience,wallmethod,lowerMethod,beamFrame,beamForm,eavesColumnDiameter,numberOfCanopies,underBrackets,underBucketSize,underBucketRemark,underCornerSection,underNumberOfStigma,underFamilies,upperBrackets,upperBucketSize,upperBucketRemark,upperCornerSection,upperNumberOfStigma,upperFamilies,curtainFrameWheather,paneMaterial,windDoorWheather,windowSillMaterial,windowWindowWheather,windowShape,eavesBetweenWheather,daoGuaMeizi,zuoDengMeizi,ceilingWheather,lowerFrame,frameColorWheather,frameColorType,doorPaintWheather,doorPaintColorType,roofRorm,tileType,glazedColor,cutEdgeColor,kissAnimalWheather,beastWheather,beastNumber,otherComponent,eavesHeight,positiveHeight,otherDescript,problemDescription,modifyTime,status INTEGER)`
               }
             },
-            {
-              text: '继续下载',
-              handler: () => {
-                this.deleteInspectData();
-                this.isGetInspectData();
+            "data": {
+              "inserts": {
+                "BuildingInfo": res.data,
               }
             }
-          ]
-        });
-        alert.present();
-      }
-      else {
-        this.isGetInspectData();
-      }
-    }, error => {
-    });
+          };
+          that.sqlService.initialData(tempBuildingjson).subscribe((res) => {
+            if (res) {
+              resolve(res);
+            }
+            else {
+              reject(res);
+            }
+            that.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
+              console.log(res);
+            }, (error) => {
+              console.log(error);
+            });
+          }, (error) => {
+            reject(res);
+          });
+        }
+        else {
+          reject("数据获取失败!");
+        }
+      }, error => { });
+    })
+    return p;
   }
-  //下载巡检数据
+  //巡检数据获取
+  getInspectData() {
+    if (this.isConnected) {
+      this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res => {
+        if (res) {
+          let alert = this.alertCtrl.create({
+            title: '警告',
+            message: '您本地存在未上传的巡检数据，如若继续下载,则会覆盖本地数据！',
+            buttons: [
+              {
+                text: '取消',
+                handler: () => {
+                  return;
+                }
+              },
+              {
+                text: '继续下载',
+                handler: () => {
+                  this.deleteInspectData();
+                  this.isGetInspectData();
+                }
+              }
+            ]
+          });
+          alert.present();
+        }
+        else {
+          this.isGetInspectData();
+        }
+      }, error => {
+      });
+    }
+    else {
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      alert.present();
+    }
+
+  }
   private isGetInspectData() {
+    let that=this;
+    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载巡检数据' });
+    loading.present();
     this.inspectService.getDiseaseRecord().subscribe((res) => {
       let inspectData = {
         "structure": {
@@ -157,28 +273,49 @@ export class MyPage {
       }
       this.sqlService.initialData(inspectData).subscribe((res) => {
         console.log(res);
-        this.downLoadFile();
-        this.sqlService.getSelectData("select * from DiseaseRecord").subscribe((res) => {
-          console.log(res);
+        this.downLoadFile().then(function () {
+          loading.dismiss();
+          let toast = that.toastCtrl.create({
+            message: '数据下载成功！',
+            cssClass: 'background:#ddd;',
+            duration: 1000
+          });
+          toast.present();
         });
       }, (error) => { });
     }, (error) => { });
   }
   // 巡检数据上传
   uploadInspectData() {
-    this.uploadFile().subscribe(res => {
-      if (!res) {
-        alert("上传附件失败");
-      }
-    }, error => {
-      console.log(error);
-    });
-    this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
-      console.log(res);
-      this.deleteInspectData();
-    }, error => {
+    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在上传巡检数据' });
+    loading.present();
+    if (this.isConnected) {
+      this.uploadFile().subscribe(res => {
+        if (!res) {
+          loading.dismiss();
+          alert("上传附件失败");
+        }
+        else {
+          this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
+            loading.dismiss();
+            let toast = this.toastCtrl.create({
+              message: '数据上传成功！',
+              cssClass: 'background:#ddd;',
+              duration: 1000
+            });
+            toast.present();
+          }, error => {
+          });
+        }
+      }, error => {
+        console.log(error);
+      });
 
-    });
+    }
+    else {
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      alert.present();
+    }
 
   }
 
@@ -266,32 +403,35 @@ export class MyPage {
     });
   }
   getBasicData() {
-    this.inspectService.getDiseaseInspection().subscribe((res) => {
-      console.log(res);
-      this.json = {
-        "structure": {
-          "tables": {
-            "Area": "(Description,ID integer,Name)",
-            "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
-            "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
-            "AncientArchitecture": "(ID,Name,SceneryName)"
+    if (this.isConnected) {
+      this.inspectService.getDiseaseInspection().subscribe((res) => {
+        this.json = {
+          "structure": {
+            "tables": {
+              "Area": "(Description,ID integer,Name)",
+              "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
+              "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
+              "AncientArchitecture": "(ID,Name,SceneryName)"
+            }
+          },
+          "data": {
+            "inserts": {
+              "Area": JSON.parse(res.data[0]),
+              "Scenery": JSON.parse(res.data[1]),
+              "DisInspectPosition": JSON.parse(res.data[2]),
+              "AncientArchitecture": JSON.parse(res.data[3])
+            }
           }
-        },
-        "data": {
-          "inserts": {
-            "Area": JSON.parse(res.data[0]),
-            "Scenery": JSON.parse(res.data[1]),
-            "DisInspectPosition": JSON.parse(res.data[2]),
-            "AncientArchitecture": JSON.parse(res.data[3])
-          }
-        }
-      };
-      console.log(JSON.parse(res.data[0]));
-      this.sqlService.initialData(this.json).subscribe((res) => {
-        console.log(res);
+        };
+        this.sqlService.initialData(this.json).subscribe((res) => {
+          console.log(res);
+        }, (error) => { });
       }, (error) => { });
-
-    }, (error) => { });
+    }
+    else {
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      alert.present();
+    }
   }
   private download(url, imgName) {
     const fileTransfer: FileTransferObject = this.transfer.create();
@@ -306,18 +446,22 @@ export class MyPage {
   }
 
   downLoadFile() {
-    this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
-      this.inspectService.getFiles().subscribe((res) => {
-        for (let i = 0; i < res.data.length; i++) {
-          let tempPicUrl = this.apiService.getPicUrl(res.data[i]);
-          let tempPicName = res.data[i].split("/").pop();
-          this.download(tempPicUrl, tempPicName);
-        }
-      }, (error) => {
-        console.log(error);
-      });
-    }).catch(err => console.log('create fail'));
-
+    var that = this;
+    let p = new Promise(function (resolve, reject) {
+      that.file.createDir(that.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
+        that.inspectService.getFiles().subscribe((res) => {
+          for (let i = 0; i < res.data.length; i++) {
+            let tempPicUrl = that.apiService.getPicUrl(res.data[i]);
+            let tempPicName = res.data[i].split("/").pop();
+            that.download(tempPicUrl, tempPicName);
+          }
+          resolve(true);
+        }, (error) => {
+          console.log(error);
+        });
+      }).catch(err => console.log('create fail'));
+    });
+    return p;
   }
 
   private removeSingleFile(picName) {
@@ -334,11 +478,22 @@ export class MyPage {
       console.log(res);
     });
   }
-  deleteDataInfo(){
+  deleteDataInfo() {
     this.sqlService.deleteData('delete from DiseaseRecord').subscribe(res => {
       console.log(res);
     });
   }
+
+  private getTestWifi() {
+    this.inspectService.wifiTest().subscribe(res => {
+      this.isConnected = true;
+    }, error => {
+      if (error.status == 0) {
+        this.isConnected = false;
+      }
+    });
+  }
+
 }
 
 

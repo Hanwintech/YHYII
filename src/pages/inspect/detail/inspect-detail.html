@@ -9,7 +9,7 @@
     <ion-buttons right>
       <button ion-button outline icon-left padding block text-left (click)="submitData()">
         <ion-icon name="md-cloud-done"></ion-icon>
-      保存
+        保存
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="dataSource" name="dataSource">
+  <div *ngIf="isView=='false'" name="dataSource">
     <ion-list>
       <ion-list class="gray-title">
         <ion-list-header>位置</ion-list-header>
@@ -35,15 +35,14 @@
 
       <ion-item style="border-top:1px solid #ddd">
         <ion-label>严重程度</ion-label>
-        <ion-select okText="确定" cancelText="取消" name="damamgeDegree" placeholder="请选择严重程度"
-          [(ngModel)]="dataSource.diseaseLevel" multiple="false">
+        <ion-select okText="确定" cancelText="取消" name="damamgeDegree" placeholder="请选择严重程度" [(ngModel)]="dataSource.diseaseLevel"
+          multiple="false">
           <ion-option *ngFor="let item of damamgeDegreeSource" value={{item.key}}>{{item.value}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item style="border-bottom:1px solid #ddd">
         <ion-label>工种</ion-label>
-        <ion-select okText="确定" cancelText="取消" name="workType" placeholder="请选择工种类别"  [(ngModel)]="dataSource.workType"
-          multiple="false">
+        <ion-select okText="确定" cancelText="取消" name="workType" placeholder="请选择工种类别" [(ngModel)]="dataSource.workType" multiple="false">
           <ion-option *ngFor="let item of workTypeSource" value={{item.key}}>{{item.value}}</ion-option>
         </ion-select>
       </ion-item>
@@ -67,7 +66,7 @@
 
         <ion-item style="border-bottom:1px solid #ddd;">
           <ion-label>否</ion-label>
-          <ion-radio  value="false"></ion-radio>
+          <ion-radio value="false"></ion-radio>
         </ion-item>
 
         <ion-item style="border-bottom:1px solid #ddd;">
@@ -79,6 +78,65 @@
         <ion-list-header style="border-top:none;">修缮描述</ion-list-header>
         <ion-item>
           <ion-textarea placeholder="请输入修缮描述" [(ngModel)]="dataSource.repairDescription" style="height:80px;"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+  </div>
+
+  <div *ngIf="isView=='true'" name="dataSource">
+    <ion-item>
+      <ion-label>巡查人</ion-label>
+      <ion-label class="result"></ion-label>
+    </ion-item>
+    <ion-list>
+      <ion-list class="gray-title">
+        <ion-list-header>位置</ion-list-header>
+        <ion-item>
+          <div *ngIf="dataSource.location" style="min-height:80px;background:#fff; color:#000;">{{dataSource.inspectDescription}}</div>
+        </ion-item>
+      </ion-list>
+
+      <ion-list class="gray-title">
+        <ion-list-header style="border-top:none;">巡查描述</ion-list-header>
+        <ion-item>
+          <div *ngIf="dataSource.inspectDescription" style="min-height:80px;background:#fff; color:#000;">{{dataSource.inspectDescription}}</div>
+        </ion-item>
+      </ion-list>
+
+      <ion-item style="border-top:1px solid #ddd">
+        <ion-label>严重程度</ion-label>
+        <ion-label *ngIf="dataSource.diseaseLevel == '313'" class="result">巡查正常</ion-label>
+        <ion-label *ngIf="dataSource.diseaseLevel == '314'" class="result">出现问题未处理</ion-label>
+        <ion-label *ngIf="dataSource.diseaseLevel == '315'" class="result">出现问题已处理</ion-label>
+        <ion-label *ngIf="dataSource.diseaseLevel == '316'" class="result">未巡查</ion-label>
+      </ion-item>
+      <ion-item style="border-bottom:1px solid #ddd">
+        <ion-label>工种</ion-label>
+        <ion-label *ngIf="dataSource.workType == '1'" class="result">巡查正常</ion-label>
+        <ion-label *ngIf="dataSource.workType== '2'" class="result">出现问题未处理</ion-label>
+        <ion-label *ngIf="dataSource.workType == '3'" class="result">出现问题已处理</ion-label>
+        <ion-label *ngIf="dataSource.workType == '4'" class="result">未巡查</ion-label>
+      </ion-item>
+      <ion-list class="gray-title" style="margin-bottom:2em;">
+        <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">巡检附件</ion-list-header>
+        <ion-item>
+          <div class="addPics-wrapper">
+            <div *ngFor="let fileObj of fileObjList;let i = index" class="pictures">
+              <img src="{{getPicUrl(fileObj)}}" (click)="viewerInspectPicture(i)">
+            </div>
+            <div class="profile-image-wrapper" (click)="getPicture()">
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+          <ion-label>是否修缮</ion-label>
+          <ion-label class="result">已修缮</ion-label>
+        </ion-item>
+      <ion-list class="gray-title">
+        <ion-list-header style="border-top:none;">修缮描述</ion-list-header>
+        <ion-item>
+          <div *ngIf="dataSource.repairDescription" style="min-height:80px;background:#fff; color:#000;">{{dataSource.inspectDescription}}</div>
         </ion-item>
       </ion-list>
 

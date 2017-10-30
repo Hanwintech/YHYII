@@ -66,8 +66,6 @@ export class InspectService extends ApiService {
         return this.http.request(new Request(options)).map(res => res.json());
     }
     getDiseaseRecord() {
-
-        alert("获取巡检数据的请求")
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'bearer ' + this.token);
@@ -94,17 +92,17 @@ export class InspectService extends ApiService {
 
     //获取附件信息
 
-getFiles(){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers.append('Authorization', 'bearer ' + this.token);
-    let options = {
-        method: RequestMethod.Get,
-        url: this.baseUrl + '/api/Inspect/InspectAttachmentList',
-        headers: headers,
-    };
-    return this.http.request(new Request(options)).map(res => res.json());
-}
+    getFiles() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'bearer ' + this.token);
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Inspect/InspectAttachmentList',
+            headers: headers,
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
 
     // 台账信息列表
     getListAncientArchitecture() {
@@ -128,7 +126,19 @@ getFiles(){
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/AncientArchiteture/SaveAncientArchitectureList',
             headers: headers,
-            body:data
+            body: data
+        };
+        return this.http.request(new Request(options)).map(res => res.json());
+    }
+
+    wifiTest(){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'bearer ' + this.token);
+        let options = {
+            method: RequestMethod.Get,
+            url: this.baseUrl + '/api/Common/GetConnection',
+            headers: headers,
         };
         return this.http.request(new Request(options)).map(res => res.json());
     }

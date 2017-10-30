@@ -7,7 +7,6 @@ export class GlobalCache {
     private _user: User;
     private _token;
     public get user(): User { return this._user; }
-    public get token(): any { return this._token; }
 
     constructor(private storage: Storage) { }
 
@@ -15,9 +14,6 @@ export class GlobalCache {
         this.storage.get("user").then(u => {
             this._user = u;
             if (callback) { callback(); }
-        });
-        this.storage.get("token").then(token=>{
-            this._token=token;
         });
     }
 
@@ -32,23 +28,8 @@ export class GlobalCache {
         }
     }
 
-    public cacheToken(token) {
-        this._token = token;
-        if (token) {
-            this.storage.set("token", token);
-        }
-        else {
-            this.clearToken();
-        }
-    }
-
     public clearUser(): Promise<any> {
         this._user = null;
         return this.storage.remove("user");
-    }
-
-    public clearToken(): any {
-        this._token = null;
-        return this.storage.remove("token");
     }
 }

@@ -2,6 +2,10 @@ page-inspect-detail {
     $borderColor: #e8e8e8;
     $selectedCheckBox: #d80808;
     $selectedCheckBoxBorder: #c10202;
+    .result {
+        text-align: right;
+        color: #000;
+    }
     .gray-title {
         .list-header {
             background: #fafafa;

@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+      <ion-buttons left>
+          <button ion-button icon-only (click)="closePage()">
+            <ion-icon name="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
     <ion-title>台账填报</ion-title>
     <ion-buttons right>
       <button ion-button outline icon-left padding block text-left (click)="submitData()">

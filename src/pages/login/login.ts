@@ -44,8 +44,6 @@ export class LoginPage {
   }
 
   private login(u: User) {
-    //  this.navCtrl.setRoot('TabsPage');
-
     let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
     loading.present();
     if (u) {
@@ -62,12 +60,20 @@ export class LoginPage {
           this.inspectService.token = user.access_token;
           this.globalCache.cacheUser(user);
           this.navCtrl.setRoot('TabsPage');
-          this.inspectService.getDiseaseRecord().subscribe(res=>{console.log(res);});
+          this.inspectService.getDiseaseRecord().subscribe(res => { console.log(res); });
         },
         error => {
-          loading.dismiss();
-          let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
-          alert.present();
+          console.log(error);
+          if (error.status == 0) {
+            loading.dismiss();
+            let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '请在有网络的环境下进行登录！', buttons: ['确定'] });
+            alert.present();
+          }
+          else {
+            loading.dismiss();
+            let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
+            alert.present();
+          }
         });
     }
   }

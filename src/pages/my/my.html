@@ -1,38 +1,27 @@
 <ion-content class="action-sheets-basic-page">
-    <div class="titleCotainer"> <img  src="assets/icon/title.png"></div>
-  <button ion-button outline  icon-left padding block text-left (click)="getBasicData()" >
+  <div class="titleCotainer">
+    <img src="assets/icon/title.png">
+  </div>
+  <button ion-button outline icon-left padding block text-left (click)="getBasicData()">
+    <ion-icon name="md-cloud-download"></ion-icon>
+    下载基础数据
+  </button>
+  <button *ngIf='role=="1"||both' ion-button outline icon-left padding block text-left (click)="getBuildingData()">
+    <ion-icon name="md-cloud-download"></ion-icon>
+    古建台账数据下载
+  </button>
+
+  <button *ngIf='role=="1"||both' ion-button outline icon-left padding block text-left (click)="uploadBuildingData()">
     <ion-icon name="md-cloud-upload"></ion-icon>
- 巡检台账基础数据
-  </button>
-  <button ion-button outline icon-left padding block text-left (click)="getBuildingData()">
-    <ion-icon name="md-sync"></ion-icon>
-  古建台账数据下载
-  </button>
-
-  <button ion-button outline icon-left padding block text-left (click)="uploadBuildingData()">
-      <ion-icon name="md-sync"></ion-icon>
     古建台账数据上传
-    </button>
-  <button ion-button outline icon-left padding block text-left (click)="getInspectData()">
-          <ion-icon name="md-cloud-download"></ion-icon>
-        获取巡检数据
-        </button>
-
-  <button ion-button outline icon-left padding block text-left (click)="uploadInspectData()">
-          <ion-icon name="md-cloud-upload"></ion-icon>
-       上传巡检数据
-        </button>
-        <button ion-button outline  icon-left padding block text-left (click)="downLoadTest()" >
-          <ion-icon name="md-cloud-upload"></ion-icon>
-       附件信息
-        </button>
-        <button ion-button outline danger icon-left padding block text-left (click)="exitMenu()" >
-            <ion-icon name="md-cloud-upload"></ion-icon>
-         退出系统
-          </button>
-
-          <button ion-button outline danger icon-left padding block text-left (click)="deleteDataInfo()" >
-            <ion-icon name="md-cloud-upload"></ion-icon>
-         删除数据
-          </button>
+  </button>
+  <button *ngIf='role=="2"||both' ion-button outline icon-left padding block text-left (click)="getInspectData()">
+    <ion-icon name="md-cloud-download"></ion-icon>
+    下载巡检数据
+  </button>
+  <button *ngIf='role=="2"||both' ion-button outline icon-left padding block text-left (click)="uploadInspectData()">
+    <ion-icon name="md-cloud-upload"></ion-icon>
+    上传巡检数据
+  </button>
+  <button ion-button color="danger" style="position:absolute;bottom:1em;" block (click)="exitMenu()">退出系统</button>
 </ion-content>
