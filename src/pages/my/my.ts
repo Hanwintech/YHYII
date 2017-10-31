@@ -81,6 +81,7 @@ export class MyPage {
         }
       });
     });
+    this.getBasicData();
   }
 
   //台账数据上传
@@ -92,15 +93,13 @@ export class MyPage {
         let tempData = { "saveList": res };
         this.inspectService.saveListAncientArchitecture(tempData).subscribe((res) => {
           if (res.code == "10000") {
-            let toast = this.toastCtrl.create({
-              message: '数据上传成功！',
-              cssClass: 'background:#ddd;',
-              duration: 1000
-            });
-            toast.present();
+            let alert = this.alertCtrl.create({ title: '提示', subTitle: '数据已上传成功，请下载最新数据', buttons: ['确定'] });
+            alert.present();
+            loading.dismiss();
+            this.deleteBuildingData();
           }
-        }, (error) => { });
-      }, (error) => { });
+        }, (error) => { loading.dismiss(); });
+      }, (error) => { loading.dismiss(); });
     }
     else {
       let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
@@ -112,8 +111,9 @@ export class MyPage {
     if (this.isConnected) {
       let that = this;
       let loading = that.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载台账数据' });
-      this.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
-        if (res) {
+      this.sqlService.getSelectData("select * from BuildingInfo where status='1'").subscribe(res => {
+        console.log(res);
+        if (res.length>0) {
           let alert = this.alertCtrl.create({
             title: '提示',
             message: '您下载的服务器数据将会覆盖本地的数据，是否继续？',
@@ -140,6 +140,7 @@ export class MyPage {
                       toast.present();
                     }
                   }).catch(function (reject) {
+                    loading.dismiss();
                     let alert = that.alertCtrl.create({ title: '警告！', subTitle: '由于网络原因，台账数据下载失败，请待会儿重试', buttons: ['确定'] });
                     alert.present();
                   });
@@ -162,6 +163,7 @@ export class MyPage {
               toast.present();
             }
           }).catch(function (reject) {
+            loading.dismiss();
             let alert = that.alertCtrl.create({ title: '警告！', subTitle: '由于网络原因，台账数据下载失败，请待会儿重试', buttons: ['确定'] });
             alert.present();
           });
@@ -172,7 +174,7 @@ export class MyPage {
       });
     }
     else {
-      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据传输操作！', buttons: ['确定'] });
       alert.present();
     }
   }
@@ -220,7 +222,7 @@ export class MyPage {
   getInspectData() {
     if (this.isConnected) {
       this.sqlService.getSelectData('select * from DiseaseRecord').subscribe(res => {
-        if (res) {
+        if (res.length>0) {
           let alert = this.alertCtrl.create({
             title: '警告',
             message: '您本地存在未上传的巡检数据，如若继续下载,则会覆盖本地数据！',
@@ -249,13 +251,13 @@ export class MyPage {
       });
     }
     else {
-      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据传输操作！', buttons: ['确定'] });
       alert.present();
     }
 
   }
   private isGetInspectData() {
-    let that=this;
+    let that = this;
     let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载巡检数据' });
     loading.present();
     this.inspectService.getDiseaseRecord().subscribe((res) => {
@@ -292,28 +294,30 @@ export class MyPage {
     if (this.isConnected) {
       this.uploadFile().subscribe(res => {
         if (!res) {
-          loading.dismiss();
           alert("上传附件失败");
-        }
-        else {
-          this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
-            loading.dismiss();
-            let toast = this.toastCtrl.create({
-              message: '数据上传成功！',
-              cssClass: 'background:#ddd;',
-              duration: 1000
-            });
-            toast.present();
-          }, error => {
-          });
         }
       }, error => {
         console.log(error);
       });
-
+      let testData;
+      this.getDiseaseData('select * from DiseaseRecord').subscribe(res => {
+      }, error => {
+        // loading.dismiss();
+        // let alert = this.alertCtrl.create({ title: '警告', subTitle: '数据上传失败', buttons: ['确定'] });
+        // alert.present();
+      });
+      let that=this;
+      setTimeout(function () {
+        loading.dismiss();
+        console.log(1111);
+        let alert = that.alertCtrl.create({ title: '提示', subTitle: '数据已上传成功，请下载最新数据', buttons: ['确定'] });
+        alert.present();
+        that.deleteInspectData();
+      }, 5000);
     }
     else {
-      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
+      loading.dismiss();
+      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据传输操作！', buttons: ['确定'] });
       alert.present();
     }
 
@@ -330,11 +334,9 @@ export class MyPage {
             for (var i = 0; i < rs.rows.length; i++) {
               var item = rs.rows.item(i);
               this.inspectService.getSaveInspect(item).subscribe(res => {
-                observer.next(res);
-                console.log(res);
               }, error => { console.log(error); });
             }
-
+            observer.next(true);
           }
           else {
             observer.next(false);
@@ -403,35 +405,47 @@ export class MyPage {
     });
   }
   getBasicData() {
-    if (this.isConnected) {
+    this.inspectService.wifiTest().subscribe(res => {
+      this.isConnected = true;
       this.inspectService.getDiseaseInspection().subscribe((res) => {
-        this.json = {
-          "structure": {
-            "tables": {
-              "Area": "(Description,ID integer,Name)",
-              "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
-              "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
-              "AncientArchitecture": "(ID,Name,SceneryName)"
+        console.log(JSON.parse(res.data[3]));
+        if (res.code == "10000") {
+          this.json = {
+            "structure": {
+              "tables": {
+                "Area": "(Description,ID integer,Name)",
+                "Scenery": "(Description,ID,InspectAreaID,Name,XOrder)",
+                "DisInspectPosition": "(ID,PID,PositionName,Type,XOrder)",
+                "AncientArchitecture": "(ID,Name,SceneryName)"
+              }
+            },
+            "data": {
+              "inserts": {
+                "Area": JSON.parse(res.data[0]),
+                "Scenery": JSON.parse(res.data[1]),
+                "DisInspectPosition": JSON.parse(res.data[2]),
+                "AncientArchitecture": JSON.parse(res.data[3])
+              }
             }
-          },
-          "data": {
-            "inserts": {
-              "Area": JSON.parse(res.data[0]),
-              "Scenery": JSON.parse(res.data[1]),
-              "DisInspectPosition": JSON.parse(res.data[2]),
-              "AncientArchitecture": JSON.parse(res.data[3])
+          };
+          this.sqlService.initialData(this.json).subscribe((res) => {
+            if (!res) {
+              let alert = this.alertCtrl.create({ title: '警告！', subTitle: '数据初始化失败，请重新登录！', buttons: ['确定'] });
+              alert.present();
             }
-          }
-        };
-        this.sqlService.initialData(this.json).subscribe((res) => {
-          console.log(res);
-        }, (error) => { });
+          }, (error) => { });
+        }
+        else {
+          let alert = this.alertCtrl.create({ title: '警告！', subTitle: '数据初始化失败，请重新登录！', buttons: ['确定'] });
+          alert.present();
+        }
       }, (error) => { });
-    }
-    else {
-      let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据操作！', buttons: ['确定'] });
-      alert.present();
-    }
+    }, error => {
+      if (error.status == 0) {
+        let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据传输操作！', buttons: ['确定'] });
+        alert.present();
+      }
+    });
   }
   private download(url, imgName) {
     const fileTransfer: FileTransferObject = this.transfer.create();

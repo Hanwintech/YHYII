@@ -6,7 +6,7 @@
 -->
 <ion-content>
   <div class="titleCotainer"> <img  src="assets/icon/title.png"></div>
-  <button (click)='statisticsChart(item)' *ngFor="let item of sceneryArea" ion-button outline icon-left padding  text-left >
+  <button large (click)='statisticsChart(item)' *ngFor="let item of sceneryArea" ion-button outline icon-left padding  text-left >
       <ion-icon style="display:block;" name="ios-create"></ion-icon>
     <div>{{item.Name}}</div> 
   </button>

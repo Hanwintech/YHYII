@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-navbar>
     <!-- <ion-searchbar placeholder="古建台账搜索" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar> -->
 
-    <ion-buttons left>
+    <ion-buttons right>
       <button ion-button icon-only (click)="leftScenery()">
         <ion-icon md="md-list"></ion-icon>
         景区
@@ -14,15 +14,15 @@
         <ion-icon md="ios-funnel-outline"></ion-icon>
       </button>
     </ion-buttons> -->
-  </ion-toolbar>
+  </ion-navbar>
 </ion-header>
 
 <ion-menu id="tzAreaMenu" class="menu" type="overlay" [content]="tzListNav">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>巡检一区</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header>
+        <ion-toolbar>
+          <ion-title>{{titleName}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
   <ion-content>
     <ion-list>
       <button *ngFor="let menu of scenery" (click)="getBuilding(menu.Name)" ion-item>
@@ -78,7 +78,7 @@
   <button ion-item *ngFor="let tz of building" class="item-ios" (click)="itemSelected(tz)">
     <h2>{{ tz.ancientName}}</h2>
     <p>{{ tz.ancientBelong }}</p>
-    <button ion-button clear item-end color="secondary" *ngIf="tz.status == 0" style="font-size:1.4rem;">未完成</button>
-    <button ion-button clear item-end color="danger" *ngIf="tz.status == 1" style="font-size:1.4rem;">已完成</button>
+    <button ion-button clear item-end color="danger" *ngIf="tz.status == 0" style="font-size:1.4rem;">未完成</button>
+    <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已完成</button>
   </button>
 </ion-content>

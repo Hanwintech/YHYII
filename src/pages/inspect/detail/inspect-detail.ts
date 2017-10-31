@@ -8,6 +8,8 @@ import { ApiService } from "./../../../services/api.service"
 import { PreviewPicturePage } from "../../../shared/preview-picture/preview-picture";
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { GlobalCache } from './../../../services/globalCache.service';
+import { Storage } from '@ionic/storage';
 
 
 /**
@@ -30,6 +32,7 @@ export class InspectDetailPage {
   workTypeSource;
   isHaveData;
   isView;
+  userName;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -41,6 +44,8 @@ export class InspectDetailPage {
     public toastCtrl: ToastController,
     private sqlService: SqlService,
     private apiService: ApiService,
+    private globalCache: GlobalCache,
+    private storage: Storage,
     public actionSheetCtrl: ActionSheetController,
     private file: File,
     public transfer: FileTransfer,
@@ -48,9 +53,9 @@ export class InspectDetailPage {
 
     this.damamgeDegreeSource = [
       { key: "313", value: "轻微待观察" },
-      { key: "314", value: "一般，无明恶化迹象" },
-      { key: "315", value: "中等，有恶化迹象" },
-      { key: "316", value: "严重，需立即修复" }
+      { key: "314", value: "一般无明恶化迹象" },
+      { key: "315", value: "中等有恶化迹象" },
+      { key: "316", value: "严重需立即修复" }
     ];
     this.workTypeSource = [
       { key: "1", value: "瓦作" },
@@ -73,12 +78,12 @@ export class InspectDetailPage {
           this.dataSource.picUrl = [];
         }
         this.fileObjList = JSON.parse(JSON.stringify(this.dataSource.picUrl));
-        this.isView=this.dataSource.isRepaired;
+        this.isView = this.dataSource.isRepaired;
       }
       else {
         this.isHaveData = false;
         this.dataSource = new addInsepct();
-        this.isView=this.dataSource.isRepaired;
+        this.isView = this.dataSource.isRepaired;
       }
     }, error => {
       console.log(error);
@@ -127,87 +132,108 @@ export class InspectDetailPage {
   }
 
   closePage() {
-    let alert = this.alertCtrl.create({
-      title: '警告',
-      message: '确定离开本页面？若离开，则本页面的更改数据将不会被保存！',
-      buttons: [
-        {
-          text: '留下',
-          handler: () => {
-            return;
+    if (this.isView == 'false') {
+      let alert = this.alertCtrl.create({
+        title: '警告',
+        message: '确定离开本页面？若离开，则本页面的更改数据将不会被保存！',
+        buttons: [
+          {
+            text: '留下',
+            handler: () => {
+              return;
+            }
+          },
+          {
+            text: '离开',
+            handler: () => {
+              this.navCtrl.pop();
+            }
           }
-        },
-        {
-          text: '离开',
-          handler: () => {
-            this.navCtrl.pop();
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-  submitData() {
-    let jsonData;
-    this.dataSource.inspectionPositionID = this.navParams.data.ID;
-    this.dataSource.ancientArcID = this.navParams.data.ancientArcID;
-    let myDate = new Date();
-    this.dataSource.inspectTime = myDate.toLocaleDateString();
-    if (this.dataSource.isRepaired == "1") {
-      this.dataSource.respairTime = myDate.toLocaleDateString();
-    }
-    console.log(this.dataSource);
-
-    if (this.isHaveData) {
-      console.log("有数据");
-      jsonData = {
-        "data": {
-          "updates": {
-            "DiseaseRecord": [
-              {
-                "set": this.dataSource,
-                "where": { "inspectionPositionID": this.navParams.data.ID }
-              }
-            ],
-          }
-        }
-      };
+        ]
+      });
+      alert.present();
     }
     else {
-      console.log("无数据");
-      this.dataSource.recordId = this.guid();
-      jsonData = {
-        "data": {
-          "inserts": {
-            "DiseaseRecord": [
-              this.dataSource
-            ],
-          }
-        }
-      };
+      this.navCtrl.pop();
     }
-    this.sqlService.initialData(jsonData).subscribe(res => {
-      if (res) {
-        let toast = this.toastCtrl.create({
-          message: '数据保存成功！',
-          cssClass: 'background:#ddd;',
-          duration: 1000
-        });
-        toast.present();
-        this.viewCtrl.dismiss(this.dataSource.isRepaired);
-      };
-      this.sqlService.getSelectData("select * from DiseaseRecord").subscribe(res => {
-        console.log(res);
-      }, error => { });
-    }, error => {
+  }
+  submitData() {
+    if (this.dataSource.location == null || this.dataSource.inspectDescription == null || this.dataSource.diseaseLevel == null || this.dataSource.workType == null) {
       let alert = this.alertCtrl.create({
         title: '提示',
-        subTitle: '保存出错！',
+        subTitle: '请完善巡检信息！',
         buttons: ['确定']
       });
       alert.present();
-      console.log(error);
-    });
+    }
+    else {
+      let jsonData;
+      if (this.dataSource.repairDescription == null) {
+        this.dataSource.repairDescription = "";
+      }
+      this.dataSource.inspectionPositionID = this.navParams.data.ID;
+      this.dataSource.ancientArcID = this.navParams.data.ancientArcID;
+      let myDate = new Date();
+      if (this.dataSource.isRepaired == "true") {
+        this.dataSource.respairTime = myDate.toLocaleDateString();
+      }
+      else {
+        this.dataSource.inspectTime = myDate.toLocaleDateString();
+      }
+      console.log(this.dataSource);
+
+      if (this.isHaveData) {
+        console.log("有数据");
+        jsonData = {
+          "data": {
+            "updates": {
+              "DiseaseRecord": [
+                {
+                  "set": this.dataSource,
+                  "where": { "inspectionPositionID": this.navParams.data.ID }
+                }
+              ],
+            }
+          }
+        };
+      }
+      else {
+        console.log("无数据");
+        this.dataSource.recordId = this.guid();
+        jsonData = {
+          "data": {
+            "inserts": {
+              "DiseaseRecord": [
+                this.dataSource
+              ],
+            }
+          }
+        };
+      }
+      this.sqlService.initialData(jsonData).subscribe(res => {
+        if (res) {
+          let toast = this.toastCtrl.create({
+            message: '数据保存成功！',
+            cssClass: 'background:#ddd;',
+            duration: 1000
+          });
+          toast.present();
+          this.viewCtrl.dismiss(this.dataSource.isRepaired);
+        };
+        this.sqlService.getSelectData("select * from DiseaseRecord").subscribe(res => {
+          console.log(res);
+        }, error => { });
+      }, error => {
+        let alert = this.alertCtrl.create({
+          title: '提示',
+          subTitle: '保存出错！',
+          buttons: ['确定']
+        });
+        alert.present();
+        console.log(error);
+      });
+    }
+
   }
   private S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);

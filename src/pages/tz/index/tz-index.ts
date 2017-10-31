@@ -20,7 +20,7 @@ export class TZIndexPage {
   building;
   searchQuery: string = '';
   selectedScenery;
-
+  titleName;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -58,11 +58,18 @@ export class TZIndexPage {
     }, (error) => {
       console.log(error);
     })
+    this.titleName=this.navParams.data.Name;
   }
   getBuilding(selectedName) {
     this.selectedScenery = selectedName;
-    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="' + selectedName + '" order by status ').subscribe(res => {
-      this.building = res;
+    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="' + selectedName + '" order by status ').subscribe(res => {  
+      if(res){
+        this.building = res;
+      }
+      else{
+        let alert = this.alertCtrl.create({ title: '警告！', subTitle: '您还没有下载台账数据！请到设置页面下载台账数据！', buttons: ['确定'] });
+        alert.present();
+      }
     }, (error) => {
       console.log(error);
     })

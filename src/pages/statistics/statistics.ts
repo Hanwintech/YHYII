@@ -28,8 +28,6 @@ export class StatisticsPage {
   statisticsChart(scenenryInfo) {
    // this.navCtrl.push("InspectIndexPage", scenenryInfo)
     if(this.role=="1"){
-      console.log(1);
-      console.log(scenenryInfo);
       this.navCtrl.push("TZIndexPage", scenenryInfo);
     }
     else if(this.role=="2"){

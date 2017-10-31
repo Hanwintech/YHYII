@@ -16,22 +16,18 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="dataSource">
+  <div *ngIf="dataSource" class="greenLine">
     <ion-item-group>
-      <ion-item>
-        <ion-label>古建编号</ion-label>
-        <ion-input [(ngModel)]="aa" right placeholder="请输入古建编号"></ion-input>
-      </ion-item>
       <ion-item-divider color="light" style="font-size:1.3em;">
         基本信息
       </ion-item-divider>
       <ion-item>
         <ion-label>古建编号</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientNumber" right placeholder="请输入古建编号"></ion-input>
+        <ion-input [(ngModel)]="dataSource.ancientNumber"  right placeholder="请输入古建编号" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>建筑面积【m²】</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientArea" right placeholder="请输入建筑面积"></ion-input>
+        <ion-input [(ngModel)]="dataSource.ancientArea" right placeholder="请输入建筑面积" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>建筑名称</ion-label>
@@ -39,7 +35,7 @@
       </ion-item>
       <ion-item>
         <ion-label>所属景区</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientBelong" right type="text" placeholder="请输入所属景区" value=""></ion-input>
+        <ion-input [(ngModel)]="dataSource.ancientBelong" right type="text" placeholder="请输入所属景区" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>结构类型</ion-label>
@@ -244,7 +240,7 @@
     </ion-list>
     <ion-item>
       <ion-label [class.disabled]="show3">抱鼓石数量【个】</ion-label>
-      <ion-input [(ngModel)]="dataSource.drumStoneNumber" right type="text" placeholder="请输入抱鼓石数量" value="" [disabled]="show3"></ion-input>
+      <ion-input [(ngModel)]="dataSource.drumStoneNumber" right type="text" placeholder="请输入抱鼓石数量"  [disabled]="show3"></ion-input>
     </ion-item>
    </ion-item-group>
 
@@ -578,7 +574,7 @@
         </ion-item>
       </ion-list>
       <ion-item>
-        <ion-label>走兽数量【个】 dgsg</ion-label>
+        <ion-label>走兽数量【个】</ion-label>
         <ion-input [(ngModel)]="dataSource.beastNumber" right placeholder="请输入走兽数量" ></ion-input>
       </ion-item>
       <ion-item>

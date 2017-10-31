@@ -30,12 +30,10 @@ export class TZCreatePage {
   ) {
   }
   ionViewDidEnter() {
-    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载台账数据' });
-    loading.present();
     this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data.buildingName + '" and ancientBelong="' + this.navParams.data.sceneryName + '"').subscribe(res => {
+      console.log(res);
       if (res) {
         this.dataSource = res[0];
-        loading.dismiss();
       }
       else {
         let alert = this.alertCtrl.create({ title: '获取数据失败', subTitle: '请先去设置页面获取数据', buttons: ['确定'] });
@@ -43,7 +41,6 @@ export class TZCreatePage {
         return;
       }
     }, (error) => {
-      loading.dismiss();
     })
 
     //获取下拉框数据源

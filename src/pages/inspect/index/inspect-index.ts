@@ -20,7 +20,7 @@ export class InspectIndexPage {
   @ViewChild('header') header;
   scenery;
   building;
-  titleName = "巡检一区";
+  titleName;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -51,7 +51,6 @@ export class InspectIndexPage {
       console.log(error);
     })
     this.titleName = this.navParams.data.Name;
-
   }
   select() {
     //this.menuCtrl.isOpen("inspectListMenu");
@@ -72,8 +71,8 @@ export class InspectIndexPage {
     this.getBuilding(selectedName);
     this.menuCtrl.close("inspectListMenu");
   }
-  openCreatePage(selectedId) {
-    this.navCtrl.push("InspectCreatePage", selectedId);
+  openCreatePage(selectedItem) {
+    this.navCtrl.push("InspectCreatePage", selectedItem);
   }
 
 }

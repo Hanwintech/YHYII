@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { IonicPage, NavParams, NavController, MenuController, PopoverController, ModalController, Platform } from 'ionic-angular';
+import { IonicPage, AlertController, NavParams, LoadingController, NavController, MenuController, PopoverController, ModalController, Platform } from 'ionic-angular';
 import { InspectMorePage } from '../more/inspect-more';
 import { BackButtonService } from "./../../../services/backButton.service";
 import { SqlService } from "./../../../services/sqlite.service";
@@ -18,7 +18,7 @@ export class InspectCreatePage {
   menuList = [];
   structureTaiMing = [];
   structureDaliMu = [];
-  titleName = "涵虚牌楼";
+  titleName;
   //itemCheckBox的变量控制
   itemCheckBox = true;
   dataSource;
@@ -26,24 +26,51 @@ export class InspectCreatePage {
     public navCtrl: NavController,
     public menuCtrl: MenuController,
     public navParams: NavParams,
+    private alertCtrl: AlertController,
     private modalCtrl: ModalController,
     public backButtonService: BackButtonService,
     private sqlService: SqlService,
     private platform: Platform,
+    private loadingCtrl: LoadingController,
     public popoverCtrl: PopoverController) {
-
+    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在加载数据' });
+    loading.present();
   }
   ionViewDidEnter() {
-    // this.menuCtrl.toggle("tzCreateMenu");
     this.getData();
+    this.titleName = this.navParams.data.Name;
+
   }
 
   getData() {
-    let queryStr3 = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="'+this.navParams.data+'") b on b.inspectionPositionID = a.ID';
+    console.log(this.navParams.data.ID);
+    let queryStr2 = 'select * from DiseaseRecord';
+    this.sqlService.getSelectData(queryStr2).subscribe(res => {
+      console.log(res);
+      loading.dismiss();
+      console.log(res);
+      //console.log(this.dataSource);
+
+      // if (!res) {
+      //   let alert = this.alertCtrl.create({ title: '警告！', subTitle: '您还没有下载巡检数据！请到设置页面下载巡检数据！', buttons: ['确定'] });
+      //   alert.present();
+      // }
+    }, (error) => {
+    });
+
+    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在加载数据' });
+    loading.present();
+    let queryStr3 = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="' + this.navParams.data.ID + '") b on b.inspectionPositionID = a.ID';
     this.sqlService.getSelectData(queryStr3).subscribe(res => {
       console.log(res);
-     this.dataSource=this.list_to_tree(res);
-     //console.log(this.dataSource);
+      loading.dismiss();
+      this.dataSource = this.list_to_tree(res);
+      // //console.log(this.dataSource);
+
+      // if (!res) {
+      //   let alert = this.alertCtrl.create({ title: '警告！', subTitle: '您还没有下载巡检数据！请到设置页面下载巡检数据！', buttons: ['确定'] });
+      //   alert.present();
+      // }
     }, (error) => {
     });
   }
@@ -52,10 +79,10 @@ export class InspectCreatePage {
     this.menuCtrl.toggle("inspectCreateMenu");
   }
   itemCheck(diseaseInfo) {
-    let inspectDetail = this.modalCtrl.create("InspectDetailPage",{ID:diseaseInfo.ID,ancientArcID:this.navParams.data});
+    let inspectDetail = this.modalCtrl.create("InspectDetailPage", { ID: diseaseInfo.ID, ancientArcID: this.navParams.data.ID });
     inspectDetail.onDidDismiss(data => {
-      if(data!=undefined){
-        diseaseInfo.isRepaired=data;
+      if (data != undefined) {
+        diseaseInfo.isRepaired = data;
       }
     })
     inspectDetail.present();
