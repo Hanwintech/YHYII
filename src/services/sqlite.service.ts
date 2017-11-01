@@ -68,10 +68,9 @@ export class SqlService {
                             arr.push(item);
                         }
                         observer.next(arr);
-                    }
-                     else {
+                    } else {
                         observer.next(false);
-                        }
+                    }
                 },error=>{
                     observer.next(false); 
                 })

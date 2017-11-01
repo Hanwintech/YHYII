@@ -79,6 +79,6 @@
     <h2>{{ tz.ancientName}}</h2>
     <p>{{ tz.ancientBelong }}</p>
     <button ion-button clear item-end color="danger" *ngIf="tz.status == 0" style="font-size:1.4rem;">未完成</button>
-    <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1" style="font-size:1.4rem;">已完成</button>
+    <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1||tz.status == 2" style="font-size:1.4rem;">已完成</button>
   </button>
 </ion-content>

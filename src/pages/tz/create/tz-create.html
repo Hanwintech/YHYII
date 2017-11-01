@@ -23,11 +23,11 @@
       </ion-item-divider>
       <ion-item>
         <ion-label>古建编号</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientNumber"  right placeholder="请输入古建编号" ></ion-input>
+        <ion-input [(ngModel)]="dataSource.ancientNumber" type="number" required  right placeholder="请输入古建编号" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>建筑面积【m²】</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientArea" right placeholder="请输入建筑面积" ></ion-input>
+        <ion-input [(ngModel)]="dataSource.ancientArea" type="number" required right placeholder="请输入建筑面积" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>建筑名称</ion-label>
@@ -137,7 +137,7 @@
     </ion-item>
     <ion-item>
       <ion-label>通面阔尺寸【mm】</ion-label>
-      <ion-input [(ngModel)]="dataSource.throughSurface" right placeholder="请输入通面阔尺寸" ></ion-input>
+      <ion-input [(ngModel)]="dataSource.throughSurface" type="number" required right placeholder="请输入通面阔尺寸" ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>进深</ion-label>
@@ -147,7 +147,7 @@
     </ion-item>
     <ion-item>
       <ion-label>通进深尺寸【mm】</ion-label>
-      <ion-input [(ngModel)]="dataSource.depthofM" right type="text" placeholder="请输入通进深尺寸" value=""></ion-input>
+      <ion-input [(ngModel)]="dataSource.depthofM" type="number" required right  placeholder="请输入通进深尺寸" value=""></ion-input>
     </ion-item>
     
   </ion-item-group>
@@ -169,7 +169,7 @@
     </ion-item>
     <ion-item>
       <ion-label>台基高度【mm】</ion-label>
-      <ion-input [(ngModel)]="dataSource.platformSize" right type="text" placeholder="请输入台基高度" value=""></ion-input>
+      <ion-input [(ngModel)]="dataSource.platformSize" type="number" required right placeholder="请输入台基高度" value=""></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>地面材料</ion-label>
@@ -209,7 +209,7 @@
     </ion-list>
     <ion-item>
       <ion-label>栏杆、栏板数【个】</ion-label>
-      <ion-input [(ngModel)]="dataSource.tailgateNumber" right type="text" placeholder="请输入栏杆、栏板数" value=""></ion-input>
+      <ion-input [(ngModel)]="dataSource.tailgateNumber" type="number" required right placeholder="请输入栏杆、栏板数" value=""></ion-input>
     </ion-item>
     <ion-list [(ngModel)]="dataSource.stepsWheather" radio-group>
       <ion-item class="item1">台阶</ion-item>
@@ -224,7 +224,7 @@
     </ion-list>
     <ion-item>
       <ion-label [class.disabled]="show2">台阶组数【组】</ion-label>
-      <ion-input [(ngModel)]="dataSource.stepsNumber" right type="text" placeholder="请输入台阶组数" value="" [disabled]="show2"></ion-input>
+      <ion-input [(ngModel)]="dataSource.stepsNumber" type="number" required rightplaceholder="请输入台阶组数" value="" [disabled]="show2"></ion-input>
     </ion-item>
 
     <ion-list [(ngModel)]="dataSource.drumStone" radio-group>
@@ -240,7 +240,7 @@
     </ion-list>
     <ion-item>
       <ion-label [class.disabled]="show3">抱鼓石数量【个】</ion-label>
-      <ion-input [(ngModel)]="dataSource.drumStoneNumber" right type="text" placeholder="请输入抱鼓石数量"  [disabled]="show3"></ion-input>
+      <ion-input [(ngModel)]="dataSource.drumStoneNumber" right type="number" required  placeholder="请输入抱鼓石数量"  [disabled]="show3"></ion-input>
     </ion-item>
    </ion-item-group>
 
@@ -291,11 +291,11 @@
       </ion-item>
       <ion-item>
         <ion-label>檐柱直径【mm】</ion-label>
-        <ion-input [(ngModel)]="dataSource.eavesColumnDiameter" right type="text" placeholder="请输入檐柱直径" value=""></ion-input>
+        <ion-input [(ngModel)]="dataSource.eavesColumnDiameter" right type="number" required  placeholder="请输入檐柱直径" value=""></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>檀条数量【根】</ion-label>
-        <ion-input [(ngModel)]="dataSource.numberOfCanopies" right type="text" placeholder="请输入檀条数量" value=""></ion-input>
+        <ion-input [(ngModel)]="dataSource.numberOfCanopies" right type="number" required  placeholder="请输入檀条数量" value=""></ion-input>
       </ion-item>
       <div style="clear:both;"></div>
     </ion-item-group>
@@ -317,7 +317,7 @@
       </ion-list>
       <ion-item>
         <ion-label [class.disabled]="show1">斗口尺寸【mm】</ion-label>
-        <ion-input [(ngModel)]="dataSource.underBucketSize" right type="text" placeholder="请输入斗口尺寸" value="" [disabled]="show1"></ion-input>
+        <ion-input [(ngModel)]="dataSource.underBucketSize" right type="number" required  placeholder="请输入斗口尺寸" value="" [disabled]="show1"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show1">描述</ion-label>
@@ -325,15 +325,15 @@
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show1">角科攒数【攒】</ion-label>
-        <ion-input [(ngModel)]="dataSource.underCornerSection" right type="text" placeholder="请输入角科攒数" value="" [disabled]="show1"></ion-input>
+        <ion-input [(ngModel)]="dataSource.underCornerSection" right type="number" required  placeholder="请输入角科攒数" value="" [disabled]="show1"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show1">柱头科攒数【攒】</ion-label>
-        <ion-input [(ngModel)]="dataSource.underNumberOfStigma" right type="text" placeholder="请输入柱头科攒数" value="" [disabled]="show1"></ion-input>
+        <ion-input [(ngModel)]="dataSource.underNumberOfStigma" right type="number" required  placeholder="请输入柱头科攒数" value="" [disabled]="show1"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show1">平身科攒数【攒】</ion-label>
-        <ion-input [(ngModel)]="dataSource.underFamilies" right type="text" placeholder="请输入平身科攒数" value="" [disabled]="show1"></ion-input>
+        <ion-input [(ngModel)]="dataSource.underFamilies" right type="number" required  placeholder="请输入平身科攒数" value="" [disabled]="show1"></ion-input>
       </ion-item>
       <ion-list [(ngModel)]="dataSource.upperBrackets" radio-group>
         <ion-item>上檐斗拱</ion-item>
@@ -348,7 +348,7 @@
       </ion-list>
       <ion-item>
         <ion-label [class.disabled]="show2">斗口尺寸【mm】</ion-label>
-        <ion-input [(ngModel)]="dataSource.upperBucketSize" right type="text" placeholder="请输入斗口尺寸" value="" [disabled]="show2"></ion-input>
+        <ion-input [(ngModel)]="dataSource.upperBucketSize" right type="number" required  placeholder="请输入斗口尺寸" value="" [disabled]="show2"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show2">描述</ion-label>
@@ -356,15 +356,15 @@
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show2">角科攒数【攒】</ion-label>
-        <ion-input [(ngModel)]="dataSource.upperCornerSection" right type="text" placeholder="请输入角科攒数" value="" [disabled]="show2"></ion-input>
+        <ion-input [(ngModel)]="dataSource.upperCornerSection" right type="number" required  placeholder="请输入角科攒数" value="" [disabled]="show2"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show2">柱头科攒数【攒】</ion-label>
-        <ion-input [(ngModel)]="dataSource.upperNumberOfStigma" right type="text" placeholder="请输入柱头科攒数" value="" [disabled]="show2"></ion-input>
+        <ion-input [(ngModel)]="dataSource.upperNumberOfStigma" right type="number" required  placeholder="请输入柱头科攒数" value="" [disabled]="show2"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label [class.disabled]="show2">平身科攒数【攒】</ion-label>
-        <ion-input [(ngModel)]="dataSource.upperFamilies" right type="text" placeholder="请输入平身科攒数" value="" [disabled]="show2"></ion-input>
+        <ion-input [(ngModel)]="dataSource.upperFamilies" right type="number" required  placeholder="请输入平身科攒数" value="" [disabled]="show2"></ion-input>
       </ion-item>
       <div style="clear:both;"></div>
     </ion-item-group>
@@ -575,7 +575,7 @@
       </ion-list>
       <ion-item>
         <ion-label>走兽数量【个】</ion-label>
-        <ion-input [(ngModel)]="dataSource.beastNumber" right placeholder="请输入走兽数量" ></ion-input>
+        <ion-input [(ngModel)]="dataSource.beastNumber" type="number" required  right placeholder="请输入走兽数量" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>其他构件</ion-label>
@@ -583,11 +583,11 @@
       </ion-item>
       <ion-item>
         <ion-label>飞椽下皮高度【mm】</ion-label>
-        <ion-input [(ngModel)]="dataSource.eavesHeight" right  placeholder="请输入飞椽下皮高度" ></ion-input>
+        <ion-input [(ngModel)]="dataSource.eavesHeight" type="number" required  right  placeholder="请输入飞椽下皮高度" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>正脊高度【mm】</ion-label>
-        <ion-input [(ngModel)]="dataSource.positiveHeight" right placeholder="请输入正脊高度" ></ion-input>
+        <ion-input [(ngModel)]="dataSource.positiveHeight" type="number" required  right placeholder="请输入正脊高度" ></ion-input>
       </ion-item>
       <div style="clear:both;"></div>
     </ion-item-group>

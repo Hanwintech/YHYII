@@ -85,6 +85,7 @@ export class InspectDetailPage {
         this.dataSource = new addInsepct();
         this.isView = this.dataSource.isRepaired;
       }
+      console.log(res);
     }, error => {
       console.log(error);
     });
@@ -173,6 +174,7 @@ export class InspectDetailPage {
       }
       this.dataSource.inspectionPositionID = this.navParams.data.ID;
       this.dataSource.ancientArcID = this.navParams.data.ancientArcID;
+      this.dataSource.status="1";
       let myDate = new Date();
       if (this.dataSource.isRepaired == "true") {
         this.dataSource.respairTime = myDate.toLocaleDateString();
@@ -199,7 +201,7 @@ export class InspectDetailPage {
       }
       else {
         console.log("无数据");
-        this.dataSource.recordId = this.guid();
+       // this.dataSource.recordId = this.guid();
         jsonData = {
           "data": {
             "inserts": {
@@ -235,10 +237,10 @@ export class InspectDetailPage {
     }
 
   }
-  private S4() {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-  };
-  private guid() {
-    return (this.S4() + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + this.S4() + this.S4());
-  };
+  // private S4() {
+  //   return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  // };
+  // private guid() {
+  //   return (this.S4() + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + this.S4() + this.S4());
+  // };
 }

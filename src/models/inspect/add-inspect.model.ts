@@ -16,5 +16,8 @@ export class addInsepct {
     repairDescription = null;
     respairTime = null;
     //工种
+    status="";
     workType = null;
+    //状态
+  
 }
