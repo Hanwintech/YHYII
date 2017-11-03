@@ -32,7 +32,7 @@ export class TZCreatePage {
   ionViewDidEnter() {
     this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data.buildingName + '" and ancientBelong="' + this.navParams.data.sceneryName + '"').subscribe(res => {
       console.log(res);
-      if (res) {
+      if (res.length>0) {
         this.dataSource = res[0];
       }
       else {
@@ -71,32 +71,39 @@ export class TZCreatePage {
     this.dropdownDS._09jbys = ["黄", "绿", "蓝", "其他"];//剪边颜色
   }
 
-  submitData() {
-    let myDate = new Date();
-    this.dataSource.status = 1;
-    this.dataSource.modifyTime = myDate.toLocaleDateString();
-    for (var item in this.dataSource) {
-      if (this.dataSource[item] == "null" || this.dataSource[item] == null) {
-        this.dataSource[item] = "";
-      }
-    }
-    console.log(this.dataSource);
-    let jsonData = {
-      "data": {
-        "updates": {
-          "BuildingInfo": [
-            {
-              "set": this.dataSource,
-              "where": { "ancientName": this.navParams.data.buildingName, "ancientBelong": this.navParams.data.sceneryName }
-            }
-          ],
+  submitData(isSubmit) {
+    if(isSubmit){
+      let myDate = new Date();
+      this.dataSource.status = 1;
+      this.dataSource.modifyTime = myDate.toLocaleDateString();
+      for (var item in this.dataSource) {
+        if (this.dataSource[item] == "null" || this.dataSource[item] == null) {
+          this.dataSource[item] = "";
         }
       }
-    };
-    this.sqlService.initialData(jsonData).subscribe((res) => {
-      console.log(res);
-      this.viewCtrl.dismiss("1");
-    }, (error) => { });
+      console.log(this.dataSource);
+      let jsonData = {
+        "data": {
+          "updates": {
+            "BuildingInfo": [
+              {
+                "set": this.dataSource,
+                "where": { "ancientName": this.navParams.data.buildingName, "ancientBelong": this.navParams.data.sceneryName }
+              }
+            ],
+          }
+        }
+      };
+      this.sqlService.initialData(jsonData).subscribe((res) => {
+        console.log(res);
+        this.viewCtrl.dismiss("1");
+      }, (error) => { });
+    }
+    else{
+      let alert = this.alertCtrl.create({ title: '警告', subTitle: '请正确填写数据！', buttons: ['确定'] });
+      alert.present();
+    }  
+
   }
   toggleMenu() {
     this.menuCtrl.toggle("tzCreateMenu");

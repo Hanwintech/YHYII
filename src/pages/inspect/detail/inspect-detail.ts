@@ -65,7 +65,7 @@ export class InspectDetailPage {
   }
 
   ionViewDidLoad() {
-    this.sqlService.getSelectData('select * from DiseaseRecord where inspectionPositionID="' + this.navParams.data.ID + '"').subscribe(res => {
+    this.sqlService.getSelectData('select * from DiseaseRecord where inspectionPositionID="' + this.navParams.data.ID + '" and ancientArcID="'+this.navParams.data.ancientArcID+'"').subscribe(res => {
       if (res) {
         this.isHaveData = true;
         this.dataSource = res[0];
@@ -159,7 +159,16 @@ export class InspectDetailPage {
     }
   }
   submitData() {
-    if (this.dataSource.location == null || this.dataSource.inspectDescription == null || this.dataSource.diseaseLevel == null || this.dataSource.workType == null) {
+    if (
+      this.dataSource.location == null || 
+      this.dataSource.inspectDescription == null || 
+      this.dataSource.diseaseLevel == null || 
+      this.dataSource.workType == null||
+      this.dataSource.location == "" || 
+      this.dataSource.inspectDescription == "" || 
+      this.dataSource.diseaseLevel =="" || 
+      this.dataSource.workType ==""
+    ) {
       let alert = this.alertCtrl.create({
         title: '提示',
         subTitle: '请完善巡检信息！',

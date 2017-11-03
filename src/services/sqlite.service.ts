@@ -29,15 +29,24 @@ export class SqlService {
             });
     }
 
-    initialData(json):Observable<boolean> {
-        return Observable.create(res=>{
-            this.sqlitePorter.importJsonToDb(this.database, json).then((result) =>{ res.next(true);console.log("Imported");})
-                .catch(e =>{ console.error(e);res.next(false);console.error("Imported error")});
-        },error=>{});
+    initialData(json): Observable<boolean> {
+        let that = this;
+        return Observable.create(res => {
+            this.sqlite.create({
+                name: 'data.db',
+                location: 'default'
+            })
+            .then((db: any) => {
+                    this.database = db._objectInstance;
+                    this.sqlitePorter.importJsonToDb(this.database, json).then((result) => { res.next(true); console.log("Imported"); })
+                    .catch(e => { console.error(e); res.next(false); console.error("Imported error") });
+                    // we can pass db._objectInstance as the database option in all SQLitePorter methods
+                });
+        }, error => { });
 
     }
 
-    deleteData(deleteString):Observable<string> {
+    deleteData(deleteString): Observable<string> {
         return Observable.create(observer => {
             this.sqlite.create({
                 name: "data.db",
@@ -71,8 +80,8 @@ export class SqlService {
                     } else {
                         observer.next(false);
                     }
-                },error=>{
-                    observer.next(false); 
+                }, error => {
+                    observer.next(false);
                 })
             });
         });

@@ -25,7 +25,7 @@
       </ion-header>
   <ion-content>
     <ion-list>
-      <button *ngFor="let menu of scenery" (click)="getBuilding(menu.Name)" ion-item>
+      <button *ngFor="let menu of scenery" [ngClass]="{'selected': selectedSceneryName==menu.Name}" (click)="getBuilding(menu.Name)" ion-item>
         {{menu.Name}}
       </button>
     </ion-list>
@@ -78,6 +78,8 @@
   <button ion-item *ngFor="let tz of building" class="item-ios" (click)="itemSelected(tz)">
     <h2>{{ tz.ancientName}}</h2>
     <p>{{ tz.ancientBelong }}</p>
+    <p *ngIf="tz.modifyTime">{{ tz.modifyTime }}</p>
+    <p *ngIf="!tz.modifyTime">{{ tz.modifyTime }}</p>
     <button ion-button clear item-end color="danger" *ngIf="tz.status == 0" style="font-size:1.4rem;">未完成</button>
     <button ion-button clear item-end color="secondary" *ngIf="tz.status == 1||tz.status == 2" style="font-size:1.4rem;">已完成</button>
   </button>

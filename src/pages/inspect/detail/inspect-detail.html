@@ -22,14 +22,14 @@
       <ion-list class="gray-title">
         <ion-list-header>位置</ion-list-header>
         <ion-item>
-          <ion-textarea placeholder="请输入病害位置" [(ngModel)]="dataSource.location" style="height:80px;" name="name"></ion-textarea>
+          <ion-textarea rows="3"  placeholder="请输入病害位置" [(ngModel)]="dataSource.location" style="height:6em;" name="name"></ion-textarea>
         </ion-item>
       </ion-list>
 
       <ion-list class="gray-title">
         <ion-list-header style="border-top:none;">巡查情况描述</ion-list-header>
         <ion-item>
-          <ion-textarea placeholder="请输入情况描述" [(ngModel)]="dataSource.inspectDescription" style="height:80px;" name="name"></ion-textarea>
+          <ion-textarea rows="3" placeholder="请输入情况描述" [(ngModel)]="dataSource.inspectDescription" style="height:6em;" name="name"></ion-textarea>
         </ion-item>
       </ion-list>
 
@@ -77,7 +77,7 @@
       <ion-list class="gray-title" *ngIf='dataSource.isRepaired=="true"'>
         <ion-list-header style="border-top:none;">修缮情况描述</ion-list-header>
         <ion-item>
-          <ion-textarea placeholder="请输入修缮情况描述" [(ngModel)]="dataSource.repairDescription" style="height:80px;"></ion-textarea>
+          <ion-textarea rows="3" placeholder="请输入修缮情况描述" [(ngModel)]="dataSource.repairDescription" style="height:6em;"></ion-textarea>
         </ion-item>
       </ion-list>
     </ion-list>
@@ -130,7 +130,7 @@
       <ion-list class="gray-title" style="border-bottom:1px solid #e8e8e8;">
         <ion-list-header style="border-top:none;">修缮情况描述</ion-list-header>
         <ion-item>
-          <div *ngIf="dataSource.repairDescription" style="min-height:80px;background:#fff; color:#000;">{{dataSource.inspectDescription}}</div>
+          <div *ngIf="dataSource.repairDescription" style="min-height:6em;background:#fff; color:#000;">{{dataSource.inspectDescription}}</div>
         </ion-item>
       </ion-list>
     </ion-list>

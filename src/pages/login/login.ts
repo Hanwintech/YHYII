@@ -49,6 +49,7 @@ export class LoginPage {
     if (u) {
       this.navCtrl.setRoot('TabsPage');
       this.inspectService.token = u.access_token;
+      console.log( u.access_token);
 
     } else {
       this.apiService.getToken(this.auth.account, this.auth.password)
@@ -58,6 +59,7 @@ export class LoginPage {
           user.password = this.auth.password;
           this.apiService.token = user.access_token;
           this.inspectService.token = user.access_token;
+          console.log( user.access_token);
           this.globalCache.cacheUser(user);
           this.navCtrl.setRoot('TabsPage');
           this.inspectService.getDiseaseRecord().subscribe(res => { console.log(res); });

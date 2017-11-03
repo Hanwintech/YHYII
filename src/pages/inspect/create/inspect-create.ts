@@ -22,6 +22,7 @@ export class InspectCreatePage {
   //itemCheckBox的变量控制
   itemCheckBox = true;
   dataSource;
+  loading;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -33,44 +34,23 @@ export class InspectCreatePage {
     private platform: Platform,
     private loadingCtrl: LoadingController,
     public popoverCtrl: PopoverController) {
-    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在加载数据' });
-    loading.present();
+
   }
   ionViewDidEnter() {
     this.getData();
     this.titleName = this.navParams.data.Name;
-
   }
 
   getData() {
     console.log(this.navParams.data.ID);
     let queryStr2 = 'select * from DiseaseRecord';
     this.sqlService.getSelectData(queryStr2).subscribe(res => {
-      console.log(res);
-      loading.dismiss();
-      console.log(res);
-      //console.log(this.dataSource);
-
-      // if (!res) {
-      //   let alert = this.alertCtrl.create({ title: '警告！', subTitle: '您还没有下载巡检数据！请到设置页面下载巡检数据！', buttons: ['确定'] });
-      //   alert.present();
-      // }
     }, (error) => {
     });
 
-    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在加载数据' });
-    loading.present();
     let queryStr3 = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="' + this.navParams.data.ID + '") b on b.inspectionPositionID = a.ID';
     this.sqlService.getSelectData(queryStr3).subscribe(res => {
-      console.log(res);
-      loading.dismiss();
       this.dataSource = this.list_to_tree(res);
-      // //console.log(this.dataSource);
-
-      // if (!res) {
-      //   let alert = this.alertCtrl.create({ title: '警告！', subTitle: '您还没有下载巡检数据！请到设置页面下载巡检数据！', buttons: ['确定'] });
-      //   alert.present();
-      // }
     }, (error) => {
     });
   }

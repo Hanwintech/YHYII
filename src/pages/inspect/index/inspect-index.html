@@ -27,7 +27,7 @@
       </ion-header>
   <ion-content>
     <ion-list>
-      <button *ngFor="let menu of scenery" ion-item (click)="openPage(menu.Name)">
+      <button *ngFor="let menu of scenery" [ngClass]="{'selected': selectedSceneryName==menu.Name}"  ion-item (click)="openPage(menu.Name)">
         {{menu.Name}}
       </button>
     </ion-list>

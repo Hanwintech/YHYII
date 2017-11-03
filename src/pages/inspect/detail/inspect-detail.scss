@@ -9,7 +9,7 @@ page-inspect-detail {
     .gray-title {
         .list-header {
             background: #fafafa;
-            font-size:1.1em;
+            font-size: 1.1em;
         }
         .list-header-md {
             margin-bottom: 0;
@@ -63,10 +63,9 @@ page-inspect-detail {
         width: 4.5em;
         height: 4.5em;
         border: 1px solid #D9D9D9;
-      
     }
-    .pictures{
-        float:left;
+    .pictures {
+        float: left;
     }
     .addPics-wrapper img {
         width: 4.5em;
@@ -94,5 +93,9 @@ page-inspect-detail {
         width: 39.5px;
         height: 2px;
     }
-
+    .text-input-md {
+        margin: 10px 0;
+        padding: 0;
+        width: calc(100% - 8px - 8px);
+    }
 }

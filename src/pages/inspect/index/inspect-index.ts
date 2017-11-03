@@ -21,6 +21,7 @@ export class InspectIndexPage {
   scenery;
   building;
   titleName;
+  selectedSceneryName;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -44,9 +45,8 @@ export class InspectIndexPage {
     this.menuCtrl.enable(true, 'inspectListMenu');
     this.sqlService.getSelectData('select * from Scenery where InspectAreaID="' + this.navParams.data.ID + '"').subscribe(res => {
       this.scenery = res;
-      console.log(this.scenery);
-      console.log(this.scenery[0].Name);
       this.getBuilding(this.scenery[0].Name);
+      this.selectedSceneryName=this.scenery[0].Name;
     }, (error) => {
       console.log(error);
     })
@@ -60,6 +60,7 @@ export class InspectIndexPage {
   }
 
   getBuilding(selectedName) {
+    this.selectedSceneryName=selectedName;
     this.sqlService.getSelectData('select * from AncientArchitecture where SceneryName="' + selectedName + '"').subscribe(res => {
       this.building = res;
       console.log(this.building);

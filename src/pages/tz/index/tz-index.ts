@@ -21,6 +21,7 @@ export class TZIndexPage {
   searchQuery: string = '';
   selectedScenery;
   titleName;
+  selectedSceneryName;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -52,6 +53,7 @@ export class TZIndexPage {
       console.log(res);
       this.scenery = res;
       this.selectedScenery = this.scenery[0].Name;
+      this.selectedSceneryName=this.scenery[0].Name;
       if (this.scenery[0].Name) {
         this.getBuilding(this.scenery[0].Name);
       }
@@ -62,7 +64,8 @@ export class TZIndexPage {
   }
   getBuilding(selectedName) {
     this.selectedScenery = selectedName;
-    this.sqlService.getSelectData('select ancientName,ancientBelong, status from BuildingInfo where ancientBelong="' + selectedName + '" order by status ').subscribe(res => {  
+    this.selectedSceneryName= selectedName;
+    this.sqlService.getSelectData('select ancientName,ancientBelong,modifyTime, status from BuildingInfo where ancientBelong="' + selectedName + '" order by status ').subscribe(res => {  
       if(res){
         this.building = res;
       }
