@@ -65,7 +65,7 @@ export class InspectDetailPage {
   }
 
   ionViewDidLoad() {
-    this.sqlService.getSelectData('select * from DiseaseRecord where inspectionPositionID="' + this.navParams.data.ID + '" and ancientArcID="'+this.navParams.data.ancientArcID+'"').subscribe(res => {
+    this.sqlService.getSelectData('select * from DiseaseRecord where inspectionPositionID="' + this.navParams.data.ID + '" and ancientArcID="' + this.navParams.data.ancientArcID + '"').subscribe(res => {
       if (res) {
         this.isHaveData = true;
         this.dataSource = res[0];
@@ -94,16 +94,44 @@ export class InspectDetailPage {
     return this.file.externalRootDirectory + 'com.hanwintech.yhyii/' + pic;
   }
   getPicture() {
-    this.nativeImgService.getPictureByCamera().subscribe(img => {
-      let img_name = '' + img.split('/').pop() + '';
-      console.log(typeof (img_name));
-      this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
-        this.file.moveFile(this.file.externalCacheDirectory, img_name, this.file.externalRootDirectory + 'com.hanwintech.yhyii', '').then(_ => {
-          this.fileObjList.push(img_name);
-          this.dataSource.picUrl.push(img_name);
-        }).catch(err => console.log(err));
-      }).catch(err => console.log('create fail'));
-    })
+    let that = this;
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: '拍摄',
+          handler: () => {
+            that.nativeImgService.getPictureByCamera().subscribe(img => {
+              console.log(img);
+              let img_name = '' + img.split('/').pop() + '';
+              console.log(this.file.externalCacheDirectory);
+              this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
+                this.file.moveFile(this.file.externalCacheDirectory, img_name, this.file.externalRootDirectory + 'com.hanwintech.yhyii', '').then(_ => {
+                  this.fileObjList.push(img_name);
+                  this.dataSource.picUrl.push(img_name);
+                }).catch(err => console.log(err));
+              }).catch(err => console.log('create fail'));
+            })
+          }
+        }, {
+          text: '从相册选择',
+          handler: () => {
+            this.nativeImgService.getPictureByPhotoLibrary().subscribe(img => {
+              let origionName='' + img.split('/').pop() + '';
+              let thirdName=origionName.split("?").shift();
+              this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
+                this.file.moveFile(this.file.externalCacheDirectory,thirdName, this.file.externalRootDirectory + 'com.hanwintech.yhyii', thirdName).then(_ => {
+                  this.fileObjList.push(thirdName);
+                  this.dataSource.picUrl.push(thirdName);
+                  console.log("success");
+                }).catch(err => console.log(err));
+                
+              }).catch(err => console.log('create fail'));
+            });
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
   viewerInspectPicture(index) {//照片预览
     let picturePaths = [];
@@ -160,14 +188,14 @@ export class InspectDetailPage {
   }
   submitData() {
     if (
-      this.dataSource.location == null || 
-      this.dataSource.inspectDescription == null || 
-      this.dataSource.diseaseLevel == null || 
-      this.dataSource.workType == null||
-      this.dataSource.location == "" || 
-      this.dataSource.inspectDescription == "" || 
-      this.dataSource.diseaseLevel =="" || 
-      this.dataSource.workType ==""
+      this.dataSource.location == null ||
+      this.dataSource.inspectDescription == null ||
+      this.dataSource.diseaseLevel == null ||
+      this.dataSource.workType == null ||
+      this.dataSource.location == "" ||
+      this.dataSource.inspectDescription == "" ||
+      this.dataSource.diseaseLevel == "" ||
+      this.dataSource.workType == ""
     ) {
       let alert = this.alertCtrl.create({
         title: '提示',
@@ -183,7 +211,7 @@ export class InspectDetailPage {
       }
       this.dataSource.inspectionPositionID = this.navParams.data.ID;
       this.dataSource.ancientArcID = this.navParams.data.ancientArcID;
-      this.dataSource.status="1";
+      this.dataSource.status = "1";
       let myDate = new Date();
       if (this.dataSource.isRepaired == "true") {
         this.dataSource.respairTime = myDate.toLocaleDateString();
@@ -210,7 +238,7 @@ export class InspectDetailPage {
       }
       else {
         console.log("无数据");
-       // this.dataSource.recordId = this.guid();
+        // this.dataSource.recordId = this.guid();
         jsonData = {
           "data": {
             "inserts": {

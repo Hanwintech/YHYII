@@ -2,20 +2,20 @@
   <div class="titleCotainer">
     <img src="assets/icon/title.png">
   </div>
-  <button large *ngIf='role=="1"||both' ion-button outline icon-left padding block text-left (click)="getBuildingData()">
+  <button large *ngIf='role=="2"||both' ion-button outline icon-left padding block text-left (click)="getBuildingData()">
     <ion-icon name="md-cloud-download"></ion-icon>
     古建台账数据下载
   </button>
 
-  <button large *ngIf='role=="1"||both' ion-button outline icon-left padding block text-left (click)="uploadBuildingData()">
+  <button large *ngIf='role=="2"||both' ion-button outline icon-left padding block text-left (click)="uploadBuildingData()">
     <ion-icon name="md-cloud-upload"></ion-icon>
     古建台账数据上传
   </button>
-  <button large *ngIf='role=="2"||both' ion-button outline icon-left padding block text-left (click)="getInspectData()">
+  <button large *ngIf='role=="1"||both' ion-button outline icon-left padding block text-left (click)="getInspectData()">
     <ion-icon name="md-cloud-download"></ion-icon>
     下载巡检数据
   </button>
-  <button large *ngIf='role=="2"||both' ion-button outline icon-left padding block text-left (click)="uploadInspectData()">
+  <button large *ngIf='role=="1"||both' ion-button outline icon-left padding block text-left (click)="uploadInspectData()">
     <ion-icon name="md-cloud-upload"></ion-icon>
     上传巡检数据
   </button>

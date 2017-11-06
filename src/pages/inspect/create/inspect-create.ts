@@ -42,12 +42,6 @@ export class InspectCreatePage {
   }
 
   getData() {
-    console.log(this.navParams.data.ID);
-    let queryStr2 = 'select * from DiseaseRecord';
-    this.sqlService.getSelectData(queryStr2).subscribe(res => {
-    }, (error) => {
-    });
-
     let queryStr3 = 'select a.ID, a.PID,a.PositionName,a.Type, b.isRepaired from DisInspectPosition a  left join (select * from DiseaseRecord where ancientArcID="' + this.navParams.data.ID + '") b on b.inspectionPositionID = a.ID';
     this.sqlService.getSelectData(queryStr3).subscribe(res => {
       this.dataSource = this.list_to_tree(res);

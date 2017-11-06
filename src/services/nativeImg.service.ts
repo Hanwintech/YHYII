@@ -60,7 +60,7 @@ export class nativeImgService {
    */
   getPictureByPhotoLibrary(options: CameraOptions = {}): Observable<string> {
     let ops: CameraOptions = Object.assign({
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY ,
     }, options);
     return this.getPicture(ops);
   };

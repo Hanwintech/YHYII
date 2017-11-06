@@ -71,8 +71,7 @@ export class TZCreatePage {
     this.dropdownDS._09jbys = ["黄", "绿", "蓝", "其他"];//剪边颜色
   }
 
-  submitData(isSubmit) {
-    if(isSubmit){
+  submitData() {
       let myDate = new Date();
       this.dataSource.status = 1;
       this.dataSource.modifyTime = myDate.toLocaleDateString();
@@ -98,12 +97,6 @@ export class TZCreatePage {
         console.log(res);
         this.viewCtrl.dismiss("1");
       }, (error) => { });
-    }
-    else{
-      let alert = this.alertCtrl.create({ title: '警告', subTitle: '请正确填写数据！', buttons: ['确定'] });
-      alert.present();
-    }  
-
   }
   toggleMenu() {
     this.menuCtrl.toggle("tzCreateMenu");
@@ -115,5 +108,9 @@ export class TZCreatePage {
     this.menuCtrl.enable(true, 'tzCreateMenu');
     this.menuCtrl.enable(false, 'tzAreaMenu');
   }
-
+  convertToNumber(event) {
+    if(event!=undefined){
+      return event=event.replace(/[^\d.]/g, "").replace(/^\./g, "").replace(/\.{2,}/g, ".");
+    }
+   }
 }

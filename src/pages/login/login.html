@@ -1,11 +1,11 @@
 <ion-content padding>
   <form (ngSubmit)="login()" #form="ngForm" >
     <ion-item>
-      <ion-label floating style="font-size:1.3em;">用户名</ion-label>
+      <ion-label  style="font-size:1.3em;">用户名</ion-label>
       <ion-input type="text" required [(ngModel)]="auth.account" name="account"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating style="font-size:1.3em;">密码</ion-label>
+      <ion-label style="font-size:1.3em;">密码</ion-label>
       <ion-input type="password" required [(ngModel)]="auth.password" name="password"></ion-input>
     </ion-item>
     <div class="spacer" style="height: 40px;"></div>
