@@ -4,8 +4,12 @@ import { Injectable } from '@angular/core';
 export class _baseService {
     public baseUrl: string = "";
     constructor() {
-       this.baseUrl = "http://hmerc.hanwintech.com:29020";
-        //this.baseUrl = "http://10.10.10.219:9020";
+        //测试服务
+      // this.baseUrl = "http://hmerc.hanwintech.com:29020";
+       //本机服务
+       // this.baseUrl = "http://10.10.10.219:9020";
+        //开发服务
+      this.baseUrl="http://hmerc.hanwintech.com:29080";
     }
 
     getPicUrl(pic: string): string {

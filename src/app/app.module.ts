@@ -25,6 +25,7 @@ import { PreviewPicturePage } from "./../shared/preview-picture/preview-picture"
 import { MLabelComponent } from './../shared/m-label/m-label';
 import { BackButtonService } from "../services/backButton.service";
 import { Geolocation } from '@ionic-native/geolocation';
+import { DeviceOrientation, DeviceOrientationCompassHeading } from '@ionic-native/device-orientation';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     Network,
     SQLite,
     SQLitePorter,
+    DeviceOrientation,
     nativeImgService,
     BackButtonService,
     SqlService,

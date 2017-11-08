@@ -76,7 +76,34 @@
       -webkit-box-shadow: none !important;
       box-shadow: none !important;
     }
+    .ng-valid .item-inner{
+        border-color:#000;
+    }
     .item-divider .label{
         font-weight:bold;
     }
+
+    .row{
+        padding-left: 16px;
+        padding-right: 0;
+        position: relative;
+        font-size: 1.6rem;
+        font-weight: normal;
+        text-transform: none;
+        color: #000;
+        background-color: #fff;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        border-bottom:1px solid #dedede;
+      }
+      
+      .row.activated {
+        background-color: #f1f1f1;
+      }
+      
+      .row[no-lines] {
+        border-width: 0;
+      }
 }

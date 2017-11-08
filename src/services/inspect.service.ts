@@ -106,7 +106,6 @@ export class InspectService extends ApiService {
 
     // 台账信息列表
     getListAncientArchitecture() {
-        console.log(this.token);
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'bearer ' + this.token);

@@ -77,8 +77,8 @@ export class SqlService {
                             arr.push(item);
                         }
                         observer.next(arr);
-                    } else {
-                        observer.next(false);
+                    } else if(rs.rows.length ==0) {
+                        observer.next(true);
                     }
                 }, error => {
                     observer.next(false);

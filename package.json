@@ -32,6 +32,7 @@
         "@ionic-native/camera": "^4.1.0",
         "@ionic-native/core": "3.12.1",
         "@ionic-native/device": "^3.12.1",
+        "@ionic-native/device-orientation": "^4.3.3",
         "@ionic-native/file": "^4.1.0",
         "@ionic-native/file-transfer": "^4.0.1",
         "@ionic-native/geolocation": "^4.0.1",
@@ -49,6 +50,7 @@
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-device-orientation": "^1.0.7",
         "cordova-plugin-file": "^4.0.0",
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-geolocation": "^2.4.3",
@@ -93,7 +95,8 @@
             "cordova-plugin-network-information": {},
             "cordova-plugin-nativestorage": {},
             "uk.co.workingedge.cordova.plugin.sqliteporter": {},
-            "cordova-plugin-advanced-http": {}
+            "cordova-plugin-advanced-http": {},
+            "cordova-plugin-device-orientation": {}
         },
         "platforms": [
             "android"

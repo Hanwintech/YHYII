@@ -56,7 +56,7 @@ export class MyPage {
           handler: () => {
             that.sqlService.deleteData('delete from BuildingInfo').subscribe(res => {
             });
-            that.sqlService.deleteData('delete from DiseaseRecord').subscribe(res => {
+            that.sqlService.deleteData('drop table DiseaseRecord').subscribe(res => {
      
             });
             that.app.getRootNav().setRoot("LoginPage", { logout: true });
@@ -290,6 +290,8 @@ export class MyPage {
     let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载巡检数据' });
     loading.present();
     this.inspectService.getDiseaseRecord().subscribe((res) => {
+      console.log(res);
+      res.data="[]";
       let inspectData = {
         "structure": {
           "tables": {
@@ -302,6 +304,7 @@ export class MyPage {
           }
         }
       }
+
       this.sqlService.initialData(inspectData).subscribe((res) => {
         console.log(res);
         this.downLoadFile().then(function () {

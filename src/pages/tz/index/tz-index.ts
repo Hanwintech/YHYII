@@ -83,6 +83,7 @@ export class TZIndexPage {
     inspectDetail.onDidDismiss(data => {
       if (data != undefined) {
         selectedItem.status = "1";
+        selectedItem.modifyTime=data;
       }
     })
     inspectDetail.present();

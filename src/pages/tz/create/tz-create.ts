@@ -13,7 +13,6 @@ export class TZCreatePage {
   propertyId: string;
   menuList = [];
   selectedMenuId = "";
-  aa = "cavav";
   public dropdownDS: tzDataSource;
   lt: boolean;
   dataSource;
@@ -28,10 +27,10 @@ export class TZCreatePage {
     public resolver: ComponentFactoryResolver,
     public menuCtrl: MenuController
   ) {
+
   }
   ionViewDidEnter() {
     this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data.buildingName + '" and ancientBelong="' + this.navParams.data.sceneryName + '"').subscribe(res => {
-      console.log(res);
       if (res.length>0) {
         this.dataSource = res[0];
       }
@@ -72,9 +71,15 @@ export class TZCreatePage {
   }
 
   submitData() {
-      let myDate = new Date();
+    if(this.dataSource.ancientName==""||this.dataSource.ancientName==null){
+      let alert = this.alertCtrl.create({ title: '提示', subTitle: '请填写建筑名称', buttons: ['确定'] });
+      alert.present();
+      return;
+    }
+    else{
+      let myDate = new Date()
       this.dataSource.status = 1;
-      this.dataSource.modifyTime = myDate.toLocaleDateString();
+      this.dataSource.modifyTime =myDate.toLocaleDateString();
       for (var item in this.dataSource) {
         if (this.dataSource[item] == "null" || this.dataSource[item] == null) {
           this.dataSource[item] = "";
@@ -94,9 +99,9 @@ export class TZCreatePage {
         }
       };
       this.sqlService.initialData(jsonData).subscribe((res) => {
-        console.log(res);
-        this.viewCtrl.dismiss("1");
+        this.viewCtrl.dismiss(this.dataSource.modifyTime);
       }, (error) => { });
+    }
   }
   toggleMenu() {
     this.menuCtrl.toggle("tzCreateMenu");

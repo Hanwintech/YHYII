@@ -18,8 +18,6 @@ export class GlobalCache {
     }
 
     public cacheUser(u: User) {
-        console.log("global 里的user");
-        console.log(u);
         this._user = u;
         if (u) {
             this.storage.set("user", u);
