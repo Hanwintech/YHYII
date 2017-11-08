@@ -52,10 +52,10 @@ export class InspectDetailPage {
   ) {
 
     this.damamgeDegreeSource = [
-      { key: "313", value: "轻微待观察" },
-      { key: "314", value: "一般无明恶化迹象" },
-      { key: "315", value: "中等有恶化迹象" },
-      { key: "316", value: "严重需立即修复" }
+      { key: "313", value: "轻微" },
+      { key: "314", value: "一般" },
+      { key: "315", value: "中等" },
+      { key: "316", value: "严重" }
     ];
     this.workTypeSource = [
       { key: "1", value: "瓦作" },
@@ -66,7 +66,7 @@ export class InspectDetailPage {
 
   ionViewDidLoad() {
     this.sqlService.getSelectData('select * from DiseaseRecord where inspectionPositionID="' + this.navParams.data.ID + '" and ancientArcID="' + this.navParams.data.ancientArcID + '"').subscribe(res => {
-      if (res) {
+      if (res.length>0) {
         this.isHaveData = true;
         this.dataSource = res[0];
         if (this.dataSource.picUrl.length > 1) {
@@ -74,7 +74,6 @@ export class InspectDetailPage {
           this.dataSource.picUrl = tempPic.split(",");
         }
         else {
-          console.log("没图片");
           this.dataSource.picUrl = [];
         }
         this.fileObjList = JSON.parse(JSON.stringify(this.dataSource.picUrl));
@@ -85,7 +84,6 @@ export class InspectDetailPage {
         this.dataSource = new addInsepct();
         this.isView = this.dataSource.isRepaired;
       }
-      console.log(res);
     }, error => {
       console.log(error);
     });

@@ -115,7 +115,7 @@
       </ion-item>
       <ion-list class="gray-title" style="margin-bottom:2em;" style="border-bottom:1px solid #e8e8e8;">
         <ion-list-header style="border-top:none;border-bottom:1px solid #ddd;">巡检附件</ion-list-header>
-        <ion-item>
+        <ion-item style="border-bottom:1px solid #ddd;">
           <div class="addPics-wrapper">
             <div *ngFor="let fileObj of fileObjList;let i = index" class="pictures">
               <img src="{{getPicUrl(fileObj)}}" (click)="viewerInspectPicture(i)">
@@ -130,9 +130,13 @@
       <ion-list class="gray-title" style="border-bottom:1px solid #e8e8e8;">
         <ion-list-header style="border-top:none;">修缮情况描述</ion-list-header>
         <ion-item>
-          <div *ngIf="dataSource.repairDescription" style="min-height:6em;background:#fff; color:#000;">{{dataSource.inspectDescription}}</div>
+          <div *ngIf="dataSource.repairDescription" style="min-height:6em;background:#fff; color:#000;">{{dataSource.repairDescription}}</div>
         </ion-item>
       </ion-list>
+      <ion-item style="border:1px solid #e8e8e8;">
+        <ion-label>修缮时间</ion-label>
+        <ion-label class="result">{{dataSource.respairTime}}</ion-label>
+      </ion-item>
     </ion-list>
   </div>
 </ion-content>

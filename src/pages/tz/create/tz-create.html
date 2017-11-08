@@ -51,10 +51,10 @@
           <ion-option *ngFor="let item of dropdownDS._01jzgn" value="{{item}}">{{item}}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-row>
         <ion-label>建筑形式</ion-label>
         <ion-textarea rows="3" [(ngModel)]="dataSource.buildingStyle" name="dataSource.buildingStyle" placeholder="请输入建筑形式" name="Type"></ion-textarea>
-      </ion-item>
+      </ion-row>
       <ion-row>
         <ion-label>始建年代【年】</ion-label>
         <ion-input [(ngModel)]="dataSource.constructionTime" name="dataSource.constructionTime" right placeholder="请输入始建年代"></ion-input>
@@ -611,10 +611,10 @@
         <ion-label>走兽数量【个】</ion-label>
         <ion-input [(ngModel)]="dataSource.beastNumber" type="text" (keyup)="dataSource.beastNumber = convertToNumber(dataSource.beastNumber)" name="dataSource.beastNumber"  right placeholder="请输入走兽数量"></ion-input>
       </ion-row>
-      <ion-item>
+      <ion-row>
         <ion-label>其他构件</ion-label>
         <ion-textarea rows="3" [(ngModel)]="dataSource.otherComponent" name="ataSource.otherComponent" placeholder="请输入其他构件" name="Type"></ion-textarea>
-      </ion-item>
+      </ion-row>
       <ion-row>
         <ion-label>飞椽下皮高度【mm】</ion-label>
         <ion-input [(ngModel)]="dataSource.eavesHeight" type="text" (keyup)="dataSource.eavesHeight = convertToNumber(dataSource.eavesHeight)" name="dataSource.eavesHeight" required right
@@ -631,20 +631,20 @@
       <ion-item-divider color="light" style="font-size:1.3em;">
         古建备注
       </ion-item-divider>
-      <ion-item>
+      <ion-row>
         <ion-textarea rows="3" style="height:6em;" [(ngModel)]="dataSource.otherDescript" name="dataSource.otherDescript" placeholder="补充文字描述"
           name="Type"></ion-textarea>
-      </ion-item>
+      </ion-row>
       <div style="clear:both;"></div>
     </ion-item-group>
     <ion-item-group>
       <ion-item-divider color="light" style="font-size:1.3em;">
         问题描述
       </ion-item-divider>
-      <ion-item>
+      <ion-row>
         <ion-textarea rows="3" style="height:6em;margin-bottom:1em;" [(ngModel)]="dataSource.problemDescription" name="dataSource.problemDescription"
           placeholder="补充问题描述" name="Type"></ion-textarea>
-      </ion-item>
+      </ion-row>
     </ion-item-group>
   </form>
 </ion-content>
