@@ -98,4 +98,12 @@ page-inspect-detail {
         padding: 0;
         width: calc(100% - 8px - 8px);
     }
+    .textArea{
+        text-align: left;
+        width:100%;
+        overflow: auto;
+        border:none;
+        padding-left:0;
+        color:#000;
+    }
 }

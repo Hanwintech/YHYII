@@ -290,8 +290,7 @@ export class MyPage {
     let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在下载巡检数据' });
     loading.present();
     this.inspectService.getDiseaseRecord().subscribe((res) => {
-      console.log(res);
-      res.data="[]";
+      loading.dismiss();
       let inspectData = {
         "structure": {
           "tables": {
@@ -306,9 +305,7 @@ export class MyPage {
       }
 
       this.sqlService.initialData(inspectData).subscribe((res) => {
-        console.log(res);
-        this.downLoadFile().then(function () {
-          loading.dismiss();
+        this.downLoadFile().then(function () {      
           let toast = that.toastCtrl.create({
             message: '数据下载成功！',
             cssClass: 'background:#ddd;',
@@ -317,7 +314,7 @@ export class MyPage {
           toast.present();
         });
       }, (error) => { });
-    }, (error) => { });
+    }, (error) => { loading.dismiss();});
   }
   // 巡检数据上传
   uploadInspectData() {
@@ -331,7 +328,6 @@ export class MyPage {
         }
       }, error => {
         loading.dismiss();
-        console.log(error);
       });
       this.sqlService.getSelectData('select * from DiseaseRecord where status="1"').subscribe((res) => {
         if (res.length > 0) {
@@ -507,7 +503,7 @@ export class MyPage {
       }, (error) => { });
     }, error => {
       if (error.status == 0) {
-        let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据传输操作！', buttons: ['确定'] });
+        let alert = this.alertCtrl.create({ title: '警告！', subTitle: '请在有网络的情况下，进行数据传输操作，若此时有网，您可以切换菜单，重新进入该页面。', buttons: ['确定'] });
         alert.present();
       }
     });
@@ -539,7 +535,7 @@ export class MyPage {
         }, (error) => {
           console.log(error);
         });
-      }).catch(err => console.log('create fail'));
+      }).catch(err => console.log(err));
     });
     return p;
   }

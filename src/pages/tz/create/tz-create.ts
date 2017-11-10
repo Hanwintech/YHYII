@@ -31,6 +31,7 @@ export class TZCreatePage {
   }
   ionViewDidEnter() {
     this.sqlService.getSelectData('select * from BuildingInfo where ancientName="' + this.navParams.data.buildingName + '" and ancientBelong="' + this.navParams.data.sceneryName + '"').subscribe(res => {
+      console.log(res);
       if (res.length>0) {
         this.dataSource = res[0];
       }
@@ -85,7 +86,6 @@ export class TZCreatePage {
           this.dataSource[item] = "";
         }
       }
-      console.log(this.dataSource);
       let jsonData = {
         "data": {
           "updates": {

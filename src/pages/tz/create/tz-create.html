@@ -21,21 +21,26 @@
       <ion-item-divider color="light" style="font-size:1.3em;">
         基本信息
       </ion-item-divider>
-      <ion-row  class="input-has-focus">
-        <ion-label>古建编号</ion-label>
-        <ion-input style="border-color:#000;" [(ngModel)]="dataSource.ancientNumber"  name="dataSource.ancientNumber" right placeholder="请输入古建编号"></ion-input>
-      </ion-row>
       <ion-row>
-        <ion-label>建筑面积【m²】</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientArea" type="text" name="dataSource.ancientArea" (keyup)="dataSource.ancientArea = convertToNumber(dataSource.ancientArea)" right placeholder="请输入建筑面积"></ion-input>
+        <ion-label>古建编号</ion-label>
+        <ion-label class="result">{{dataSource.ancientNumber}}</ion-label>
       </ion-row>
       <ion-row>
         <ion-label>建筑名称</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientName" name="dataSource.ancientName" right placeholder="请输入建筑名称"></ion-input>
+        <ion-label class="result">{{dataSource.ancientName}}</ion-label>
       </ion-row>
       <ion-row>
         <ion-label>所属景区</ion-label>
-        <ion-input [(ngModel)]="dataSource.ancientBelong" name="dataSource.ancientBelong" right type="text" placeholder="请输入所属景区"></ion-input>
+        <ion-label class="result">{{dataSource.ancientBelong}}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-label>始建年代【年】</ion-label>
+        <ion-label class="result">{{dataSource.constructionTime}}</ion-label>
+      </ion-row>
+
+      <ion-row>
+        <ion-label>建筑面积【m²】</ion-label>
+        <ion-input [(ngModel)]="dataSource.ancientArea" type="text" name="dataSource.ancientArea" (keyup)="dataSource.ancientArea = convertToNumber(dataSource.ancientArea)" right placeholder="请输入建筑面积"></ion-input>
       </ion-row>
       <ion-item>
         <ion-label>结构类型</ion-label>
@@ -53,11 +58,7 @@
       </ion-item>
       <ion-row>
         <ion-label>建筑形式</ion-label>
-        <ion-textarea rows="3" [(ngModel)]="dataSource.buildingStyle" name="dataSource.buildingStyle" placeholder="请输入建筑形式" name="Type"></ion-textarea>
-      </ion-row>
-      <ion-row>
-        <ion-label>始建年代【年】</ion-label>
-        <ion-input [(ngModel)]="dataSource.constructionTime" name="dataSource.constructionTime" right placeholder="请输入始建年代"></ion-input>
+        <textarea  style="padding-left:0;" class="textArea" rows="3" [(ngModel)]="dataSource.buildingStyle" name="dataSource.buildingStyle" placeholder="请输入建筑形式" ></textarea>
       </ion-row>
       <ion-row>
         <ion-label>最后修缮时间【年】</ion-label>
@@ -430,7 +431,7 @@
       </ion-list>
       <ion-item>
         <ion-label>槛窗材料</ion-label>
-        <ion-select [(ngModel)]="dataSource.windowSillMaterial" okText="确定" cancelText="取消" placeholder="请选择槛窗材料" name="dataSource.windowSillMaterial"
+        <ion-select  [(ngModel)]="dataSource.windowSillMaterial" okText="确定" cancelText="取消" placeholder="请选择槛窗材料" name="dataSource.windowSillMaterial"
           multiple="false">
           <ion-option *ngFor="let item of dropdownDS._07lccl" value="{{item}}">{{item}}</ion-option>
         </ion-select>
@@ -613,7 +614,7 @@
       </ion-row>
       <ion-row>
         <ion-label>其他构件</ion-label>
-        <ion-textarea rows="3" [(ngModel)]="dataSource.otherComponent" name="ataSource.otherComponent" placeholder="请输入其他构件" name="Type"></ion-textarea>
+        <textarea style="padding-left:0;" class="textArea" rows="3" [(ngModel)]="dataSource.otherComponent" name="ataSource.otherComponent" placeholder="请输入其他构件" ></textarea>
       </ion-row>
       <ion-row>
         <ion-label>飞椽下皮高度【mm】</ion-label>
@@ -631,9 +632,9 @@
       <ion-item-divider color="light" style="font-size:1.3em;">
         古建备注
       </ion-item-divider>
-      <ion-row>
-        <ion-textarea rows="3" style="height:6em;" [(ngModel)]="dataSource.otherDescript" name="dataSource.otherDescript" placeholder="补充文字描述"
-          name="Type"></ion-textarea>
+      <ion-row style="padding-left:0;border:none;">
+        <textarea class="textArea" rows="8"  [(ngModel)]="dataSource.otherDescript" name="dataSource.otherDescript" placeholder="补充文字描述"
+         ></textarea>
       </ion-row>
       <div style="clear:both;"></div>
     </ion-item-group>
@@ -641,10 +642,11 @@
       <ion-item-divider color="light" style="font-size:1.3em;">
         问题描述
       </ion-item-divider>
-      <ion-row>
-        <ion-textarea rows="3" style="height:6em;margin-bottom:1em;" [(ngModel)]="dataSource.problemDescription" name="dataSource.problemDescription"
-          placeholder="补充问题描述" name="Type"></ion-textarea>
+      <ion-row style="padding-left:0"> 
+        <textarea class="textArea" rows="8" [(ngModel)]="dataSource.problemDescription" name="dataSource.problemDescription"
+          placeholder="补充问题描述" ></textarea>
       </ion-row>
     </ion-item-group>
+    <div class="spacer" style="height: 40px;"></div>
   </form>
 </ion-content>

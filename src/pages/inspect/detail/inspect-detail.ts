@@ -66,7 +66,7 @@ export class InspectDetailPage {
 
   ionViewDidLoad() {
     this.sqlService.getSelectData('select * from DiseaseRecord where inspectionPositionID="' + this.navParams.data.ID + '" and ancientArcID="' + this.navParams.data.ancientArcID + '"').subscribe(res => {
-      if (res.length>0) {
+      if (res.length > 0) {
         this.isHaveData = true;
         this.dataSource = res[0];
         if (this.dataSource.picUrl.length > 1) {
@@ -101,11 +101,13 @@ export class InspectDetailPage {
             that.nativeImgService.getPictureByCamera().subscribe(img => {
               console.log(img);
               let img_name = '' + img.split('/').pop() + '';
-              console.log(this.file.externalCacheDirectory);
+              let my = new Date();
+              let newName = my.getFullYear().toString() + my.getMonth().toString() + my.getDate().toString() + my.getHours().toString()
+                + my.getSeconds().toString() + my.getMilliseconds().toString() + ".jpg";
               this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
-                this.file.moveFile(this.file.externalCacheDirectory, img_name, this.file.externalRootDirectory + 'com.hanwintech.yhyii', '').then(_ => {
-                  this.fileObjList.push(img_name);
-                  this.dataSource.picUrl.push(img_name);
+                this.file.moveFile(this.file.externalCacheDirectory, img_name, this.file.externalRootDirectory + 'com.hanwintech.yhyii', newName).then(_ => {
+                  this.fileObjList.push(newName);
+                  this.dataSource.picUrl.push(newName);
                 }).catch(err => console.log(err));
               }).catch(err => console.log('create fail'));
             })
@@ -114,15 +116,17 @@ export class InspectDetailPage {
           text: '从相册选择',
           handler: () => {
             this.nativeImgService.getPictureByPhotoLibrary().subscribe(img => {
-              let origionName='' + img.split('/').pop() + '';
-              let thirdName=origionName.split("?").shift();
+              let origionName = '' + img.split('/').pop() + '';
+              let thirdName = origionName.split("?").shift();
+              let my = new Date();
+              let newName = my.getFullYear().toString() + my.getMonth().toString() + my.getDate().toString() + my.getHours().toString()
+                + my.getSeconds().toString() + my.getMilliseconds().toString() + ".jpg";
               this.file.createDir(this.file.externalRootDirectory, 'com.hanwintech.yhyii', true).then(_ => {
-                this.file.moveFile(this.file.externalCacheDirectory,thirdName, this.file.externalRootDirectory + 'com.hanwintech.yhyii', thirdName).then(_ => {
-                  this.fileObjList.push(thirdName);
-                  this.dataSource.picUrl.push(thirdName);
-                  console.log("success");
+                this.file.moveFile(this.file.externalCacheDirectory, thirdName, this.file.externalRootDirectory + 'com.hanwintech.yhyii', newName).then(_ => {
+                  this.fileObjList.push(newName);
+                  this.dataSource.picUrl.push(newName);
                 }).catch(err => console.log(err));
-                
+
               }).catch(err => console.log('create fail'));
             });
           }
