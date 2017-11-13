@@ -231,7 +231,7 @@ export class InspectDetailPage {
               "DiseaseRecord": [
                 {
                   "set": this.dataSource,
-                  "where": { "inspectionPositionID": this.navParams.data.ID }
+                  "where": { "inspectionPositionID": this.navParams.data.ID,"ancientArcID":this.navParams.data.ancientArcID }
                 }
               ],
             }
@@ -262,6 +262,7 @@ export class InspectDetailPage {
           this.viewCtrl.dismiss(this.dataSource.isRepaired);
         };
         this.sqlService.getSelectData("select * from DiseaseRecord").subscribe(res => {
+          console.log("本地巡查表里的数据");
           console.log(res);
         }, error => { });
       }, error => {
