@@ -12,13 +12,6 @@ import { GlobalCache } from './../../../services/globalCache.service';
 import { Storage } from '@ionic/storage';
 
 
-/**
- * Generated class for the InspectDetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-inspect-detail',
@@ -215,12 +208,7 @@ export class InspectDetailPage {
       this.dataSource.ancientArcID = this.navParams.data.ancientArcID;
       this.dataSource.status = "1";
       let myDate = new Date();
-      if (this.dataSource.isRepaired == "true") {
-        this.dataSource.respairTime = myDate.toLocaleDateString();
-      }
-      else {
-        this.dataSource.inspectTime = myDate.toLocaleDateString();
-      }
+      this.dataSource.inspectTime = myDate.toLocaleDateString();
       console.log(this.dataSource);
 
       if (this.isHaveData) {
@@ -231,7 +219,7 @@ export class InspectDetailPage {
               "DiseaseRecord": [
                 {
                   "set": this.dataSource,
-                  "where": { "inspectionPositionID": this.navParams.data.ID,"ancientArcID":this.navParams.data.ancientArcID }
+                  "where": { "inspectionPositionID": this.navParams.data.ID, "ancientArcID":this.navParams.data.ancientArcID }
                 }
               ],
             }
@@ -239,8 +227,6 @@ export class InspectDetailPage {
         };
       }
       else {
-        console.log("无数据");
-        // this.dataSource.recordId = this.guid();
         jsonData = {
           "data": {
             "inserts": {
@@ -275,12 +261,5 @@ export class InspectDetailPage {
         console.log(error);
       });
     }
-
   }
-  // private S4() {
-  //   return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-  // };
-  // private guid() {
-  //   return (this.S4() + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + this.S4() + this.S4());
-  // };
 }

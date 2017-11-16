@@ -19,6 +19,7 @@ both;
   tab1Root = 'MyPage';
   tab2Root = 'StatisticsPage';
   tab3Root = 'StatisticsPage';
+  tab4Root ='InspectSearchPage';
   @ViewChild('myTabs') tabRef: Tabs;
   constructor(
     public backButtonService: BackButtonService,

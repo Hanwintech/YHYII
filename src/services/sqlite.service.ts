@@ -81,7 +81,7 @@ export class SqlService {
                         observer.next(true);
                     }
                 }, error => {
-                    observer.next(false);
+                    observer.next(error);
                 })
             });
         });

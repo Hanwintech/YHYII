@@ -80,6 +80,11 @@
           <textarea class="textArea" rows="3" placeholder="请输入修缮情况描述" [(ngModel)]="dataSource.repairDescription" style="height:6em;"></textarea>
         </ion-item>
       </ion-list>
+      <ion-item style="border-bottom:1px solid #e8e8e8;"  *ngIf='dataSource.isRepaired=="true"'>
+        <ion-label>修缮时间</ion-label>
+        <ion-datetime [(ngModel)]="dataSource.respairTime" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" placeholder="请输入开始时间" cancelText="取消"
+        doneText="确定"></ion-datetime>
+      </ion-item>
     </ion-list>
   </div>
 

@@ -1,8 +1,6 @@
 <ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="设置" tabIcon="person"></ion-tab>
+  <ion-tab [root]="tab1Root" tabTitle="设置" tabIcon="md-hammer"></ion-tab>
   <ion-tab [root]="tab2Root" *ngIf="role=='2'||both" tabTitle="台账" tabIcon="bookmarks"></ion-tab>
   <ion-tab [root]="tab3Root" *ngIf="role=='1'||both" tabTitle="巡检" tabIcon="bookmarks"></ion-tab>
+  <ion-tab [root]="tab4Root" *ngIf="role=='1'||both" tabTitle="搜索" tabIcon="md-search"></ion-tab>
 </ion-tabs>
-<!-- <ion-tabs #myTabs>
-  <ion-tab *ngFor="let tabRoot of tabRoots" [root]="tabRoot.root" tabTitle="{{tabRoot.tabTitle}}" tabIcon="{{tabRoot.tabIcon}}"></ion-tab>
-</ion-tabs> -->

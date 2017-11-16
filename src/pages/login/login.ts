@@ -59,13 +59,11 @@ export class LoginPage {
           user.password = this.auth.password;
           this.apiService.token = user.access_token;
           this.inspectService.token = user.access_token;
-          console.log( user.access_token);
           this.globalCache.cacheUser(user);
           this.navCtrl.setRoot('TabsPage');
           this.inspectService.getDiseaseRecord().subscribe(res => { console.log(res); });
         },
         error => {
-          console.log(error);
           if (error.status == 0) {
             loading.dismiss();
             let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '请在有网络的环境下进行登录！', buttons: ['确定'] });
