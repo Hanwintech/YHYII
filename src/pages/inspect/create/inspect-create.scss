@@ -1,0 +1,48 @@
+page-inspect-create {
+    .fixed-content{
+        background-color: #fff;
+      }
+    //****start **** 方块checkbox
+    $borderColor: #e8e8e8;
+    $selectedCheckBox: #d80808;
+    $selectedCheckBoxBorder: #c10202;
+   
+        .item-block {
+            width: auto;
+            float: left;
+            border: 1px solid $borderColor;
+            margin: 0.5rem 0.3rem;
+            min-height: 0;
+            margin-top: 0;
+    } //*****end checkbox
+    .gray-title {
+        .list-header {
+         
+        .label-md{
+            color:#797979;
+        }
+        }
+        .list-header-md {
+            margin-bottom: 0;
+            min-height: 3rem;
+            //padding-top: 0.8rem;
+            font-size: 1.6rem;
+        }
+        .label-md {
+            margin: 0.7rem 0.8rem 0.7rem 0;
+            
+        }
+        .item-md.item-block .item-inner{
+            border:none;
+        }
+    }
+    .selected .label {
+        color: $selectedCheckBoxBorder;}
+    .selected{
+        border: 1px solid $selectedCheckBoxBorder;
+    }
+    .active {
+        color: $selectedCheckBoxBorder;
+    }
+
+}

@@ -1,0 +1,652 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="closePage()">
+        <ion-icon name="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>台账审查</ion-title>
+    <ion-buttons right>
+      <button ion-button outline icon-left padding block text-left  (click)="submitData()">
+        <ion-icon name="md-cloud-done"></ion-icon>
+        保存
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form *ngIf="dataSource"  #myForm="ngForm" class="greenLine" name="dataSource">
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        基本信息
+      </ion-item-divider>
+      <ion-row>
+        <ion-label>古建编号</ion-label>
+        <ion-label class="result">{{dataSource.ancientNumber}}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-label>建筑名称</ion-label>
+        <ion-label class="result">{{dataSource.ancientName}}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-label>所属景区</ion-label>
+        <ion-label class="result">{{dataSource.ancientBelong}}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-label>始建年代【年】</ion-label>
+        <ion-label class="result">{{dataSource.constructionTime}}</ion-label>
+      </ion-row>
+
+      <ion-row>
+        <ion-label>建筑面积【m²】</ion-label>
+        <ion-input [(ngModel)]="dataSource.ancientArea" type="text" name="dataSource.ancientArea" (keyup)="dataSource.ancientArea = convertToNumber(dataSource.ancientArea)" right placeholder="请输入建筑面积"></ion-input>
+      </ion-row>
+      <ion-item>
+        <ion-label>结构类型</ion-label>
+        <ion-select [(ngModel)]="dataSource.structureType" okText="确定" cancelText="取消" placeholder="请输入结构类型" name="dataSource.structureType"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._01jglx" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>建筑功能</ion-label>
+        <ion-select [(ngModel)]="dataSource.buildingFunction" okText="确定" cancelText="取消" placeholder="请输入建筑功能" name="dataSource.buildingFunction"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._01jzgn" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-row>
+        <ion-label>建筑形式</ion-label>
+        <textarea  style="padding-left:0;" class="textArea" rows="3" [(ngModel)]="dataSource.buildingStyle" name="dataSource.buildingStyle" placeholder="请输入建筑形式" ></textarea>
+      </ion-row>
+      <ion-row>
+        <ion-label>最后修缮时间【年】</ion-label>
+        <ion-input [(ngModel)]="dataSource.finalRepair" name="dataSource.finalRepair" right placeholder="请输入最后修缮时间"></ion-input>
+      </ion-row>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        平面形制
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>平面形状</ion-label>
+        <ion-select [(ngModel)]="dataSource.planeForm" okText="确定" cancelText="取消" placeholder="请选择平面形状" name="dataSource.planeForm"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._02pmxz" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-list [(ngModel)]="dataSource.basicShapesLouti" name="dataSource.basicShapesLouti" radio-group class="radio">
+        <ion-item class="item1">楼梯</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.basicShapesBaosha" name="dataSource.basicShapesBaosha" radio-group class="radio">
+        <ion-item class="item1">抱厦</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.basicShapesQianlang" name="dataSource.basicShapesQianlang" radio-group class="radio">
+        <ion-item class="item1">前廊</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.basicShapeszhouweilang" name="dataSource.basicShapeszhouweilang" radio-group class="radio">
+        <ion-item class="item1">周围廊</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.basicShapesHoulang" name="dataSource.basicShapesHoulang" radio-group class="radio">
+        <ion-item class="item1">后廊</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label>面阔</ion-label>
+        <ion-select [(ngModel)]="dataSource.miankuo" okText="确定" cancelText="取消" placeholder="请选择面阔" name="dataSource.miankuo" multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._02mk" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-row>
+        <ion-label>通面阔尺寸【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.throughSurface"  type="text" name="dataSource.throughSurface" (keyup)="dataSource.throughSurface = convertToNumber(dataSource.throughSurface)" right placeholder="请输入通面阔尺寸"></ion-input>
+      </ion-row>
+      <ion-item>
+        <ion-label>进深</ion-label>
+        <ion-select [(ngModel)]="dataSource.depth" okText="确定" cancelText="取消" placeholder="请选择进深" name="dataSource.depth" multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._02js" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-row>
+        <ion-label>通进深尺寸【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.depthofM"  type="text" name="dataSource.depthofM" (keyup)="dataSource.depthofM = convertToNumber(dataSource.depthofM)" required right placeholder="请输入通进深尺寸"
+          value=""></ion-input>
+      </ion-row>
+
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        台基地面
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>台基材料</ion-label>
+        <ion-select [(ngModel)]="dataSource.baseMaterial" okText="确定" cancelText="取消" placeholder="请选择台基材料" name="dataSource.baseMaterial"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._03tjcl" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>台基形式</ion-label>
+        <ion-select [(ngModel)]="dataSource.baseForm" okText="确定" cancelText="取消" placeholder="请选择台基形式" name="dataSource.baseForm"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._03tjxs" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-row>
+        <ion-label>台基高度【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.platformSize"  type="text" name="dataSource.platformSize" (keyup)="dataSource.platformSize = convertToNumber(dataSource.platformSize)" right placeholder="请输入台基高度"
+          value=""></ion-input>
+      </ion-row>
+      <ion-item>
+        <ion-label>地面材料</ion-label>
+        <ion-select [(ngModel)]="dataSource.groundMaterial" okText="确定" cancelText="取消" placeholder="请选择地面材料" name="dataSource.groundMaterial"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._03dmcl" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>地面做法</ion-label>
+        <ion-select [(ngModel)]="dataSource.groundPractice" okText="确定" cancelText="取消" placeholder="请选择地面做法" name="dataSource.groundPractice"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._03dmzf" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [(ngModel)]="dataSource.platformWheather" name="dataSource.platformWheather" radio-group>
+        <ion-item class="item1">月台</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide1(false)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide1(true)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.tailgateWheather" name="dataSource.tailgateWheather" radio-group>
+        <ion-item class="item1">
+          <ion-label [class.disabled]="show1">栏杆、栏板</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true" [disabled]="show1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false" [disabled]="show1"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-label>栏杆、栏板数【个】</ion-label>
+        <ion-input [(ngModel)]="dataSource.tailgateNumber"  type="text" name="dataSource.tailgateNumber" (keyup)="dataSource.tailgateNumber = convertToNumber(dataSource.tailgateNumber)" right placeholder="请输入栏杆、栏板数"
+          value=""></ion-input>
+      </ion-row>
+      <ion-list [(ngModel)]="dataSource.stepsWheather" name="dataSource.stepsWheather" radio-group>
+        <ion-item class="item1">台阶</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide2(0)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide2(1)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-label [class.disabled]="show2">台阶组数【组】</ion-label>
+        <ion-input [(ngModel)]="dataSource.stepsNumber" name="dataSource.stepsNumber"  right placeholder="请输入台阶组数"
+          value="" [disabled]="show2"></ion-input>
+      </ion-row>
+
+      <ion-list [(ngModel)]="dataSource.drumStone" name="dataSource.drumStone" radio-group>
+        <ion-item class="item1">抱鼓石</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide3(0)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide3(1)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-label [class.disabled]="show3">抱鼓石数量【个】</ion-label>
+        <ion-input [(ngModel)]="dataSource.drumStoneNumber"  type="text" (keyup)="dataSource.drumStoneNumber = convertToNumber(dataSource.drumStoneNumber)" name="dataSource.drumStoneNumber" right  placeholder="请输入抱鼓石数量"
+          [disabled]="show3"></ion-input>
+      </ion-row>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        墙体墙面
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>材料</ion-label>
+        <ion-select [(ngModel)]="dataSource.materialScience" okText="确定" cancelText="取消" placeholder="请选择材料" name="dataSource.materialScience"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._04cl" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>墙身砌法</ion-label>
+        <ion-select [(ngModel)]="dataSource.wallmethod" okText="确定" cancelText="取消" placeholder="请选择墙身砌法" name="dataSource.wallmethod"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._04qsqf" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>下碱砌法</ion-label>
+        <ion-select [(ngModel)]="dataSource.lowerMethod" okText="确定" cancelText="取消" placeholder="请选择下碱砌法" name="dataSource.lowerMethod"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._04xjqf" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <!-- <ion-item>
+            <ion-label>下碱高度【mm】</ion-label>
+            <ion-input right type="text" placeholder="请输入下碱高度" value=""></ion-input>
+          </ion-item> -->
+      <div style="clear:both;"></div>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        构架形制
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>梁架材料</ion-label>
+        <ion-select [(ngModel)]="dataSource.beamFrame" okText="确定" cancelText="取消" placeholder="请选择梁架材料" name="dataSource.beamFrame"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._05ljcl" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>梁架形式</ion-label>
+        <ion-select [(ngModel)]="dataSource.beamForm" okText="确定" cancelText="取消" placeholder="请选择梁架形式" name="dataSource.beamForm"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._05ljxs" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-row>
+        <ion-label>檐柱直径【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.eavesColumnDiameter"  type="text" (keyup)="dataSource.eavesColumnDiameter = convertToNumber(dataSource.eavesColumnDiameter)" name="dataSource.eavesColumnDiameter" right  placeholder="请输入檐柱直径"
+          value=""></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label>檀条数量【根】</ion-label>
+        <ion-input [(ngModel)]="dataSource.numberOfCanopies"  type="text" (keyup)="dataSource.numberOfCanopies = convertToNumber(dataSource.numberOfCanopies)" name="dataSource.numberOfCanopies" right  placeholder="请输入檀条数量"
+          value=""></ion-input>
+      </ion-row>
+      <div style="clear:both;"></div>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        斗栱
+      </ion-item-divider>
+      <ion-list [(ngModel)]="dataSource.underBrackets" name="dataSource.underBrackets" radio-group>
+        <ion-item>下檐斗拱</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide1(false)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide1(true)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-label [class.disabled]="show1">斗口尺寸【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.underBucketSize" name="dataSource.underBucketSize"  type="text"  right (keyup)="dataSource.underBucketSize = convertToNumber(dataSource.underBucketSize)" placeholder="请输入斗口尺寸"
+          value="" [disabled]="show1"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show1">描述</ion-label>
+        <ion-input [(ngModel)]="dataSource.underBucketRemark" name="dataSource.underBucketRemark"   right type="text" placeholder="几斗几升/出几翘几昂几踩"
+          value="" [disabled]="show1"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show1">角科攒数【攒】</ion-label>
+        <ion-input [(ngModel)]="dataSource.underCornerSection" name="dataSource.underCornerSection"  type="text" right (keyup)="dataSource.underCornerSection = convertToNumber(dataSource.underCornerSection)" placeholder="请输入角科攒数"
+          value="" [disabled]="show1"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show1">柱头科攒数【攒】</ion-label>
+        <ion-input [(ngModel)]="dataSource.underNumberOfStigma" name="dataSource.underNumberOfStigma"  type="text" right (keyup)="dataSource.underNumberOfStigma = convertToNumber(dataSource.underNumberOfStigma)" placeholder="请输入柱头科攒数"
+          value="" [disabled]="show1"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show1">平身科攒数【攒】</ion-label>
+        <ion-input [(ngModel)]="dataSource.underFamilies" right name="dataSource.underFamilies"  type="text" (keyup)="dataSource.underFamilies = convertToNumber(dataSource.underFamilies)" placeholder="请输入平身科攒数"
+          value="" [disabled]="show1"></ion-input>
+      </ion-row>
+      <ion-list [(ngModel)]="dataSource.upperBrackets" name="dataSource.upperBrackets" radio-group>
+        <ion-item>上檐斗拱</ion-item>
+        <ion-item>
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide2(0)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide2(1)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-label [class.disabled]="show2">斗口尺寸【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.upperBucketSize" type="text" (keyup)="dataSource.upperBucketSize = convertToNumber(dataSource.upperBucketSize)" name="dataSource.upperBucketSize" right placeholder="请输入斗口尺寸" value=""
+          [disabled]="show2"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show2">描述</ion-label>
+        <ion-input [(ngModel)]="dataSource.upperBucketRemark" name="dataSource.upperBucketRemark" right type="text" placeholder="几斗几升/出几翘几昂几踩"
+          value="" [disabled]="show2"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show2">角科攒数【攒】</ion-label>
+        <ion-input [(ngModel)]="dataSource.upperCornerSection" type="text" (keyup)="dataSource.upperCornerSection = convertToNumber(dataSource.upperCornerSection)"  name="dataSource.upperCornerSection" right placeholder="请输入角科攒数" value=""
+          [disabled]="show2"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show2">柱头科攒数【攒】</ion-label>
+        <ion-input [(ngModel)]="dataSource.upperNumberOfStigma" type="text" (keyup)="dataSource.upperNumberOfStigma = convertToNumber(dataSource.upperNumberOfStigma)" name="dataSource.upperNumberOfStigma" right  placeholder="请输入柱头科攒数"
+          value="" [disabled]="show2"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label [class.disabled]="show2">平身科攒数【攒】</ion-label>
+        <ion-input [(ngModel)]="dataSource.upperFamilies" type="text" (keyup)="dataSource.upperFamilies = convertToNumber(dataSource.upperFamilies)" name="dataSource.upperFamilies" right  placeholder="请输入平身科攒数"
+          value="" [disabled]="show2"></ion-input>
+      </ion-row>
+      <div style="clear:both;"></div>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        装修形制
+      </ion-item-divider>
+      <ion-list [(ngModel)]="dataSource.curtainFrameWheather" name="dataSource.curtainFrameWheather" radio-group>
+        <ion-item class="item1">格扇帘架</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label>格扇材料</ion-label>
+        <ion-select [(ngModel)]="dataSource.paneMaterial" okText="确定" cancelText="取消" placeholder="请选择格扇材料" name="dataSource.paneMaterial"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._07gscl" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [(ngModel)]="dataSource.windDoorWheather" name="dataSource.windDoorWheather" radio-group>
+        <ion-item class="item1">风门</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label>槛窗材料</ion-label>
+        <ion-select  [(ngModel)]="dataSource.windowSillMaterial" okText="确定" cancelText="取消" placeholder="请选择槛窗材料" name="dataSource.windowSillMaterial"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._07lccl" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [(ngModel)]="dataSource.windowWindowWheather" name="dataSource.windowWindowWheather" radio-group>
+        <ion-item class="item1">牖窗</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide1(false)"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide1(true)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label [class.disabled]="show1">牖窗形状</ion-label>
+        <ion-select [(ngModel)]="dataSource.windowShape" okText="确定" cancelText="取消" placeholder="请选择牖窗形状" name="dataSource.windowShape"
+          multiple="false" [disabled]="show1">
+          <ion-option *ngFor="let item of dropdownDS._07ycxz" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [(ngModel)]="dataSource.eavesRailingWheather" name="dataSource.eavesRailingWheather" radio-group>
+        <ion-item class="item1">檐柱间栏杆</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list [(ngModel)]="dataSource.daoGuaMeizi" name="dataSource.daoGuaMeizi" radio-group>
+        <ion-item class="item1">
+          <ion-label>倒挂楣子</ion-label>
+        </ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.zuoDengMeizi" name="dataSource.zuoDengMeizi" radio-group>
+        <ion-item class="item1">
+          <ion-label>坐凳楣子</ion-label>
+        </ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.ceilingWheather" name="dataSource.ceilingWheather" radio-group>
+        <ion-item class="item1">天花</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <div style="clear:both;"></div>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        油饰彩画
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>下架柱子</ion-label>
+        <ion-select [(ngModel)]="dataSource.lowerFrame" okText="确定" cancelText="取消" placeholder="请选择下架柱子" name="dataSource.lowerFrame"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._08xjzz" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [(ngModel)]="dataSource.frameColorWheather" name="dataSource.frameColorWheather" radio-group>
+        <ion-item class="item1">梁架彩画</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide1(false)"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide1(true)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label [class.disabled]="show1">梁架彩画类型</ion-label>
+        <ion-select [(ngModel)]="dataSource.frameColorType" okText="确定" cancelText="取消" placeholder="请选择梁架彩画类型" name="dataSource.frameColorType"
+          multiple="false" [disabled]="show1">
+          <ion-option *ngFor="let item of dropdownDS._08ljchlx" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [(ngModel)]="dataSource.doorPaintWheather" name="dataSource.doorPaintWheather" radio-group>
+        <ion-item class="item1">天花彩画</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true" (click)="showOrHide2(false)"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false" (click)="showOrHide2(true)"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label [class.disabled]="show2">天花彩画类型</ion-label>
+        <ion-select [(ngModel)]="dataSource.doorPaintColorType" okText="确定" cancelText="取消" placeholder="请选择天花彩画类型" name="dataSource.doorPaintColorType"
+          multiple="false" [disabled]="show2">
+          <ion-option *ngFor="let item of dropdownDS._08thchlx" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <div style="clear:both;"></div>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        屋顶瓦面
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>屋顶形式</ion-label>
+        <ion-select [(ngModel)]="dataSource.roofRorm" okText="确定" cancelText="取消" placeholder="请选择屋顶形式" name="dataSource.roofRorm"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._09wdxs" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>瓦面类型</ion-label>
+        <ion-select [(ngModel)]="dataSource.tileType" okText="确定" cancelText="取消" placeholder="请选择瓦面类型" name="dataSource.tileType"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._09wmlx" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>琉璃瓦颜色</ion-label>
+        <ion-select [(ngModel)]="dataSource.glazedColor" okText="确定" cancelText="取消" placeholder="请选择琉璃瓦颜色" name="dataSource.glazedColor"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._09llwys" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>剪边颜色</ion-label>
+        <ion-select [(ngModel)]="dataSource.cutEdgeColor" okText="确定" cancelText="取消" placeholder="请选择剪边颜色" name="dataSource.cutEdgeColor"
+          multiple="false">
+          <ion-option *ngFor="let item of dropdownDS._09jbys" value="{{item}}">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [(ngModel)]="dataSource.kissAnimalWheather" name="dataSource.kissAnimalWheather" radio-group>
+        <ion-item class="item1">吻兽</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list [(ngModel)]="dataSource.beastWheather" name="dataSource.beastWheather" radio-group>
+        <ion-item class="item1">仙人走兽</ion-item>
+        <ion-item class="item2">
+          <ion-label>有</ion-label>
+          <ion-radio value="true"></ion-radio>
+        </ion-item>
+        <ion-item class="item3">
+          <ion-label>无</ion-label>
+          <ion-radio value="false"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-label>走兽数量【个】</ion-label>
+        <ion-input [(ngModel)]="dataSource.beastNumber" type="text" (keyup)="dataSource.beastNumber = convertToNumber(dataSource.beastNumber)" name="dataSource.beastNumber"  right placeholder="请输入走兽数量"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label>其他构件</ion-label>
+        <textarea style="padding-left:0;" class="textArea" rows="3" [(ngModel)]="dataSource.otherComponent" name="ataSource.otherComponent" placeholder="请输入其他构件" ></textarea>
+      </ion-row>
+      <ion-row>
+        <ion-label>飞椽下皮高度【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.eavesHeight" type="text" (keyup)="dataSource.eavesHeight = convertToNumber(dataSource.eavesHeight)" name="dataSource.eavesHeight" required right
+          placeholder="请输入飞椽下皮高度"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-label>正脊高度【mm】</ion-label>
+        <ion-input [(ngModel)]="dataSource.positiveHeight" type="text" (keyup)="dataSource.positiveHeight = convertToNumber(dataSource.positiveHeight)" name="dataSource.positiveHeight" required 
+          right placeholder="请输入正脊高度"></ion-input>
+      </ion-row>
+      <div style="clear:both;"></div>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        古建备注
+      </ion-item-divider>
+      <ion-row style="padding-left:0;border:none;">
+        <textarea class="textArea" rows="8"  [(ngModel)]="dataSource.otherDescript" name="dataSource.otherDescript" placeholder="补充文字描述"
+         ></textarea>
+      </ion-row>
+      <div style="clear:both;"></div>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light" style="font-size:1.3em;">
+        问题描述
+      </ion-item-divider>
+      <ion-row style="padding-left:0"> 
+        <textarea class="textArea" rows="8" [(ngModel)]="dataSource.problemDescription" name="dataSource.problemDescription"
+          placeholder="补充问题描述" ></textarea>
+      </ion-row>
+    </ion-item-group>
+    <div class="spacer" style="height: 40px;"></div>
+  </form>
+</ion-content>

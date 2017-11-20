@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>巡查在线</ion-title>
+    <ion-buttons right >
+      <button ion-button icon-only  (click)="select()">
+          <ion-icon md="md-list"></ion-icon>
+          景区
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <button *ngFor="let item of building" class="item-ios" ion-item (click)="openCreatePage(item)">
+    <h2>{{item.Name}}</h2>
+    <p>{{item.SceneryName }}</p>
+    <!-- <p style="color:#989898;font-size:1.3rem;">{{item.parentName}}</p>
+          <p *ngIf="!item.inspectTime" item-end style="color:#989898;margin-top:0;">——</p> -->
+    <p *ngIf="item.inspectTime" item-end style="color:#989898;margin-top:0;"></p>
+  </button>
+</ion-content>
+
+<ion-menu id="inspectListMenu" class="menu" type="overlay" [content]="content">
+    <ion-header>
+        <ion-toolbar>
+          <ion-title>{{titleName}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  <ion-content>
+    <ion-list>
+      <button *ngFor="let menu of scenery" [ngClass]="{'selected': selectedSceneryName==menu.Name}"  ion-item (click)="openPage(menu.Name)">
+        {{menu.Name}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav id="inspectListMenu" #content [root]="InspectIndexPage"></ion-nav>

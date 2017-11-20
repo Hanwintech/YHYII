@@ -1,0 +1,56 @@
+<!--
+  Generated template for the InspectSearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>记录搜索</ion-title>
+    <ion-buttons right>
+        <button ion-button outline icon-left padding block text-left (click)="submitData()">
+          <ion-icon name="md-checkmark"></ion-icon>
+          确定
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="dataSource">
+  <ion-item>
+    <ion-label>巡检区域</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="巡检区域" (ngModelChange)="areaEvent($event)" [(ngModel)]="dataSource.inspectArea" multiple="false">
+      <ion-option *ngFor="let item of optionInspectArea" value={{item.ID}}>{{item.Name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>所属景区</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="所属景区" (ngModelChange)="sceneryEvent($event)" [(ngModel)]="dataSource.inspectScenery" multiple="false">
+      <ion-option *ngFor="let item of optionInspectScenery" value={{item.Name}}>{{item.Name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>古建名称</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="古建名称" [(ngModel)]="dataSource.ancientName" multiple="false">
+      <ion-option *ngFor="let item of optionAncientName" value={{item.ID}}>{{item.Name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>工种类别</ion-label>
+    <ion-select okText="确定" cancelText="取消" placeholder="工种类别" [(ngModel)]="dataSource.workType" multiple="false">
+      <ion-option value="1">瓦作</ion-option>
+      <ion-option value="2">木作</ion-option>
+      <ion-option value="3">油作</ion-option>
+      <ion-option value="4">石作</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>巡检时间段（开始）</ion-label>
+    <ion-datetime displayFormat="YYYY/MM/DD" [(ngModel)]="dataSource.inspectSTime" pickerFormat="YYYY/MM/DD" placeholder="开始时间" cancelText="取消" doneText="确定"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>巡检时间段（结束）</ion-label>
+    <ion-datetime displayFormat="YYYY/MM/DD" [(ngModel)]="dataSource.inspectETime" pickerFormat="YYYY/MM/DD" placeholder="结束时间" cancelText="取消" doneText="确定"></ion-datetime>
+  </ion-item>
+</div>
+</ion-content>

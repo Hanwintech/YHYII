@@ -1,8 +1,17 @@
 {
-    "name": "DYH_Hybrid",
-    "version": "0.0.1",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
+    "name": "yhyii",
+    "version": "2.0.0",
+    "description": "颐和园",
+    "keywords": [
+        "颐和园"
+    ],
+    "homepage": "http://www.hanwintech.com/",
+    "bugs": {
+        "url": "http://www.hanwintech.com",
+        "email": "wangyj@hanwintech.com"
+    },
+    "license": "",
+    "author": "Hanwintech",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
@@ -23,43 +32,53 @@
         "@ionic-native/camera": "^4.1.0",
         "@ionic-native/core": "3.12.1",
         "@ionic-native/device": "^3.12.1",
+        "@ionic-native/device-orientation": "^4.3.3",
         "@ionic-native/file": "^4.1.0",
         "@ionic-native/file-transfer": "^4.0.1",
         "@ionic-native/geolocation": "^4.0.1",
+        "@ionic-native/native-storage": "^4.2.1",
+        "@ionic-native/network": "^4.2.1",
         "@ionic-native/splash-screen": "3.12.1",
+        "@ionic-native/sqlite": "^4.3.1",
+        "@ionic-native/sqlite-porter": "^4.3.1",
         "@ionic-native/status-bar": "3.12.1",
         "@ionic/storage": "2.0.1",
+        "bootstrap": "^4.0.0-beta",
         "cordova-android": "^6.2.3",
-        "cordova-browser": "^4.1.0",
-        "cordova-ios": "^4.4.0",
+        "cordova-plugin-advanced-http": "^1.6.1",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-device-orientation": "^1.0.7",
         "cordova-plugin-file": "^4.0.0",
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-geolocation": "^2.4.3",
-        "cordova-plugin-jcore": "^1.1.6",
+        "cordova-plugin-jcore": "file:node_modules/cordova-plugin-jcore",
+        "cordova-plugin-nativestorage": "^2.2.2",
+        "cordova-plugin-network-information": "^1.3.3",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.2",
         "cordova-plugin-whitelist": "^1.3.1",
+        "cordova-sqlite-storage": "^2.0.4",
         "echarts": "^3.6.2",
         "echarts-ng2": "^1.4.1",
         "ionic-angular": "=3.4.0",
         "ionic-img-viewer": "2.4.0",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionicons": "3.0.0",
-        "jpush-phonegap-plugin": "^3.2.3",
+        "jquery": "^3.2.1",
         "rxjs": "5.4.0",
         "sw-toolbox": "3.6.0",
+        "ts-md5": "^1.2.2",
+        "uk.co.workingedge.cordova.plugin.sqliteporter": "^1.0.0",
         "zone.js": "0.8.12"
     },
     "devDependencies": {
         "@ionic/app-scripts": "1.3.12",
-        "ionic": "3.9.2",
+        "ionic": "3.13.1",
         "typescript": "2.3.4"
     },
-    "description": "An Ionic project",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},
@@ -72,14 +91,15 @@
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {},
             "cordova-plugin-camera": {},
-            "jpush-phonegap-plugin": {
-                "APP_KEY": "960ce03b532dc9d781595c20"
-            }
+            "cordova-sqlite-storage": {},
+            "cordova-plugin-network-information": {},
+            "cordova-plugin-nativestorage": {},
+            "uk.co.workingedge.cordova.plugin.sqliteporter": {},
+            "cordova-plugin-advanced-http": {},
+            "cordova-plugin-device-orientation": {}
         },
         "platforms": [
-            "android",
-            "browser",
-            "ios"
+            "android"
         ]
     }
 }

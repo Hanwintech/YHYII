@@ -1,0 +1,28 @@
+<ion-item-group>
+  <ion-item-divider color="light" style="font-size:1.3em;">
+    墙体墙面
+  </ion-item-divider>
+  <ion-item>
+    <ion-label>材料</ion-label>
+    <ion-select  [(ngModel)]="dataSource.materialScience" okText="确定" cancelText="取消" placeholder="请输入材料" name="" multiple="false">
+      <ion-option *ngFor="let item of dropdownDS._04cl"  value="{{item}}">{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>墙身砌法</ion-label>
+    <ion-select  [(ngModel)]="dataSource.wallmethod" okText="确定" cancelText="取消" placeholder="请输入墙身砌法" name="" multiple="false">
+      <ion-option *ngFor="let item of dropdownDS._04qsqf"  value="{{item}}">{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>下碱砌法</ion-label>
+    <ion-select  [(ngModel)]="dataSource.lowerMethod" okText="确定" cancelText="取消" placeholder="请输入下碱砌法" name="" multiple="false">
+      <ion-option *ngFor="let item of dropdownDS._04xjqf"  value="{{item}}">{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <!-- <ion-item>
+    <ion-label>下碱高度【mm】</ion-label>
+    <ion-input right type="text" placeholder="请输入下碱高度" value=""></ion-input>
+  </ion-item> -->
+  <div style="clear:both;"></div>
+</ion-item-group>

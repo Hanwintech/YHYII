@@ -1,31 +1,33 @@
-import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { IUser } from '../models/user.model';
+import { User } from '../models/user.model';
 import { Storage } from '@ionic/storage';
 
-/**
- * GlobalCache
- */
 @Injectable()
 export class GlobalCache {
-    private _currentUser: IUser;
-    public get currentUser(): IUser {
-        return this._currentUser;
+    private _user: User;
+    private _token;
+    public get user(): User { return this._user; }
+
+    constructor(private storage: Storage) { }
+
+    public init(callback) {
+        this.storage.get("user").then(u => {
+            this._user = u;
+            if (callback) { callback(); }
+        });
     }
-    public set currentUser(v: IUser) {
-        this._currentUser = v;
-        if (v != null) {
-            this.storage.set("user", v).then(data => {
-            }).catch(error => {
-            });
+
+    public cacheUser(u: User) {
+        this._user = u;
+        if (u) {
+            this.storage.set("user", u);
+        } else {
+            this.clearUser();
         }
     }
 
-    constructor(private storage: Storage,
-        private apiService: ApiService
-    ) {
-
+    public clearUser(): Promise<any> {
+        this._user = null;
+        return this.storage.remove("user");
     }
-
 }

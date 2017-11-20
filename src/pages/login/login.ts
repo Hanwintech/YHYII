@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, ToastController, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
-
+import { InspectService } from './../../services/inspect.service';
 import { GlobalCache } from './../../services/globalCache.service';
 import { ApiService } from './../../services/api.service';
-import { InspectService } from './../../services/inspect.service';
-import { User, IUser } from "./../../models/user.model";
+import { User } from "./../../models/user.model";
+import { SqlService } from "../../services/sqlite.service";
 
 @IonicPage()
 @Component({
@@ -14,83 +14,67 @@ import { User, IUser } from "./../../models/user.model";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  auth = {
-    account: "",
-    password: ""
-  };
+  auth = { account: "", password: "" };
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
+  constructor(
+    private navCtrl: NavController,
+    private navParams: NavParams,
     private apiService: ApiService,
-    private device: Device,
     private inspectService: InspectService,
+    private device: Device,
     private globalCache: GlobalCache,
     private storage: Storage,
+    private sqlService: SqlService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
-    var logout = navParams.get("logout");
+    public toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {
     this.storage.ready().then(() => {
-      if (!logout) {
-        this.storage.get("user")
-          .then(user => {
-            this.globalCache.currentUser = user;
-            this.auth.account = user.account;
-            this.auth.password = user.password;
-            this.login();
-          })
-          .catch(error => { });
-      } else {
-        this.storage.remove("user")
-          .then(data => {
-            this.globalCache.currentUser = null;
-            if (this.device.platform == 'iOS') {
-              (<any>window).plugins.jPushPlugin.setAlias("");
-            }
-            if (this.device.platform == 'Android') {
-              (<any>window).plugins.jPushPlugin.setAlias("");
-              (<any>window).plugins.jPushPlugin.clearAllNotification()
-            }
-          })
-          .catch(error => { });
-      }
+      this.globalCache.init(() => {
+        if (this.navParams.get("logout")) {
+          this.globalCache.clearUser();
+        } else {
+          let user = this.globalCache.user;
+          if (user) {
+            this.login(user);
+          }
+        }
+      });
     });
   }
 
-  login() {
-    if (this.auth.account.length == 0 || this.auth.password.length == 0) {
-      return;
-    }
-
+  private login(u: User) {
     let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
     loading.present();
+    if (u) {
+      this.navCtrl.setRoot('TabsPage');
+      this.inspectService.token = u.access_token;
+      console.log( u.access_token);
 
-    let user: User = new User();
-    user.account = this.auth.account;
-    user.password = this.auth.password;
-    this.globalCache.currentUser = user;
-    this.apiService.getToken(this.auth.account, this.auth.password)
-      .subscribe(res => {
-        let user: IUser = <IUser>res;
-        user.account = this.auth.account;
-        user.password = this.auth.password;
-        this.apiService.token = user.access_token;
-        this.inspectService.token = user.access_token;
-        if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-          (<any>window).plugins.jPushPlugin.setAlias([user.account], function (r) {
-            //alert(r);
-          }, function (errorMsg) {
+    } else {
+      this.apiService.getToken(this.auth.account, this.auth.password)
+        .subscribe(res => {
+          let user: User = <User>res;
+          user.account = this.auth.account;
+          user.password = this.auth.password;
+          this.apiService.token = user.access_token;
+          this.inspectService.token = user.access_token;
+          this.globalCache.cacheUser(user);
+          this.navCtrl.setRoot('TabsPage');
+          this.inspectService.getDiseaseRecord().subscribe(res => { console.log(res); });
+        },
+        error => {
+          if (error.status == 0) {
             loading.dismiss();
-            let alert = this.alertCtrl.create({ title: '推送服务注册失败！', subTitle: errorMsg, buttons: ['确定'] });
-            alert.present();;
-          });
-        }
-        this.globalCache.currentUser = user;
-        this.navCtrl.setRoot('TabsPage');
-      },
-      error => {
-        loading.dismiss();
-        let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
-        alert.present();
-      });
+            let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '请在有网络的环境下进行登录！', buttons: ['确定'] });
+            alert.present();
+          }
+          else {
+            loading.dismiss();
+            let alert = this.alertCtrl.create({ title: '登录失败！', subTitle: '', buttons: ['确定'] });
+            alert.present();
+          }
+        });
+    }
   }
 }

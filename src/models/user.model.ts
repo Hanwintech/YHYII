@@ -1,21 +1,13 @@
-/**
- * User
- */
-export interface IUser {
+export class User {
     access_token: string;
     account: string;
     userID: string;
     userName: string;
     password: string;
+    role:string;
 }
 
-/**
- * User
- */
-export class User implements IUser {
-    access_token: string;
-    account: string;
-    userID: string;
-    userName: string;
-    password: string;
+export enum EnumUserRole {
+    巡检人员 = 1,
+    台账人员 = 2,
 }

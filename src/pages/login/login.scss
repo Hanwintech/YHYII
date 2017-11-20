@@ -3,18 +3,15 @@ page-login {
         overflow: hidden;
     }
     form {
-        margin-top: 20%;
-         //background: #fff;
+        //margin-top: 50%;
         .item-block {
             padding-right: 16px;
             background:none
         }
     }
-    .scroll-content{
-        background-image:url('../assets/icon/bg_login.png');
-        background-repeat:no-repeat;
-        background-size: 100% 100%;
+    .fixed-content{
+        background-image:url('../assets/login/bg.png');
+        background-size: cover;
     }
-   
 }
     

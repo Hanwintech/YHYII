@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.hanwintech.yhyii" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>颐和园移动APP</name>
-    <description>颐和园移动APP</description>
-    <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Ionic Framework Team</author>
+<widget id="com.hanwintech.yhyii" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>颐和园</name>
+    <description>颐和园</description>
+    <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://*/*" />
@@ -23,6 +23,8 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="orientation" value="portrait" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -78,20 +80,24 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
+    <allow-navigation href="http://10.10.10.110:8100" />
+    <allow-navigation href="http://10.10.10.143:8100" />
+    <allow-navigation href="http://10.10.10.143:8101" />
     <engine name="android" spec="^6.2.3" />
-    <engine name="browser" spec="^4.1.0" />
-    <engine name="ios" spec="^4.4.0" />
+    <plugin name="cordova-plugin-advanced-http" spec="^1.6.1" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
+    <plugin name="cordova-plugin-device-orientation" spec="^1.0.7" />
     <plugin name="cordova-plugin-file" spec="^4.0.0" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
+    <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
+    <plugin name="cordova-plugin-network-information" spec="^1.3.3" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
+    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="jpush-phonegap-plugin" spec="^3.2.3">
-        <variable name="APP_KEY" value="960ce03b532dc9d781595c20" />
-    </plugin>
+    <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="^1.0.0" />
 </widget>
