@@ -209,17 +209,15 @@ export class InspectDetailPage {
       this.dataSource.status = "1";
       let myDate = new Date();
       this.dataSource.inspectTime = myDate.toLocaleDateString();
-      console.log(this.dataSource);
 
       if (this.isHaveData) {
-        console.log("有数据");
         jsonData = {
           "data": {
             "updates": {
               "DiseaseRecord": [
                 {
                   "set": this.dataSource,
-                  "where": { "inspectionPositionID": this.navParams.data.ID, "ancientArcID":this.navParams.data.ancientArcID }
+                  "where": { "inspectionPositionID": this.navParams.data.ID, "ancientArcID": this.navParams.data.ancientArcID }
                 }
               ],
             }
@@ -227,6 +225,7 @@ export class InspectDetailPage {
         };
       }
       else {
+        this.dataSource.recordId = this.guid();
         jsonData = {
           "data": {
             "inserts": {
@@ -247,10 +246,6 @@ export class InspectDetailPage {
           toast.present();
           this.viewCtrl.dismiss(this.dataSource.isRepaired);
         };
-        this.sqlService.getSelectData("select * from DiseaseRecord").subscribe(res => {
-          console.log("本地巡查表里的数据");
-          console.log(res);
-        }, error => { });
       }, error => {
         let alert = this.alertCtrl.create({
           title: '提示',
@@ -262,4 +257,11 @@ export class InspectDetailPage {
       });
     }
   }
+
+  private S4() {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  };
+  private guid() {
+    return (this.S4() + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + this.S4() + this.S4());
+  };
 }

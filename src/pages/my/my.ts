@@ -231,11 +231,11 @@ export class MyPage {
             else {
               reject(res);
             }
-            that.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
-              console.log(res);
-            }, (error) => {
-              console.log(error);
-            });
+            // that.sqlService.getSelectData("select * from BuildingInfo").subscribe(res => {
+            //   console.log(res);
+            // }, (error) => {
+            //   console.log(error);
+            // });
           }, (error) => {
             reject(res);
           });
@@ -350,9 +350,9 @@ export class MyPage {
                 if (res) {
                   let alert = that.alertCtrl.create({ title: '提示', subTitle: '数据已上传成功!', buttons: ['确定'] });
                   alert.present();
-                  this.sqlService.getSelectData("select * from DiseaseRecord").subscribe((res)=>{
-                    console.log(res);
-                  });
+                  // this.sqlService.getSelectData("select * from DiseaseRecord").subscribe((res)=>{
+                  //   console.log(res);
+                  // });
                 }
               }, (error) => { });
 
@@ -470,6 +470,7 @@ export class MyPage {
     this.inspectService.wifiTest().subscribe(res => {
       this.isConnected = true;
       this.inspectService.getDiseaseInspection().subscribe((res) => {
+        console.log("页面初次加载时候的总数据");
         if (res.code == "10000") {
           this.json = {
             "structure": {

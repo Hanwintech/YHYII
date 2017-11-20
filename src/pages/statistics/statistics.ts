@@ -39,7 +39,6 @@ export class StatisticsPage {
       this.globalCache.init(() => {
         let user = this.globalCache.user;
         this.role = this.globalCache.user.role;
-        console.log(this.role);
         if (this.role == "") {
           let alert = this.alertCtrl.create({ title: '提示', subTitle: '该账号并无查看数据的权限，请登录正确的账号！', buttons: ['确定'] });
           alert.present();

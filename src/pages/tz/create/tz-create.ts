@@ -59,7 +59,7 @@ export class TZCreatePage {
     this.dropdownDS._04xjqf = ["干摆", "丝缝", "淌白", "糙砌", "其他"];//下碱砌法
     this.dropdownDS._05ljcl = ["木", "石", "铜"];//梁架材料
     this.dropdownDS._05ljxs = ["抬梁式", "穿斗式", "混合式", "其他式"];//梁架形式
-    this.dropdownDS._07gscl = ["木", "铜"];//格扇材料
+    this.dropdownDS._07gscl = ["木", "削割砖", "琉璃", "其他"];//格扇材料
     this.dropdownDS._07lccl = ["木", "削割砖", "琉璃", "其他"];//槛窗材料
     this.dropdownDS._07ycxz = ["方形 ", "圆型 ", "拱券型", "其他"];//牖窗形状
     this.dropdownDS._08xjzz = ["桐油", "红褐色", "绿色", "栏杆色", "黑色"];//下架柱子

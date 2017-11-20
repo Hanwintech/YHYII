@@ -55,15 +55,12 @@ export class InspectIndexPage {
   select() {
     //this.menuCtrl.isOpen("inspectListMenu");
     this.menuCtrl.open("inspectListMenu");
-    console.log(this.menuCtrl.isEnabled("inspectListMenu"));
-    console.log(this.menuCtrl.open());
   }
 
   getBuilding(selectedName) {
     this.selectedSceneryName=selectedName;
     this.sqlService.getSelectData('select * from AncientArchitecture where SceneryName="' + selectedName + '"').subscribe(res => {
       this.building = res;
-      console.log(this.building);
     }, (error) => {
       console.log(error);
     })

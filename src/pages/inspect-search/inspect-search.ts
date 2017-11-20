@@ -73,7 +73,4 @@ export class InspectSearchPage {
   submitData() {
     this.navCtrl.push("SearchMainPage", this.dataSource);
   }
-  deleteData(){
-    this.dataSource = new inspectSearch();
-  }
 }

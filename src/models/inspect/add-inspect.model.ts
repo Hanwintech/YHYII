@@ -14,7 +14,7 @@ export class addInsepct {
     picUrl = [];
     recordId = "";
     repairDescription = null;
-    respairTime = null;
+    respairTime = "";
     //工种
     status="";
     workType = null;

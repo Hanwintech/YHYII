@@ -7,6 +7,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>记录搜索</ion-title>
+    <ion-buttons right>
+        <button ion-button outline icon-left padding block text-left (click)="submitData()">
+          <ion-icon name="md-checkmark"></ion-icon>
+          确定
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -46,14 +52,5 @@
     <ion-label>巡检时间段（结束）</ion-label>
     <ion-datetime displayFormat="YYYY/MM/DD" [(ngModel)]="dataSource.inspectETime" pickerFormat="YYYY/MM/DD" placeholder="结束时间" cancelText="取消" doneText="确定"></ion-datetime>
   </ion-item>
-  <div class="spacer" style="height: 40px;"></div>
-  <div block style="text-align:center;">
-    <button center ion-button padding text-left (click)="submitData()">
-      确定
-    </button>
-    <button color="danger" (click)="deleteData()" center ion-button padding text-left>
-      取消
-    </button>
-  </div>
 </div>
 </ion-content>

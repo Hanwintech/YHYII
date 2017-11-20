@@ -53,7 +53,6 @@ export class SqlService {
                 location: "default"
             }).then((db: SQLiteObject) => {
                 db.executeSql(deleteString, {}).then((rs) => {
-                    console.log(rs);
                 }, (error) => {
                     observer.next(error);
                 })
@@ -81,7 +80,7 @@ export class SqlService {
                         observer.next(true);
                     }
                 }, error => {
-                    observer.next(error);
+                    observer.next(false);
                 })
             });
         });
